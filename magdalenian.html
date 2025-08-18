@@ -59,6 +59,7 @@
         let locationsData = null;
         let charactersData = null;
         let eventsData = null;
+        let randomizedDescriptions = {};
 
         // --- GLOBAL STATE ---
         let selectedState = { season: null, subSeason: null, day: null, hour: null, locationId: null };
@@ -72,7 +73,6 @@
         // --- INITIALIZATION ---
         window.onload = async function() {
             try {
-                // Fetch all data files concurrently
                 const [yearResponse, locationsResponse, charactersResponse, eventsResponse] = await Promise.all([
                     fetch('magdalenian_year.json'),
                     fetch('magdalenian_locations.json'),
@@ -80,19 +80,16 @@
                     fetch('magdalenian_events.json')
                 ]);
 
-                // Check if all responses are ok
                 if (!yearResponse.ok) throw new Error('The scrolls of seasons could not be found.');
                 if (!locationsResponse.ok) throw new Error('The map of the land is lost to the mists.');
                 if (!charactersResponse.ok) throw new Error('The faces of the people are hidden in shadow.');
                 if (!eventsResponse.ok) throw new Error('The whispers of events are silent.');
 
-                // Parse JSON data
                 yearData = await yearResponse.json();
                 locationsData = await locationsResponse.json();
                 charactersData = await charactersResponse.json();
                 eventsData = await eventsResponse.json();
 
-                // If all data is loaded, initialize the interface
                 initializeApp();
 
             } catch (error) {
@@ -103,6 +100,13 @@
 
         function initializeApp() {
             document.getElementById('simulation-container').classList.remove('hidden');
+            
+            // Pre-randomize character descriptions for the session
+            for (const charId in charactersData) {
+                const randomDescIndex = Math.floor(Math.random() * 10);
+                randomizedDescriptions[charId] = charactersData[charId]['description' + randomDescIndex];
+            }
+
             renderTimeNav();
             renderLocationNav();
             updateMainDisplay();
@@ -113,14 +117,8 @@
                 if (e.target.classList.contains('character-name')) {
                     const charId = e.target.dataset.charId;
                     const character = charactersData[charId];
-                    if (character) {
-                        let content = `<h3 class="font-title text-lg text-[#c7a78a]">${character.name}</h3>`;
-                        for (let i = 0; i < 10; i++) {
-                            // Use Tailwind opacity classes for a fading effect
-                            const opacityClass = `opacity-${100 - i * 10}`;
-                            content += `<p class="text-sm text-gray-400 ${opacityClass}">${character['description' + i]}</p>`;
-                        }
-                        tooltip.innerHTML = content;
+                    if (character && randomizedDescriptions[charId]) {
+                        tooltip.innerHTML = `<h3 class="font-title text-lg text-[#c7a78a]">${character.name}</h3><p class="text-sm text-gray-400">${randomizedDescriptions[charId]}</p>`;
                         tooltip.style.display = 'block';
                     }
                 }
@@ -140,7 +138,6 @@
         function renderTimeNav() {
             const container = document.getElementById('time-nav-container');
             container.innerHTML = '';
-            // Seasons
             for (const season in SUB_SEASON_DEFINITIONS) {
                 const seasonEl = document.createElement('div');
                 seasonEl.innerHTML = `<h3 class="nav-item font-title text-xl p-2 rounded ${selectedState.season === season ? 'active' : ''}">${season}</h3>`;
@@ -150,7 +147,6 @@
                 if (selectedState.season === season) {
                     const subSeasonContainer = document.createElement('div');
                     subSeasonContainer.className = 'ml-4';
-                    // Sub-Seasons
                     for (const subSeason in SUB_SEASON_DEFINITIONS[season]) {
                         const subSeasonEl = document.createElement('div');
                         subSeasonEl.innerHTML = `<h4 class="nav-item p-2 rounded ${selectedState.subSeason === subSeason ? 'active' : ''}">${subSeason}</h4>`;
@@ -160,7 +156,6 @@
                         if (selectedState.subSeason === subSeason) {
                             const dayContainer = document.createElement('div');
                             dayContainer.className = 'ml-4 grid grid-cols-5 gap-1';
-                            // Days
                             const [start, end] = SUB_SEASON_DEFINITIONS[season][subSeason];
                             for (let i = start; i <= end; i++) {
                                 const dayEl = document.createElement('div');
@@ -175,7 +170,6 @@
                     container.appendChild(subSeasonContainer);
                 }
             }
-             // Hour selection if a day is selected
             if (selectedState.day) {
                 const hourContainer = document.createElement('div');
                 hourContainer.className = 'mt-4';
@@ -215,8 +209,12 @@
                 container.innerHTML = `<p class="text-center text-gray-500 text-2xl italic mt-10">The mists of time obscure the world. Choose a season to begin.</p>`;
                 return;
             }
-            if (!selectedState.day) {
+            if (!selectedState.subSeason) {
                 container.innerHTML = `<p class="text-center text-gray-500 text-2xl italic mt-10">The season of ${selectedState.season} unfolds...</p>`;
+                return;
+            }
+            if (!selectedState.day) {
+                container.innerHTML = `<p class="text-center text-gray-500 text-2xl italic mt-10">The days of ${selectedState.subSeason} begin...</p>`;
                 return;
             }
 
@@ -232,6 +230,14 @@
                     <p class="text-lg text-amber-300">${dayData.season} - ${dayData.relativeEvent}</p>
                     <p class="italic text-gray-400 mt-2">"${dayData.poeticComment}"</p>
                 </div>`;
+
+            if (selectedState.locationId) {
+                const location = locationsData[selectedState.locationId];
+                content += `<div class="border-b border-gray-600 pb-4 mb-4">
+                                <h3 class="font-title text-2xl text-[#c7a78a]">${location.name}</h3>
+                                <p class="italic text-gray-400">${location.description}</p>
+                            </div>`;
+            }
 
             if (selectedState.hour === null || selectedState.locationId === null) {
                 content += `<p class="text-center text-gray-500 text-xl italic mt-10">Select a location and an hour to observe what happens.</p>`;

@@ -1,0 +1,3274 @@
+{
+  "Summer": {
+    "0": [
+      {
+        "location_type": "CENTRAL_DWELLING",
+        "event": "Most of the band is asleep around the dying embers of the fire. A lone guard keeps watch at the entrance."
+      },
+      {
+        "location_type": "HUNTING_GROUND",
+        "event": "The landscape is quiet under the moon and stars, home only to nocturnal predators."
+      },
+      {
+        "location_type": "FORAGING_AREA",
+        "event": "The thickets and groves are silent, save for the rustle of small creatures."
+      },
+      {
+        "location_type": "RITUAL_SITE",
+        "event": "The site is quiet and still, holding a palpable sense of reverence. The wind whispers through the stones or leaves."
+      },
+      {
+        "location_type": "UTILITY_SITE",
+        "event": "The area is deserted, the only sound is the wind or the flow of water."
+      },
+      {
+        "location_type": "SECONDARY_CAVE",
+        "event": "The area is quiet and still under the night sky."
+      },
+      {
+        "location_type": "INTIMATE_SPOT",
+        "event": "The area is quiet and still under the night sky."
+      },
+      {
+        "location_type": "MOUNTAIN_AREA",
+        "event": "The area is quiet and still under the night sky."
+      }
+    ],
+    "1": [
+      {
+        "location_type": "CENTRAL_DWELLING",
+        "event": "Most of the band is asleep around the dying embers of the fire. A lone guard keeps watch at the entrance."
+      },
+      {
+        "location_type": "HUNTING_GROUND",
+        "event": "The landscape is quiet under the moon and stars, home only to nocturnal predators."
+      },
+      {
+        "location_type": "FORAGING_AREA",
+        "event": "The thickets and groves are silent, save for the rustle of small creatures."
+      },
+      {
+        "location_type": "RITUAL_SITE",
+        "event": "The site is quiet and still, holding a palpable sense of reverence. The wind whispers through the stones or leaves."
+      },
+      {
+        "location_type": "UTILITY_SITE",
+        "event": "The area is deserted, the only sound is the wind or the flow of water."
+      },
+      {
+        "location_type": "SECONDARY_CAVE",
+        "event": "The area is quiet and still under the night sky."
+      },
+      {
+        "location_type": "INTIMATE_SPOT",
+        "event": "The area is quiet and still under the night sky."
+      },
+      {
+        "location_type": "MOUNTAIN_AREA",
+        "event": "The area is quiet and still under the night sky."
+      }
+    ],
+    "2": [
+      {
+        "location_type": "CENTRAL_DWELLING",
+        "event": "Most of the band is asleep around the dying embers of the fire. A lone guard keeps watch at the entrance."
+      },
+      {
+        "location_type": "HUNTING_GROUND",
+        "event": "The landscape is quiet under the moon and stars, home only to nocturnal predators."
+      },
+      {
+        "location_type": "FORAGING_AREA",
+        "event": "The thickets and groves are silent, save for the rustle of small creatures."
+      },
+      {
+        "location_type": "RITUAL_SITE",
+        "event": "The site is quiet and still, holding a palpable sense of reverence. The wind whispers through the stones or leaves."
+      },
+      {
+        "location_type": "UTILITY_SITE",
+        "event": "The area is deserted, the only sound is the wind or the flow of water."
+      },
+      {
+        "location_type": "SECONDARY_CAVE",
+        "event": "The area is quiet and still under the night sky."
+      },
+      {
+        "location_type": "INTIMATE_SPOT",
+        "event": "The area is quiet and still under the night sky."
+      },
+      {
+        "location_type": "MOUNTAIN_AREA",
+        "event": "The area is quiet and still under the night sky."
+      }
+    ],
+    "3": [
+      {
+        "location_type": "CENTRAL_DWELLING",
+        "event": "Most of the band is asleep around the dying embers of the fire. A lone guard keeps watch at the entrance."
+      },
+      {
+        "location_type": "HUNTING_GROUND",
+        "event": "The landscape is quiet under the moon and stars, home only to nocturnal predators."
+      },
+      {
+        "location_type": "FORAGING_AREA",
+        "event": "The thickets and groves are silent, save for the rustle of small creatures."
+      },
+      {
+        "location_type": "RITUAL_SITE",
+        "event": "The site is quiet and still, holding a palpable sense of reverence. The wind whispers through the stones or leaves."
+      },
+      {
+        "location_type": "UTILITY_SITE",
+        "event": "The area is deserted, the only sound is the wind or the flow of water."
+      },
+      {
+        "location_type": "SECONDARY_CAVE",
+        "event": "The area is quiet and still under the night sky."
+      },
+      {
+        "location_type": "INTIMATE_SPOT",
+        "event": "The area is quiet and still under the night sky."
+      },
+      {
+        "location_type": "MOUNTAIN_AREA",
+        "event": "The area is quiet and still under the night sky."
+      }
+    ],
+    "4": [
+      {
+        "location_type": "CENTRAL_DWELLING",
+        "event": "Most of the band is asleep around the dying embers of the fire. A lone guard keeps watch at the entrance."
+      },
+      {
+        "location_type": "HUNTING_GROUND",
+        "event": "The landscape is quiet under the moon and stars, home only to nocturnal predators."
+      },
+      {
+        "location_type": "FORAGING_AREA",
+        "event": "The thickets and groves are silent, save for the rustle of small creatures."
+      },
+      {
+        "location_type": "RITUAL_SITE",
+        "event": "The site is quiet and still, holding a palpable sense of reverence. The wind whispers through the stones or leaves."
+      },
+      {
+        "location_type": "UTILITY_SITE",
+        "event": "The area is deserted, the only sound is the wind or the flow of water."
+      },
+      {
+        "location_type": "SECONDARY_CAVE",
+        "event": "The area is quiet and still under the night sky."
+      },
+      {
+        "location_type": "INTIMATE_SPOT",
+        "event": "The area is quiet and still under the night sky."
+      },
+      {
+        "location_type": "MOUNTAIN_AREA",
+        "event": "The area is quiet and still under the night sky."
+      }
+    ],
+    "5": [
+      {
+        "location_type": "CENTRAL_DWELLING",
+        "event": "The camp slowly stirs to life. The fire is being tended to, and the smell of smoke begins to fill the air."
+      },
+      {
+        "location_type": "HUNTING_GROUND",
+        "event": "The first light reveals fresh tracks in the dew-damp earth. The air is still and tense with anticipation."
+      },
+      {
+        "location_type": "FORAGING_AREA",
+        "event": "The area is damp with dew. Birds begin to call from the branches."
+      },
+      {
+        "location_type": "RITUAL_SITE",
+        "event": "The site is quiet and still, holding a palpable sense of reverence. The wind whispers through the stones or leaves."
+      },
+      {
+        "location_type": "UTILITY_SITE",
+        "event": "Individuals or small groups come and go, collecting water, quarrying flint, or searching the shoreline for useful items."
+      },
+      {
+        "location_type": "SECONDARY_CAVE",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "INTIMATE_SPOT",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "MOUNTAIN_AREA",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      }
+    ],
+    "6": [
+      {
+        "location_type": "CENTRAL_DWELLING",
+        "event": "The camp slowly stirs to life. The fire is being tended to, and the smell of smoke begins to fill the air."
+      },
+      {
+        "location_type": "HUNTING_GROUND",
+        "event": "The first light reveals fresh tracks in the dew-damp earth. The air is still and tense with anticipation."
+      },
+      {
+        "location_type": "FORAGING_AREA",
+        "event": "The area is damp with dew. Birds begin to call from the branches."
+      },
+      {
+        "location_type": "RITUAL_SITE",
+        "event": "The site is quiet and still, holding a palpable sense of reverence. The wind whispers through the stones or leaves."
+      },
+      {
+        "location_type": "UTILITY_SITE",
+        "event": "Individuals or small groups come and go, collecting water, quarrying flint, or searching the shoreline for useful items."
+      },
+      {
+        "location_type": "SECONDARY_CAVE",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "INTIMATE_SPOT",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "MOUNTAIN_AREA",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      }
+    ],
+    "7": [
+      {
+        "location_type": "CENTRAL_DWELLING",
+        "event": "The camp slowly stirs to life. The fire is being tended to, and the smell of smoke begins to fill the air."
+      },
+      {
+        "location_type": "HUNTING_GROUND",
+        "event": "The first light reveals fresh tracks in the dew-damp earth. The air is still and tense with anticipation."
+      },
+      {
+        "location_type": "FORAGING_AREA",
+        "event": "The area is damp with dew. Birds begin to call from the branches."
+      },
+      {
+        "location_type": "RITUAL_SITE",
+        "event": "The site is quiet and still, holding a palpable sense of reverence. The wind whispers through the stones or leaves."
+      },
+      {
+        "location_type": "UTILITY_SITE",
+        "event": "Individuals or small groups come and go, collecting water, quarrying flint, or searching the shoreline for useful items."
+      },
+      {
+        "location_type": "SECONDARY_CAVE",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "INTIMATE_SPOT",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "MOUNTAIN_AREA",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      }
+    ],
+    "8": [
+      {
+        "location_type": "CENTRAL_DWELLING",
+        "event": "The dwelling is a hub of activity. Children play under the watchful eyes of elders, while artisans work on hides and tools."
+      },
+      {
+        "location_type": "HUNTING_GROUND",
+        "event": "A hunting party moves silently through the area, eyes scanning for any sign of game."
+      },
+      {
+        "location_type": "FORAGING_AREA",
+        "event": "A group of foragers, mostly women and older children, move through the area, their baskets slowly filling with roots, berries, or nuts."
+      },
+      {
+        "location_type": "RITUAL_SITE",
+        "event": "The site is quiet and still, holding a palpable sense of reverence. The wind whispers through the stones or leaves."
+      },
+      {
+        "location_type": "UTILITY_SITE",
+        "event": "Individuals or small groups come and go, collecting water, quarrying flint, or searching the shoreline for useful items."
+      },
+      {
+        "location_type": "SECONDARY_CAVE",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "INTIMATE_SPOT",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "MOUNTAIN_AREA",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      }
+    ],
+    "9": [
+      {
+        "location_type": "CENTRAL_DWELLING",
+        "event": "The dwelling is a hub of activity. Children play under the watchful eyes of elders, while artisans work on hides and tools."
+      },
+      {
+        "location_type": "HUNTING_GROUND",
+        "event": "A hunting party moves silently through the area, eyes scanning for any sign of game."
+      },
+      {
+        "location_type": "FORAGING_AREA",
+        "event": "A group of foragers, mostly women and older children, move through the area, their baskets slowly filling with roots, berries, or nuts."
+      },
+      {
+        "location_type": "RITUAL_SITE",
+        "event": "The site is quiet and still, holding a palpable sense of reverence. The wind whispers through the stones or leaves."
+      },
+      {
+        "location_type": "UTILITY_SITE",
+        "event": "Individuals or small groups come and go, collecting water, quarrying flint, or searching the shoreline for useful items."
+      },
+      {
+        "location_type": "SECONDARY_CAVE",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "INTIMATE_SPOT",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "MOUNTAIN_AREA",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      }
+    ],
+    "10": [
+      {
+        "location_type": "CENTRAL_DWELLING",
+        "event": "The dwelling is a hub of activity. Children play under the watchful eyes of elders, while artisans work on hides and tools."
+      },
+      {
+        "location_type": "HUNTING_GROUND",
+        "event": "A hunting party moves silently through the area, eyes scanning for any sign of game."
+      },
+      {
+        "location_type": "FORAGING_AREA",
+        "event": "A group of foragers, mostly women and older children, move through the area, their baskets slowly filling with roots, berries, or nuts."
+      },
+      {
+        "location_type": "RITUAL_SITE",
+        "event": "The site is quiet and still, holding a palpable sense of reverence. The wind whispers through the stones or leaves."
+      },
+      {
+        "location_type": "UTILITY_SITE",
+        "event": "Individuals or small groups come and go, collecting water, quarrying flint, or searching the shoreline for useful items."
+      },
+      {
+        "location_type": "SECONDARY_CAVE",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "INTIMATE_SPOT",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "MOUNTAIN_AREA",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      }
+    ],
+    "11": [
+      {
+        "location_type": "CENTRAL_DWELLING",
+        "event": "The dwelling is a hub of activity. Children play under the watchful eyes of elders, while artisans work on hides and tools."
+      },
+      {
+        "location_type": "HUNTING_GROUND",
+        "event": "A hunting party moves silently through the area, eyes scanning for any sign of game."
+      },
+      {
+        "location_type": "FORAGING_AREA",
+        "event": "A group of foragers, mostly women and older children, move through the area, their baskets slowly filling with roots, berries, or nuts."
+      },
+      {
+        "location_type": "RITUAL_SITE",
+        "event": "The site is quiet and still, holding a palpable sense of reverence. The wind whispers through the stones or leaves."
+      },
+      {
+        "location_type": "UTILITY_SITE",
+        "event": "Individuals or small groups come and go, collecting water, quarrying flint, or searching the shoreline for useful items."
+      },
+      {
+        "location_type": "SECONDARY_CAVE",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "INTIMATE_SPOT",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "MOUNTAIN_AREA",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      }
+    ],
+    "12": [
+      {
+        "location_type": "CENTRAL_DWELLING",
+        "event": "A quieter period in the main camp. Many are out foraging or hunting. Those who remain are napping or engaged in quiet craftwork."
+      },
+      {
+        "location_type": "HUNTING_GROUND",
+        "event": "The sun is high and the animals are resting in the shade. The hunters wait patiently, observing from a distance."
+      },
+      {
+        "location_type": "FORAGING_AREA",
+        "event": "The foragers work steadily, sharing quiet conversation and teaching the younger ones which plants are safe to eat."
+      },
+      {
+        "location_type": "RITUAL_SITE",
+        "event": "The site is quiet and still, holding a palpable sense of reverence. The wind whispers through the stones or leaves."
+      },
+      {
+        "location_type": "UTILITY_SITE",
+        "event": "Individuals or small groups come and go, collecting water, quarrying flint, or searching the shoreline for useful items."
+      },
+      {
+        "location_type": "SECONDARY_CAVE",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "INTIMATE_SPOT",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "MOUNTAIN_AREA",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      }
+    ],
+    "13": [
+      {
+        "location_type": "CENTRAL_DWELLING",
+        "event": "A quieter period in the main camp. Many are out foraging or hunting. Those who remain are napping or engaged in quiet craftwork."
+      },
+      {
+        "location_type": "HUNTING_GROUND",
+        "event": "The sun is high and the animals are resting in the shade. The hunters wait patiently, observing from a distance."
+      },
+      {
+        "location_type": "FORAGING_AREA",
+        "event": "The foragers work steadily, sharing quiet conversation and teaching the younger ones which plants are safe to eat."
+      },
+      {
+        "location_type": "RITUAL_SITE",
+        "event": "The site is quiet and still, holding a palpable sense of reverence. The wind whispers through the stones or leaves."
+      },
+      {
+        "location_type": "UTILITY_SITE",
+        "event": "Individuals or small groups come and go, collecting water, quarrying flint, or searching the shoreline for useful items."
+      },
+      {
+        "location_type": "SECONDARY_CAVE",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "INTIMATE_SPOT",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "MOUNTAIN_AREA",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      }
+    ],
+    "14": [
+      {
+        "location_type": "CENTRAL_DWELLING",
+        "event": "A quieter period in the main camp. Many are out foraging or hunting. Those who remain are napping or engaged in quiet craftwork."
+      },
+      {
+        "location_type": "HUNTING_GROUND",
+        "event": "The sun is high and the animals are resting in the shade. The hunters wait patiently, observing from a distance."
+      },
+      {
+        "location_type": "FORAGING_AREA",
+        "event": "The foragers work steadily, sharing quiet conversation and teaching the younger ones which plants are safe to eat."
+      },
+      {
+        "location_type": "RITUAL_SITE",
+        "event": "The site is quiet and still, holding a palpable sense of reverence. The wind whispers through the stones or leaves."
+      },
+      {
+        "location_type": "UTILITY_SITE",
+        "event": "Individuals or small groups come and go, collecting water, quarrying flint, or searching the shoreline for useful items."
+      },
+      {
+        "location_type": "SECONDARY_CAVE",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "INTIMATE_SPOT",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "MOUNTAIN_AREA",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      }
+    ],
+    "15": [
+      {
+        "location_type": "CENTRAL_DWELLING",
+        "event": "A quieter period in the main camp. Many are out foraging or hunting. Those who remain are napping or engaged in quiet craftwork."
+      },
+      {
+        "location_type": "HUNTING_GROUND",
+        "event": "The sun is high and the animals are resting in the shade. The hunters wait patiently, observing from a distance."
+      },
+      {
+        "location_type": "FORAGING_AREA",
+        "event": "The foragers work steadily, sharing quiet conversation and teaching the younger ones which plants are safe to eat."
+      },
+      {
+        "location_type": "RITUAL_SITE",
+        "event": "The site is quiet and still, holding a palpable sense of reverence. The wind whispers through the stones or leaves."
+      },
+      {
+        "location_type": "UTILITY_SITE",
+        "event": "Individuals or small groups come and go, collecting water, quarrying flint, or searching the shoreline for useful items."
+      },
+      {
+        "location_type": "SECONDARY_CAVE",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "INTIMATE_SPOT",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "MOUNTAIN_AREA",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      }
+    ],
+    "16": [
+      {
+        "location_type": "CENTRAL_DWELLING",
+        "event": "A quieter period in the main camp. Many are out foraging or hunting. Those who remain are napping or engaged in quiet craftwork."
+      },
+      {
+        "location_type": "HUNTING_GROUND",
+        "event": "The sun is high and the animals are resting in the shade. The hunters wait patiently, observing from a distance."
+      },
+      {
+        "location_type": "FORAGING_AREA",
+        "event": "The foragers work steadily, sharing quiet conversation and teaching the younger ones which plants are safe to eat."
+      },
+      {
+        "location_type": "RITUAL_SITE",
+        "event": "The site is quiet and still, holding a palpable sense of reverence. The wind whispers through the stones or leaves."
+      },
+      {
+        "location_type": "UTILITY_SITE",
+        "event": "Individuals or small groups come and go, collecting water, quarrying flint, or searching the shoreline for useful items."
+      },
+      {
+        "location_type": "SECONDARY_CAVE",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "INTIMATE_SPOT",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "MOUNTAIN_AREA",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      }
+    ],
+    "17": [
+      {
+        "location_type": "CENTRAL_DWELLING",
+        "event": "The band gathers as hunters and foragers return. The sounds of conversation and food preparation fill the air."
+      },
+      {
+        "location_type": "HUNTING_GROUND",
+        "event": "The hunt is concluding. If successful, the hunters begin the arduous task of butchering their kill."
+      },
+      {
+        "location_type": "FORAGING_AREA",
+        "event": "With baskets full, the foragers begin their journey back to the main dwelling."
+      },
+      {
+        "location_type": "RITUAL_SITE",
+        "event": "The site is quiet and still, holding a palpable sense of reverence. The wind whispers through the stones or leaves."
+      },
+      {
+        "location_type": "UTILITY_SITE",
+        "event": "Individuals or small groups come and go, collecting water, quarrying flint, or searching the shoreline for useful items."
+      },
+      {
+        "location_type": "SECONDARY_CAVE",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "INTIMATE_SPOT",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "MOUNTAIN_AREA",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      }
+    ],
+    "18": [
+      {
+        "location_type": "CENTRAL_DWELLING",
+        "event": "The band gathers as hunters and foragers return. The sounds of conversation and food preparation fill the air."
+      },
+      {
+        "location_type": "HUNTING_GROUND",
+        "event": "The hunt is concluding. If successful, the hunters begin the arduous task of butchering their kill."
+      },
+      {
+        "location_type": "FORAGING_AREA",
+        "event": "With baskets full, the foragers begin their journey back to the main dwelling."
+      },
+      {
+        "location_type": "RITUAL_SITE",
+        "event": "The site is quiet and still, holding a palpable sense of reverence. The wind whispers through the stones or leaves."
+      },
+      {
+        "location_type": "UTILITY_SITE",
+        "event": "Individuals or small groups come and go, collecting water, quarrying flint, or searching the shoreline for useful items."
+      },
+      {
+        "location_type": "SECONDARY_CAVE",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "INTIMATE_SPOT",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "MOUNTAIN_AREA",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      }
+    ],
+    "19": [
+      {
+        "location_type": "CENTRAL_DWELLING",
+        "event": "The band gathers as hunters and foragers return. The sounds of conversation and food preparation fill the air."
+      },
+      {
+        "location_type": "HUNTING_GROUND",
+        "event": "The hunt is concluding. If successful, the hunters begin the arduous task of butchering their kill."
+      },
+      {
+        "location_type": "FORAGING_AREA",
+        "event": "With baskets full, the foragers begin their journey back to the main dwelling."
+      },
+      {
+        "location_type": "RITUAL_SITE",
+        "event": "The site is quiet and still, holding a palpable sense of reverence. The wind whispers through the stones or leaves."
+      },
+      {
+        "location_type": "UTILITY_SITE",
+        "event": "Individuals or small groups come and go, collecting water, quarrying flint, or searching the shoreline for useful items."
+      },
+      {
+        "location_type": "SECONDARY_CAVE",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "INTIMATE_SPOT",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "MOUNTAIN_AREA",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      }
+    ],
+    "20": [
+      {
+        "location_type": "CENTRAL_DWELLING",
+        "event": "People settle around the main fire. An elder might be telling a story, while others mend tools for the next day."
+      },
+      {
+        "location_type": "HUNTING_GROUND",
+        "event": "The hunters begin their long walk back to camp, carrying their bounty."
+      },
+      {
+        "location_type": "FORAGING_AREA",
+        "event": "The area is quiet again, the only evidence of the day's activity are the disturbed plants."
+      },
+      {
+        "location_type": "RITUAL_SITE",
+        "event": "The site is quiet and still, holding a palpable sense of reverence. The wind whispers through the stones or leaves."
+      },
+      {
+        "location_type": "UTILITY_SITE",
+        "event": "Individuals or small groups come and go, collecting water, quarrying flint, or searching the shoreline for useful items."
+      },
+      {
+        "location_type": "SECONDARY_CAVE",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "INTIMATE_SPOT",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "MOUNTAIN_AREA",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      }
+    ],
+    "21": [
+      {
+        "location_type": "CENTRAL_DWELLING",
+        "event": "People settle around the main fire. An elder might be telling a story, while others mend tools for the next day."
+      },
+      {
+        "location_type": "HUNTING_GROUND",
+        "event": "The hunters begin their long walk back to camp, carrying their bounty."
+      },
+      {
+        "location_type": "FORAGING_AREA",
+        "event": "The area is quiet again, the only evidence of the day's activity are the disturbed plants."
+      },
+      {
+        "location_type": "RITUAL_SITE",
+        "event": "The site is quiet and still, holding a palpable sense of reverence. The wind whispers through the stones or leaves."
+      },
+      {
+        "location_type": "UTILITY_SITE",
+        "event": "Individuals or small groups come and go, collecting water, quarrying flint, or searching the shoreline for useful items."
+      },
+      {
+        "location_type": "SECONDARY_CAVE",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "INTIMATE_SPOT",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "MOUNTAIN_AREA",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      }
+    ],
+    "22": [
+      {
+        "location_type": "CENTRAL_DWELLING",
+        "event": "Most of the band is asleep around the dying embers of the fire. A lone guard keeps watch at the entrance."
+      },
+      {
+        "location_type": "HUNTING_GROUND",
+        "event": "The landscape is quiet under the moon and stars, home only to nocturnal predators."
+      },
+      {
+        "location_type": "FORAGING_AREA",
+        "event": "The thickets and groves are silent, save for the rustle of small creatures."
+      },
+      {
+        "location_type": "RITUAL_SITE",
+        "event": "The site is quiet and still, holding a palpable sense of reverence. The wind whispers through the stones or leaves."
+      },
+      {
+        "location_type": "UTILITY_SITE",
+        "event": "The area is deserted, the only sound is the wind or the flow of water."
+      },
+      {
+        "location_type": "SECONDARY_CAVE",
+        "event": "The area is quiet and still under the night sky."
+      },
+      {
+        "location_type": "INTIMATE_SPOT",
+        "event": "The area is quiet and still under the night sky."
+      },
+      {
+        "location_type": "MOUNTAIN_AREA",
+        "event": "The area is quiet and still under the night sky."
+      }
+    ],
+    "23": [
+      {
+        "location_type": "CENTRAL_DWELLING",
+        "event": "Most of the band is asleep around the dying embers of the fire. A lone guard keeps watch at the entrance."
+      },
+      {
+        "location_type": "HUNTING_GROUND",
+        "event": "The landscape is quiet under the moon and stars, home only to nocturnal predators."
+      },
+      {
+        "location_type": "FORAGING_AREA",
+        "event": "The thickets and groves are silent, save for the rustle of small creatures."
+      },
+      {
+        "location_type": "RITUAL_SITE",
+        "event": "The site is quiet and still, holding a palpable sense of reverence. The wind whispers through the stones or leaves."
+      },
+      {
+        "location_type": "UTILITY_SITE",
+        "event": "The area is deserted, the only sound is the wind or the flow of water."
+      },
+      {
+        "location_type": "SECONDARY_CAVE",
+        "event": "The area is quiet and still under the night sky."
+      },
+      {
+        "location_type": "INTIMATE_SPOT",
+        "event": "The area is quiet and still under the night sky."
+      },
+      {
+        "location_type": "MOUNTAIN_AREA",
+        "event": "The area is quiet and still under the night sky."
+      }
+    ]
+  },
+  "Autumn": {
+    "0": [
+      {
+        "location_type": "CENTRAL_DWELLING",
+        "event": "Most of the band is asleep around the dying embers of the fire. A lone guard keeps watch at the entrance."
+      },
+      {
+        "location_type": "HUNTING_GROUND",
+        "event": "The landscape is quiet under the moon and stars, home only to nocturnal predators."
+      },
+      {
+        "location_type": "FORAGING_AREA",
+        "event": "The thickets and groves are silent, save for the rustle of small creatures."
+      },
+      {
+        "location_type": "RITUAL_SITE",
+        "event": "The site is quiet and still, holding a palpable sense of reverence. The wind whispers through the stones or leaves."
+      },
+      {
+        "location_type": "UTILITY_SITE",
+        "event": "The area is deserted, the only sound is the wind or the flow of water."
+      },
+      {
+        "location_type": "SECONDARY_CAVE",
+        "event": "The area is quiet and still under the night sky."
+      },
+      {
+        "location_type": "INTIMATE_SPOT",
+        "event": "The area is quiet and still under the night sky."
+      },
+      {
+        "location_type": "MOUNTAIN_AREA",
+        "event": "The area is quiet and still under the night sky."
+      }
+    ],
+    "1": [
+      {
+        "location_type": "CENTRAL_DWELLING",
+        "event": "Most of the band is asleep around the dying embers of the fire. A lone guard keeps watch at the entrance."
+      },
+      {
+        "location_type": "HUNTING_GROUND",
+        "event": "The landscape is quiet under the moon and stars, home only to nocturnal predators."
+      },
+      {
+        "location_type": "FORAGING_AREA",
+        "event": "The thickets and groves are silent, save for the rustle of small creatures."
+      },
+      {
+        "location_type": "RITUAL_SITE",
+        "event": "The site is quiet and still, holding a palpable sense of reverence. The wind whispers through the stones or leaves."
+      },
+      {
+        "location_type": "UTILITY_SITE",
+        "event": "The area is deserted, the only sound is the wind or the flow of water."
+      },
+      {
+        "location_type": "SECONDARY_CAVE",
+        "event": "The area is quiet and still under the night sky."
+      },
+      {
+        "location_type": "INTIMATE_SPOT",
+        "event": "The area is quiet and still under the night sky."
+      },
+      {
+        "location_type": "MOUNTAIN_AREA",
+        "event": "The area is quiet and still under the night sky."
+      }
+    ],
+    "2": [
+      {
+        "location_type": "CENTRAL_DWELLING",
+        "event": "Most of the band is asleep around the dying embers of the fire. A lone guard keeps watch at the entrance."
+      },
+      {
+        "location_type": "HUNTING_GROUND",
+        "event": "The landscape is quiet under the moon and stars, home only to nocturnal predators."
+      },
+      {
+        "location_type": "FORAGING_AREA",
+        "event": "The thickets and groves are silent, save for the rustle of small creatures."
+      },
+      {
+        "location_type": "RITUAL_SITE",
+        "event": "The site is quiet and still, holding a palpable sense of reverence. The wind whispers through the stones or leaves."
+      },
+      {
+        "location_type": "UTILITY_SITE",
+        "event": "The area is deserted, the only sound is the wind or the flow of water."
+      },
+      {
+        "location_type": "SECONDARY_CAVE",
+        "event": "The area is quiet and still under the night sky."
+      },
+      {
+        "location_type": "INTIMATE_SPOT",
+        "event": "The area is quiet and still under the night sky."
+      },
+      {
+        "location_type": "MOUNTAIN_AREA",
+        "event": "The area is quiet and still under the night sky."
+      }
+    ],
+    "3": [
+      {
+        "location_type": "CENTRAL_DWELLING",
+        "event": "Most of the band is asleep around the dying embers of the fire. A lone guard keeps watch at the entrance."
+      },
+      {
+        "location_type": "HUNTING_GROUND",
+        "event": "The landscape is quiet under the moon and stars, home only to nocturnal predators."
+      },
+      {
+        "location_type": "FORAGING_AREA",
+        "event": "The thickets and groves are silent, save for the rustle of small creatures."
+      },
+      {
+        "location_type": "RITUAL_SITE",
+        "event": "The site is quiet and still, holding a palpable sense of reverence. The wind whispers through the stones or leaves."
+      },
+      {
+        "location_type": "UTILITY_SITE",
+        "event": "The area is deserted, the only sound is the wind or the flow of water."
+      },
+      {
+        "location_type": "SECONDARY_CAVE",
+        "event": "The area is quiet and still under the night sky."
+      },
+      {
+        "location_type": "INTIMATE_SPOT",
+        "event": "The area is quiet and still under the night sky."
+      },
+      {
+        "location_type": "MOUNTAIN_AREA",
+        "event": "The area is quiet and still under the night sky."
+      }
+    ],
+    "4": [
+      {
+        "location_type": "CENTRAL_DWELLING",
+        "event": "Most of the band is asleep around the dying embers of the fire. A lone guard keeps watch at the entrance."
+      },
+      {
+        "location_type": "HUNTING_GROUND",
+        "event": "The landscape is quiet under the moon and stars, home only to nocturnal predators."
+      },
+      {
+        "location_type": "FORAGING_AREA",
+        "event": "The thickets and groves are silent, save for the rustle of small creatures."
+      },
+      {
+        "location_type": "RITUAL_SITE",
+        "event": "The site is quiet and still, holding a palpable sense of reverence. The wind whispers through the stones or leaves."
+      },
+      {
+        "location_type": "UTILITY_SITE",
+        "event": "The area is deserted, the only sound is the wind or the flow of water."
+      },
+      {
+        "location_type": "SECONDARY_CAVE",
+        "event": "The area is quiet and still under the night sky."
+      },
+      {
+        "location_type": "INTIMATE_SPOT",
+        "event": "The area is quiet and still under the night sky."
+      },
+      {
+        "location_type": "MOUNTAIN_AREA",
+        "event": "The area is quiet and still under the night sky."
+      }
+    ],
+    "5": [
+      {
+        "location_type": "CENTRAL_DWELLING",
+        "event": "The camp slowly stirs to life. The fire is being tended to, and the smell of smoke begins to fill the air."
+      },
+      {
+        "location_type": "HUNTING_GROUND",
+        "event": "The first light reveals fresh tracks in the dew-damp earth. The air is still and tense with anticipation."
+      },
+      {
+        "location_type": "FORAGING_AREA",
+        "event": "The area is damp with dew. Birds begin to call from the branches."
+      },
+      {
+        "location_type": "RITUAL_SITE",
+        "event": "The site is quiet and still, holding a palpable sense of reverence. The wind whispers through the stones or leaves."
+      },
+      {
+        "location_type": "UTILITY_SITE",
+        "event": "Individuals or small groups come and go, collecting water, quarrying flint, or searching the shoreline for useful items."
+      },
+      {
+        "location_type": "SECONDARY_CAVE",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "INTIMATE_SPOT",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "MOUNTAIN_AREA",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      }
+    ],
+    "6": [
+      {
+        "location_type": "CENTRAL_DWELLING",
+        "event": "The camp slowly stirs to life. The fire is being tended to, and the smell of smoke begins to fill the air."
+      },
+      {
+        "location_type": "HUNTING_GROUND",
+        "event": "The first light reveals fresh tracks in the dew-damp earth. The air is still and tense with anticipation."
+      },
+      {
+        "location_type": "FORAGING_AREA",
+        "event": "The area is damp with dew. Birds begin to call from the branches."
+      },
+      {
+        "location_type": "RITUAL_SITE",
+        "event": "The site is quiet and still, holding a palpable sense of reverence. The wind whispers through the stones or leaves."
+      },
+      {
+        "location_type": "UTILITY_SITE",
+        "event": "Individuals or small groups come and go, collecting water, quarrying flint, or searching the shoreline for useful items."
+      },
+      {
+        "location_type": "SECONDARY_CAVE",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "INTIMATE_SPOT",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "MOUNTAIN_AREA",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      }
+    ],
+    "7": [
+      {
+        "location_type": "CENTRAL_DWELLING",
+        "event": "The camp slowly stirs to life. The fire is being tended to, and the smell of smoke begins to fill the air."
+      },
+      {
+        "location_type": "HUNTING_GROUND",
+        "event": "The first light reveals fresh tracks in the dew-damp earth. The air is still and tense with anticipation."
+      },
+      {
+        "location_type": "FORAGING_AREA",
+        "event": "The area is damp with dew. Birds begin to call from the branches."
+      },
+      {
+        "location_type": "RITUAL_SITE",
+        "event": "The site is quiet and still, holding a palpable sense of reverence. The wind whispers through the stones or leaves."
+      },
+      {
+        "location_type": "UTILITY_SITE",
+        "event": "Individuals or small groups come and go, collecting water, quarrying flint, or searching the shoreline for useful items."
+      },
+      {
+        "location_type": "SECONDARY_CAVE",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "INTIMATE_SPOT",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "MOUNTAIN_AREA",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      }
+    ],
+    "8": [
+      {
+        "location_type": "CENTRAL_DWELLING",
+        "event": "The dwelling is a hub of activity. Children play under the watchful eyes of elders, while artisans work on hides and tools."
+      },
+      {
+        "location_type": "HUNTING_GROUND",
+        "event": "A hunting party moves silently through the area, eyes scanning for any sign of game."
+      },
+      {
+        "location_type": "FORAGING_AREA",
+        "event": "A group of foragers, mostly women and older children, move through the area, their baskets slowly filling with roots, berries, or nuts."
+      },
+      {
+        "location_type": "RITUAL_SITE",
+        "event": "The site is quiet and still, holding a palpable sense of reverence. The wind whispers through the stones or leaves."
+      },
+      {
+        "location_type": "UTILITY_SITE",
+        "event": "Individuals or small groups come and go, collecting water, quarrying flint, or searching the shoreline for useful items."
+      },
+      {
+        "location_type": "SECONDARY_CAVE",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "INTIMATE_SPOT",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "MOUNTAIN_AREA",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      }
+    ],
+    "9": [
+      {
+        "location_type": "CENTRAL_DWELLING",
+        "event": "The dwelling is a hub of activity. Children play under the watchful eyes of elders, while artisans work on hides and tools."
+      },
+      {
+        "location_type": "HUNTING_GROUND",
+        "event": "A hunting party moves silently through the area, eyes scanning for any sign of game."
+      },
+      {
+        "location_type": "FORAGING_AREA",
+        "event": "A group of foragers, mostly women and older children, move through the area, their baskets slowly filling with roots, berries, or nuts."
+      },
+      {
+        "location_type": "RITUAL_SITE",
+        "event": "The site is quiet and still, holding a palpable sense of reverence. The wind whispers through the stones or leaves."
+      },
+      {
+        "location_type": "UTILITY_SITE",
+        "event": "Individuals or small groups come and go, collecting water, quarrying flint, or searching the shoreline for useful items."
+      },
+      {
+        "location_type": "SECONDARY_CAVE",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "INTIMATE_SPOT",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "MOUNTAIN_AREA",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      }
+    ],
+    "10": [
+      {
+        "location_type": "CENTRAL_DWELLING",
+        "event": "The dwelling is a hub of activity. Children play under the watchful eyes of elders, while artisans work on hides and tools."
+      },
+      {
+        "location_type": "HUNTING_GROUND",
+        "event": "A hunting party moves silently through the area, eyes scanning for any sign of game."
+      },
+      {
+        "location_type": "FORAGING_AREA",
+        "event": "A group of foragers, mostly women and older children, move through the area, their baskets slowly filling with roots, berries, or nuts."
+      },
+      {
+        "location_type": "RITUAL_SITE",
+        "event": "The site is quiet and still, holding a palpable sense of reverence. The wind whispers through the stones or leaves."
+      },
+      {
+        "location_type": "UTILITY_SITE",
+        "event": "Individuals or small groups come and go, collecting water, quarrying flint, or searching the shoreline for useful items."
+      },
+      {
+        "location_type": "SECONDARY_CAVE",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "INTIMATE_SPOT",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "MOUNTAIN_AREA",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      }
+    ],
+    "11": [
+      {
+        "location_type": "CENTRAL_DWELLING",
+        "event": "The dwelling is a hub of activity. Children play under the watchful eyes of elders, while artisans work on hides and tools."
+      },
+      {
+        "location_type": "HUNTING_GROUND",
+        "event": "A hunting party moves silently through the area, eyes scanning for any sign of game."
+      },
+      {
+        "location_type": "FORAGING_AREA",
+        "event": "A group of foragers, mostly women and older children, move through the area, their baskets slowly filling with roots, berries, or nuts."
+      },
+      {
+        "location_type": "RITUAL_SITE",
+        "event": "The site is quiet and still, holding a palpable sense of reverence. The wind whispers through the stones or leaves."
+      },
+      {
+        "location_type": "UTILITY_SITE",
+        "event": "Individuals or small groups come and go, collecting water, quarrying flint, or searching the shoreline for useful items."
+      },
+      {
+        "location_type": "SECONDARY_CAVE",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "INTIMATE_SPOT",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "MOUNTAIN_AREA",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      }
+    ],
+    "12": [
+      {
+        "location_type": "CENTRAL_DWELLING",
+        "event": "A quieter period in the main camp. Many are out foraging or hunting. Those who remain are napping or engaged in quiet craftwork."
+      },
+      {
+        "location_type": "HUNTING_GROUND",
+        "event": "The sun is high and the animals are resting in the shade. The hunters wait patiently, observing from a distance."
+      },
+      {
+        "location_type": "FORAGING_AREA",
+        "event": "The foragers work steadily, sharing quiet conversation and teaching the younger ones which plants are safe to eat."
+      },
+      {
+        "location_type": "RITUAL_SITE",
+        "event": "The site is quiet and still, holding a palpable sense of reverence. The wind whispers through the stones or leaves."
+      },
+      {
+        "location_type": "UTILITY_SITE",
+        "event": "Individuals or small groups come and go, collecting water, quarrying flint, or searching the shoreline for useful items."
+      },
+      {
+        "location_type": "SECONDARY_CAVE",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "INTIMATE_SPOT",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "MOUNTAIN_AREA",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      }
+    ],
+    "13": [
+      {
+        "location_type": "CENTRAL_DWELLING",
+        "event": "A quieter period in the main camp. Many are out foraging or hunting. Those who remain are napping or engaged in quiet craftwork."
+      },
+      {
+        "location_type": "HUNTING_GROUND",
+        "event": "The sun is high and the animals are resting in the shade. The hunters wait patiently, observing from a distance."
+      },
+      {
+        "location_type": "FORAGING_AREA",
+        "event": "The foragers work steadily, sharing quiet conversation and teaching the younger ones which plants are safe to eat."
+      },
+      {
+        "location_type": "RITUAL_SITE",
+        "event": "The site is quiet and still, holding a palpable sense of reverence. The wind whispers through the stones or leaves."
+      },
+      {
+        "location_type": "UTILITY_SITE",
+        "event": "Individuals or small groups come and go, collecting water, quarrying flint, or searching the shoreline for useful items."
+      },
+      {
+        "location_type": "SECONDARY_CAVE",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "INTIMATE_SPOT",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "MOUNTAIN_AREA",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      }
+    ],
+    "14": [
+      {
+        "location_type": "CENTRAL_DWELLING",
+        "event": "A quieter period in the main camp. Many are out foraging or hunting. Those who remain are napping or engaged in quiet craftwork."
+      },
+      {
+        "location_type": "HUNTING_GROUND",
+        "event": "The sun is high and the animals are resting in the shade. The hunters wait patiently, observing from a distance."
+      },
+      {
+        "location_type": "FORAGING_AREA",
+        "event": "The foragers work steadily, sharing quiet conversation and teaching the younger ones which plants are safe to eat."
+      },
+      {
+        "location_type": "RITUAL_SITE",
+        "event": "The site is quiet and still, holding a palpable sense of reverence. The wind whispers through the stones or leaves."
+      },
+      {
+        "location_type": "UTILITY_SITE",
+        "event": "Individuals or small groups come and go, collecting water, quarrying flint, or searching the shoreline for useful items."
+      },
+      {
+        "location_type": "SECONDARY_CAVE",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "INTIMATE_SPOT",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "MOUNTAIN_AREA",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      }
+    ],
+    "15": [
+      {
+        "location_type": "CENTRAL_DWELLING",
+        "event": "A quieter period in the main camp. Many are out foraging or hunting. Those who remain are napping or engaged in quiet craftwork."
+      },
+      {
+        "location_type": "HUNTING_GROUND",
+        "event": "The sun is high and the animals are resting in the shade. The hunters wait patiently, observing from a distance."
+      },
+      {
+        "location_type": "FORAGING_AREA",
+        "event": "The foragers work steadily, sharing quiet conversation and teaching the younger ones which plants are safe to eat."
+      },
+      {
+        "location_type": "RITUAL_SITE",
+        "event": "The site is quiet and still, holding a palpable sense of reverence. The wind whispers through the stones or leaves."
+      },
+      {
+        "location_type": "UTILITY_SITE",
+        "event": "Individuals or small groups come and go, collecting water, quarrying flint, or searching the shoreline for useful items."
+      },
+      {
+        "location_type": "SECONDARY_CAVE",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "INTIMATE_SPOT",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "MOUNTAIN_AREA",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      }
+    ],
+    "16": [
+      {
+        "location_type": "CENTRAL_DWELLING",
+        "event": "A quieter period in the main camp. Many are out foraging or hunting. Those who remain are napping or engaged in quiet craftwork."
+      },
+      {
+        "location_type": "HUNTING_GROUND",
+        "event": "The sun is high and the animals are resting in the shade. The hunters wait patiently, observing from a distance."
+      },
+      {
+        "location_type": "FORAGING_AREA",
+        "event": "The foragers work steadily, sharing quiet conversation and teaching the younger ones which plants are safe to eat."
+      },
+      {
+        "location_type": "RITUAL_SITE",
+        "event": "The site is quiet and still, holding a palpable sense of reverence. The wind whispers through the stones or leaves."
+      },
+      {
+        "location_type": "UTILITY_SITE",
+        "event": "Individuals or small groups come and go, collecting water, quarrying flint, or searching the shoreline for useful items."
+      },
+      {
+        "location_type": "SECONDARY_CAVE",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "INTIMATE_SPOT",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "MOUNTAIN_AREA",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      }
+    ],
+    "17": [
+      {
+        "location_type": "CENTRAL_DWELLING",
+        "event": "The band gathers as hunters and foragers return. The sounds of conversation and food preparation fill the air."
+      },
+      {
+        "location_type": "HUNTING_GROUND",
+        "event": "The hunt is concluding. If successful, the hunters begin the arduous task of butchering their kill."
+      },
+      {
+        "location_type": "FORAGING_AREA",
+        "event": "With baskets full, the foragers begin their journey back to the main dwelling."
+      },
+      {
+        "location_type": "RITUAL_SITE",
+        "event": "The site is quiet and still, holding a palpable sense of reverence. The wind whispers through the stones or leaves."
+      },
+      {
+        "location_type": "UTILITY_SITE",
+        "event": "Individuals or small groups come and go, collecting water, quarrying flint, or searching the shoreline for useful items."
+      },
+      {
+        "location_type": "SECONDARY_CAVE",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "INTIMATE_SPOT",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "MOUNTAIN_AREA",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      }
+    ],
+    "18": [
+      {
+        "location_type": "CENTRAL_DWELLING",
+        "event": "The band gathers as hunters and foragers return. The sounds of conversation and food preparation fill the air."
+      },
+      {
+        "location_type": "HUNTING_GROUND",
+        "event": "The hunt is concluding. If successful, the hunters begin the arduous task of butchering their kill."
+      },
+      {
+        "location_type": "FORAGING_AREA",
+        "event": "With baskets full, the foragers begin their journey back to the main dwelling."
+      },
+      {
+        "location_type": "RITUAL_SITE",
+        "event": "The site is quiet and still, holding a palpable sense of reverence. The wind whispers through the stones or leaves."
+      },
+      {
+        "location_type": "UTILITY_SITE",
+        "event": "Individuals or small groups come and go, collecting water, quarrying flint, or searching the shoreline for useful items."
+      },
+      {
+        "location_type": "SECONDARY_CAVE",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "INTIMATE_SPOT",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "MOUNTAIN_AREA",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      }
+    ],
+    "19": [
+      {
+        "location_type": "CENTRAL_DWELLING",
+        "event": "The band gathers as hunters and foragers return. The sounds of conversation and food preparation fill the air."
+      },
+      {
+        "location_type": "HUNTING_GROUND",
+        "event": "The hunt is concluding. If successful, the hunters begin the arduous task of butchering their kill."
+      },
+      {
+        "location_type": "FORAGING_AREA",
+        "event": "With baskets full, the foragers begin their journey back to the main dwelling."
+      },
+      {
+        "location_type": "RITUAL_SITE",
+        "event": "The site is quiet and still, holding a palpable sense of reverence. The wind whispers through the stones or leaves."
+      },
+      {
+        "location_type": "UTILITY_SITE",
+        "event": "Individuals or small groups come and go, collecting water, quarrying flint, or searching the shoreline for useful items."
+      },
+      {
+        "location_type": "SECONDARY_CAVE",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "INTIMATE_SPOT",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "MOUNTAIN_AREA",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      }
+    ],
+    "20": [
+      {
+        "location_type": "CENTRAL_DWELLING",
+        "event": "People settle around the main fire. An elder might be telling a story, while others mend tools for the next day."
+      },
+      {
+        "location_type": "HUNTING_GROUND",
+        "event": "The hunters begin their long walk back to camp, carrying their bounty."
+      },
+      {
+        "location_type": "FORAGING_AREA",
+        "event": "The area is quiet again, the only evidence of the day's activity are the disturbed plants."
+      },
+      {
+        "location_type": "RITUAL_SITE",
+        "event": "The site is quiet and still, holding a palpable sense of reverence. The wind whispers through the stones or leaves."
+      },
+      {
+        "location_type": "UTILITY_SITE",
+        "event": "Individuals or small groups come and go, collecting water, quarrying flint, or searching the shoreline for useful items."
+      },
+      {
+        "location_type": "SECONDARY_CAVE",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "INTIMATE_SPOT",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "MOUNTAIN_AREA",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      }
+    ],
+    "21": [
+      {
+        "location_type": "CENTRAL_DWELLING",
+        "event": "People settle around the main fire. An elder might be telling a story, while others mend tools for the next day."
+      },
+      {
+        "location_type": "HUNTING_GROUND",
+        "event": "The hunters begin their long walk back to camp, carrying their bounty."
+      },
+      {
+        "location_type": "FORAGING_AREA",
+        "event": "The area is quiet again, the only evidence of the day's activity are the disturbed plants."
+      },
+      {
+        "location_type": "RITUAL_SITE",
+        "event": "The site is quiet and still, holding a palpable sense of reverence. The wind whispers through the stones or leaves."
+      },
+      {
+        "location_type": "UTILITY_SITE",
+        "event": "Individuals or small groups come and go, collecting water, quarrying flint, or searching the shoreline for useful items."
+      },
+      {
+        "location_type": "SECONDARY_CAVE",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "INTIMATE_SPOT",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "MOUNTAIN_AREA",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      }
+    ],
+    "22": [
+      {
+        "location_type": "CENTRAL_DWELLING",
+        "event": "Most of the band is asleep around the dying embers of the fire. A lone guard keeps watch at the entrance."
+      },
+      {
+        "location_type": "HUNTING_GROUND",
+        "event": "The landscape is quiet under the moon and stars, home only to nocturnal predators."
+      },
+      {
+        "location_type": "FORAGING_AREA",
+        "event": "The thickets and groves are silent, save for the rustle of small creatures."
+      },
+      {
+        "location_type": "RITUAL_SITE",
+        "event": "The site is quiet and still, holding a palpable sense of reverence. The wind whispers through the stones or leaves."
+      },
+      {
+        "location_type": "UTILITY_SITE",
+        "event": "The area is deserted, the only sound is the wind or the flow of water."
+      },
+      {
+        "location_type": "SECONDARY_CAVE",
+        "event": "The area is quiet and still under the night sky."
+      },
+      {
+        "location_type": "INTIMATE_SPOT",
+        "event": "The area is quiet and still under the night sky."
+      },
+      {
+        "location_type": "MOUNTAIN_AREA",
+        "event": "The area is quiet and still under the night sky."
+      }
+    ],
+    "23": [
+      {
+        "location_type": "CENTRAL_DWELLING",
+        "event": "Most of the band is asleep around the dying embers of the fire. A lone guard keeps watch at the entrance."
+      },
+      {
+        "location_type": "HUNTING_GROUND",
+        "event": "The landscape is quiet under the moon and stars, home only to nocturnal predators."
+      },
+      {
+        "location_type": "FORAGING_AREA",
+        "event": "The thickets and groves are silent, save for the rustle of small creatures."
+      },
+      {
+        "location_type": "RITUAL_SITE",
+        "event": "The site is quiet and still, holding a palpable sense of reverence. The wind whispers through the stones or leaves."
+      },
+      {
+        "location_type": "UTILITY_SITE",
+        "event": "The area is deserted, the only sound is the wind or the flow of water."
+      },
+      {
+        "location_type": "SECONDARY_CAVE",
+        "event": "The area is quiet and still under the night sky."
+      },
+      {
+        "location_type": "INTIMATE_SPOT",
+        "event": "The area is quiet and still under the night sky."
+      },
+      {
+        "location_type": "MOUNTAIN_AREA",
+        "event": "The area is quiet and still under the night sky."
+      }
+    ]
+  },
+  "Winter": {
+    "0": [
+      {
+        "location_type": "CENTRAL_DWELLING",
+        "event": "Most of the band is asleep around the dying embers of the fire. A lone guard keeps watch at the entrance."
+      },
+      {
+        "location_type": "HUNTING_GROUND",
+        "event": "The landscape is quiet under the moon and stars, home only to nocturnal predators."
+      },
+      {
+        "location_type": "FORAGING_AREA",
+        "event": "The thickets and groves are silent, save for the rustle of small creatures."
+      },
+      {
+        "location_type": "RITUAL_SITE",
+        "event": "The site is quiet and still, holding a palpable sense of reverence. The wind whispers through the stones or leaves."
+      },
+      {
+        "location_type": "UTILITY_SITE",
+        "event": "The area is deserted, the only sound is the wind or the flow of water."
+      },
+      {
+        "location_type": "SECONDARY_CAVE",
+        "event": "The area is quiet and still under the night sky."
+      },
+      {
+        "location_type": "INTIMATE_SPOT",
+        "event": "The area is quiet and still under the night sky."
+      },
+      {
+        "location_type": "MOUNTAIN_AREA",
+        "event": "The area is quiet and still under the night sky."
+      }
+    ],
+    "1": [
+      {
+        "location_type": "CENTRAL_DWELLING",
+        "event": "Most of the band is asleep around the dying embers of the fire. A lone guard keeps watch at the entrance."
+      },
+      {
+        "location_type": "HUNTING_GROUND",
+        "event": "The landscape is quiet under the moon and stars, home only to nocturnal predators."
+      },
+      {
+        "location_type": "FORAGING_AREA",
+        "event": "The thickets and groves are silent, save for the rustle of small creatures."
+      },
+      {
+        "location_type": "RITUAL_SITE",
+        "event": "The site is quiet and still, holding a palpable sense of reverence. The wind whispers through the stones or leaves."
+      },
+      {
+        "location_type": "UTILITY_SITE",
+        "event": "The area is deserted, the only sound is the wind or the flow of water."
+      },
+      {
+        "location_type": "SECONDARY_CAVE",
+        "event": "The area is quiet and still under the night sky."
+      },
+      {
+        "location_type": "INTIMATE_SPOT",
+        "event": "The area is quiet and still under the night sky."
+      },
+      {
+        "location_type": "MOUNTAIN_AREA",
+        "event": "The area is quiet and still under the night sky."
+      }
+    ],
+    "2": [
+      {
+        "location_type": "CENTRAL_DWELLING",
+        "event": "Most of the band is asleep around the dying embers of the fire. A lone guard keeps watch at the entrance."
+      },
+      {
+        "location_type": "HUNTING_GROUND",
+        "event": "The landscape is quiet under the moon and stars, home only to nocturnal predators."
+      },
+      {
+        "location_type": "FORAGING_AREA",
+        "event": "The thickets and groves are silent, save for the rustle of small creatures."
+      },
+      {
+        "location_type": "RITUAL_SITE",
+        "event": "The site is quiet and still, holding a palpable sense of reverence. The wind whispers through the stones or leaves."
+      },
+      {
+        "location_type": "UTILITY_SITE",
+        "event": "The area is deserted, the only sound is the wind or the flow of water."
+      },
+      {
+        "location_type": "SECONDARY_CAVE",
+        "event": "The area is quiet and still under the night sky."
+      },
+      {
+        "location_type": "INTIMATE_SPOT",
+        "event": "The area is quiet and still under the night sky."
+      },
+      {
+        "location_type": "MOUNTAIN_AREA",
+        "event": "The area is quiet and still under the night sky."
+      }
+    ],
+    "3": [
+      {
+        "location_type": "CENTRAL_DWELLING",
+        "event": "Most of the band is asleep around the dying embers of the fire. A lone guard keeps watch at the entrance."
+      },
+      {
+        "location_type": "HUNTING_GROUND",
+        "event": "The landscape is quiet under the moon and stars, home only to nocturnal predators."
+      },
+      {
+        "location_type": "FORAGING_AREA",
+        "event": "The thickets and groves are silent, save for the rustle of small creatures."
+      },
+      {
+        "location_type": "RITUAL_SITE",
+        "event": "The site is quiet and still, holding a palpable sense of reverence. The wind whispers through the stones or leaves."
+      },
+      {
+        "location_type": "UTILITY_SITE",
+        "event": "The area is deserted, the only sound is the wind or the flow of water."
+      },
+      {
+        "location_type": "SECONDARY_CAVE",
+        "event": "The area is quiet and still under the night sky."
+      },
+      {
+        "location_type": "INTIMATE_SPOT",
+        "event": "The area is quiet and still under the night sky."
+      },
+      {
+        "location_type": "MOUNTAIN_AREA",
+        "event": "The area is quiet and still under the night sky."
+      }
+    ],
+    "4": [
+      {
+        "location_type": "CENTRAL_DWELLING",
+        "event": "Most of the band is asleep around the dying embers of the fire. A lone guard keeps watch at the entrance."
+      },
+      {
+        "location_type": "HUNTING_GROUND",
+        "event": "The landscape is quiet under the moon and stars, home only to nocturnal predators."
+      },
+      {
+        "location_type": "FORAGING_AREA",
+        "event": "The thickets and groves are silent, save for the rustle of small creatures."
+      },
+      {
+        "location_type": "RITUAL_SITE",
+        "event": "The site is quiet and still, holding a palpable sense of reverence. The wind whispers through the stones or leaves."
+      },
+      {
+        "location_type": "UTILITY_SITE",
+        "event": "The area is deserted, the only sound is the wind or the flow of water."
+      },
+      {
+        "location_type": "SECONDARY_CAVE",
+        "event": "The area is quiet and still under the night sky."
+      },
+      {
+        "location_type": "INTIMATE_SPOT",
+        "event": "The area is quiet and still under the night sky."
+      },
+      {
+        "location_type": "MOUNTAIN_AREA",
+        "event": "The area is quiet and still under the night sky."
+      }
+    ],
+    "5": [
+      {
+        "location_type": "CENTRAL_DWELLING",
+        "event": "The camp slowly stirs to life. The fire is being tended to, and the smell of smoke begins to fill the air."
+      },
+      {
+        "location_type": "HUNTING_GROUND",
+        "event": "The first light reveals fresh tracks in the dew-damp earth. The air is still and tense with anticipation."
+      },
+      {
+        "location_type": "FORAGING_AREA",
+        "event": "The area is damp with dew. Birds begin to call from the branches."
+      },
+      {
+        "location_type": "RITUAL_SITE",
+        "event": "The site is quiet and still, holding a palpable sense of reverence. The wind whispers through the stones or leaves."
+      },
+      {
+        "location_type": "UTILITY_SITE",
+        "event": "Individuals or small groups come and go, collecting water, quarrying flint, or searching the shoreline for useful items."
+      },
+      {
+        "location_type": "SECONDARY_CAVE",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "INTIMATE_SPOT",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "MOUNTAIN_AREA",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      }
+    ],
+    "6": [
+      {
+        "location_type": "CENTRAL_DWELLING",
+        "event": "The camp slowly stirs to life. The fire is being tended to, and the smell of smoke begins to fill the air."
+      },
+      {
+        "location_type": "HUNTING_GROUND",
+        "event": "The first light reveals fresh tracks in the dew-damp earth. The air is still and tense with anticipation."
+      },
+      {
+        "location_type": "FORAGING_AREA",
+        "event": "The area is damp with dew. Birds begin to call from the branches."
+      },
+      {
+        "location_type": "RITUAL_SITE",
+        "event": "The site is quiet and still, holding a palpable sense of reverence. The wind whispers through the stones or leaves."
+      },
+      {
+        "location_type": "UTILITY_SITE",
+        "event": "Individuals or small groups come and go, collecting water, quarrying flint, or searching the shoreline for useful items."
+      },
+      {
+        "location_type": "SECONDARY_CAVE",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "INTIMATE_SPOT",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "MOUNTAIN_AREA",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      }
+    ],
+    "7": [
+      {
+        "location_type": "CENTRAL_DWELLING",
+        "event": "The camp slowly stirs to life. The fire is being tended to, and the smell of smoke begins to fill the air."
+      },
+      {
+        "location_type": "HUNTING_GROUND",
+        "event": "The first light reveals fresh tracks in the dew-damp earth. The air is still and tense with anticipation."
+      },
+      {
+        "location_type": "FORAGING_AREA",
+        "event": "The area is damp with dew. Birds begin to call from the branches."
+      },
+      {
+        "location_type": "RITUAL_SITE",
+        "event": "The site is quiet and still, holding a palpable sense of reverence. The wind whispers through the stones or leaves."
+      },
+      {
+        "location_type": "UTILITY_SITE",
+        "event": "Individuals or small groups come and go, collecting water, quarrying flint, or searching the shoreline for useful items."
+      },
+      {
+        "location_type": "SECONDARY_CAVE",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "INTIMATE_SPOT",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "MOUNTAIN_AREA",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      }
+    ],
+    "8": [
+      {
+        "location_type": "CENTRAL_DWELLING",
+        "event": "The dwelling is a hub of activity. Children play under the watchful eyes of elders, while artisans work on hides and tools."
+      },
+      {
+        "location_type": "HUNTING_GROUND",
+        "event": "A hunting party moves silently through the area, eyes scanning for any sign of game."
+      },
+      {
+        "location_type": "FORAGING_AREA",
+        "event": "A group of foragers, mostly women and older children, move through the area, their baskets slowly filling with roots, berries, or nuts."
+      },
+      {
+        "location_type": "RITUAL_SITE",
+        "event": "The site is quiet and still, holding a palpable sense of reverence. The wind whispers through the stones or leaves."
+      },
+      {
+        "location_type": "UTILITY_SITE",
+        "event": "Individuals or small groups come and go, collecting water, quarrying flint, or searching the shoreline for useful items."
+      },
+      {
+        "location_type": "SECONDARY_CAVE",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "INTIMATE_SPOT",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "MOUNTAIN_AREA",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      }
+    ],
+    "9": [
+      {
+        "location_type": "CENTRAL_DWELLING",
+        "event": "The dwelling is a hub of activity. Children play under the watchful eyes of elders, while artisans work on hides and tools."
+      },
+      {
+        "location_type": "HUNTING_GROUND",
+        "event": "A hunting party moves silently through the area, eyes scanning for any sign of game."
+      },
+      {
+        "location_type": "FORAGING_AREA",
+        "event": "A group of foragers, mostly women and older children, move through the area, their baskets slowly filling with roots, berries, or nuts."
+      },
+      {
+        "location_type": "RITUAL_SITE",
+        "event": "The site is quiet and still, holding a palpable sense of reverence. The wind whispers through the stones or leaves."
+      },
+      {
+        "location_type": "UTILITY_SITE",
+        "event": "Individuals or small groups come and go, collecting water, quarrying flint, or searching the shoreline for useful items."
+      },
+      {
+        "location_type": "SECONDARY_CAVE",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "INTIMATE_SPOT",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "MOUNTAIN_AREA",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      }
+    ],
+    "10": [
+      {
+        "location_type": "CENTRAL_DWELLING",
+        "event": "The dwelling is a hub of activity. Children play under the watchful eyes of elders, while artisans work on hides and tools."
+      },
+      {
+        "location_type": "HUNTING_GROUND",
+        "event": "A hunting party moves silently through the area, eyes scanning for any sign of game."
+      },
+      {
+        "location_type": "FORAGING_AREA",
+        "event": "A group of foragers, mostly women and older children, move through the area, their baskets slowly filling with roots, berries, or nuts."
+      },
+      {
+        "location_type": "RITUAL_SITE",
+        "event": "The site is quiet and still, holding a palpable sense of reverence. The wind whispers through the stones or leaves."
+      },
+      {
+        "location_type": "UTILITY_SITE",
+        "event": "Individuals or small groups come and go, collecting water, quarrying flint, or searching the shoreline for useful items."
+      },
+      {
+        "location_type": "SECONDARY_CAVE",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "INTIMATE_SPOT",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "MOUNTAIN_AREA",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      }
+    ],
+    "11": [
+      {
+        "location_type": "CENTRAL_DWELLING",
+        "event": "The dwelling is a hub of activity. Children play under the watchful eyes of elders, while artisans work on hides and tools."
+      },
+      {
+        "location_type": "HUNTING_GROUND",
+        "event": "A hunting party moves silently through the area, eyes scanning for any sign of game."
+      },
+      {
+        "location_type": "FORAGING_AREA",
+        "event": "A group of foragers, mostly women and older children, move through the area, their baskets slowly filling with roots, berries, or nuts."
+      },
+      {
+        "location_type": "RITUAL_SITE",
+        "event": "The site is quiet and still, holding a palpable sense of reverence. The wind whispers through the stones or leaves."
+      },
+      {
+        "location_type": "UTILITY_SITE",
+        "event": "Individuals or small groups come and go, collecting water, quarrying flint, or searching the shoreline for useful items."
+      },
+      {
+        "location_type": "SECONDARY_CAVE",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "INTIMATE_SPOT",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "MOUNTAIN_AREA",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      }
+    ],
+    "12": [
+      {
+        "location_type": "CENTRAL_DWELLING",
+        "event": "A quieter period in the main camp. Many are out foraging or hunting. Those who remain are napping or engaged in quiet craftwork."
+      },
+      {
+        "location_type": "HUNTING_GROUND",
+        "event": "The sun is high and the animals are resting in the shade. The hunters wait patiently, observing from a distance."
+      },
+      {
+        "location_type": "FORAGING_AREA",
+        "event": "The foragers work steadily, sharing quiet conversation and teaching the younger ones which plants are safe to eat."
+      },
+      {
+        "location_type": "RITUAL_SITE",
+        "event": "The site is quiet and still, holding a palpable sense of reverence. The wind whispers through the stones or leaves."
+      },
+      {
+        "location_type": "UTILITY_SITE",
+        "event": "Individuals or small groups come and go, collecting water, quarrying flint, or searching the shoreline for useful items."
+      },
+      {
+        "location_type": "SECONDARY_CAVE",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "INTIMATE_SPOT",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "MOUNTAIN_AREA",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      }
+    ],
+    "13": [
+      {
+        "location_type": "CENTRAL_DWELLING",
+        "event": "A quieter period in the main camp. Many are out foraging or hunting. Those who remain are napping or engaged in quiet craftwork."
+      },
+      {
+        "location_type": "HUNTING_GROUND",
+        "event": "The sun is high and the animals are resting in the shade. The hunters wait patiently, observing from a distance."
+      },
+      {
+        "location_type": "FORAGING_AREA",
+        "event": "The foragers work steadily, sharing quiet conversation and teaching the younger ones which plants are safe to eat."
+      },
+      {
+        "location_type": "RITUAL_SITE",
+        "event": "The site is quiet and still, holding a palpable sense of reverence. The wind whispers through the stones or leaves."
+      },
+      {
+        "location_type": "UTILITY_SITE",
+        "event": "Individuals or small groups come and go, collecting water, quarrying flint, or searching the shoreline for useful items."
+      },
+      {
+        "location_type": "SECONDARY_CAVE",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "INTIMATE_SPOT",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "MOUNTAIN_AREA",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      }
+    ],
+    "14": [
+      {
+        "location_type": "CENTRAL_DWELLING",
+        "event": "A quieter period in the main camp. Many are out foraging or hunting. Those who remain are napping or engaged in quiet craftwork."
+      },
+      {
+        "location_type": "HUNTING_GROUND",
+        "event": "The sun is high and the animals are resting in the shade. The hunters wait patiently, observing from a distance."
+      },
+      {
+        "location_type": "FORAGING_AREA",
+        "event": "The foragers work steadily, sharing quiet conversation and teaching the younger ones which plants are safe to eat."
+      },
+      {
+        "location_type": "RITUAL_SITE",
+        "event": "The site is quiet and still, holding a palpable sense of reverence. The wind whispers through the stones or leaves."
+      },
+      {
+        "location_type": "UTILITY_SITE",
+        "event": "Individuals or small groups come and go, collecting water, quarrying flint, or searching the shoreline for useful items."
+      },
+      {
+        "location_type": "SECONDARY_CAVE",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "INTIMATE_SPOT",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "MOUNTAIN_AREA",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      }
+    ],
+    "15": [
+      {
+        "location_type": "CENTRAL_DWELLING",
+        "event": "A quieter period in the main camp. Many are out foraging or hunting. Those who remain are napping or engaged in quiet craftwork."
+      },
+      {
+        "location_type": "HUNTING_GROUND",
+        "event": "The sun is high and the animals are resting in the shade. The hunters wait patiently, observing from a distance."
+      },
+      {
+        "location_type": "FORAGING_AREA",
+        "event": "The foragers work steadily, sharing quiet conversation and teaching the younger ones which plants are safe to eat."
+      },
+      {
+        "location_type": "RITUAL_SITE",
+        "event": "The site is quiet and still, holding a palpable sense of reverence. The wind whispers through the stones or leaves."
+      },
+      {
+        "location_type": "UTILITY_SITE",
+        "event": "Individuals or small groups come and go, collecting water, quarrying flint, or searching the shoreline for useful items."
+      },
+      {
+        "location_type": "SECONDARY_CAVE",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "INTIMATE_SPOT",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "MOUNTAIN_AREA",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      }
+    ],
+    "16": [
+      {
+        "location_type": "CENTRAL_DWELLING",
+        "event": "A quieter period in the main camp. Many are out foraging or hunting. Those who remain are napping or engaged in quiet craftwork."
+      },
+      {
+        "location_type": "HUNTING_GROUND",
+        "event": "The sun is high and the animals are resting in the shade. The hunters wait patiently, observing from a distance."
+      },
+      {
+        "location_type": "FORAGING_AREA",
+        "event": "The foragers work steadily, sharing quiet conversation and teaching the younger ones which plants are safe to eat."
+      },
+      {
+        "location_type": "RITUAL_SITE",
+        "event": "The site is quiet and still, holding a palpable sense of reverence. The wind whispers through the stones or leaves."
+      },
+      {
+        "location_type": "UTILITY_SITE",
+        "event": "Individuals or small groups come and go, collecting water, quarrying flint, or searching the shoreline for useful items."
+      },
+      {
+        "location_type": "SECONDARY_CAVE",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "INTIMATE_SPOT",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "MOUNTAIN_AREA",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      }
+    ],
+    "17": [
+      {
+        "location_type": "CENTRAL_DWELLING",
+        "event": "The band gathers as hunters and foragers return. The sounds of conversation and food preparation fill the air."
+      },
+      {
+        "location_type": "HUNTING_GROUND",
+        "event": "The hunt is concluding. If successful, the hunters begin the arduous task of butchering their kill."
+      },
+      {
+        "location_type": "FORAGING_AREA",
+        "event": "With baskets full, the foragers begin their journey back to the main dwelling."
+      },
+      {
+        "location_type": "RITUAL_SITE",
+        "event": "The site is quiet and still, holding a palpable sense of reverence. The wind whispers through the stones or leaves."
+      },
+      {
+        "location_type": "UTILITY_SITE",
+        "event": "Individuals or small groups come and go, collecting water, quarrying flint, or searching the shoreline for useful items."
+      },
+      {
+        "location_type": "SECONDARY_CAVE",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "INTIMATE_SPOT",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "MOUNTAIN_AREA",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      }
+    ],
+    "18": [
+      {
+        "location_type": "CENTRAL_DWELLING",
+        "event": "The band gathers as hunters and foragers return. The sounds of conversation and food preparation fill the air."
+      },
+      {
+        "location_type": "HUNTING_GROUND",
+        "event": "The hunt is concluding. If successful, the hunters begin the arduous task of butchering their kill."
+      },
+      {
+        "location_type": "FORAGING_AREA",
+        "event": "With baskets full, the foragers begin their journey back to the main dwelling."
+      },
+      {
+        "location_type": "RITUAL_SITE",
+        "event": "The site is quiet and still, holding a palpable sense of reverence. The wind whispers through the stones or leaves."
+      },
+      {
+        "location_type": "UTILITY_SITE",
+        "event": "Individuals or small groups come and go, collecting water, quarrying flint, or searching the shoreline for useful items."
+      },
+      {
+        "location_type": "SECONDARY_CAVE",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "INTIMATE_SPOT",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "MOUNTAIN_AREA",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      }
+    ],
+    "19": [
+      {
+        "location_type": "CENTRAL_DWELLING",
+        "event": "The band gathers as hunters and foragers return. The sounds of conversation and food preparation fill the air."
+      },
+      {
+        "location_type": "HUNTING_GROUND",
+        "event": "The hunt is concluding. If successful, the hunters begin the arduous task of butchering their kill."
+      },
+      {
+        "location_type": "FORAGING_AREA",
+        "event": "With baskets full, the foragers begin their journey back to the main dwelling."
+      },
+      {
+        "location_type": "RITUAL_SITE",
+        "event": "The site is quiet and still, holding a palpable sense of reverence. The wind whispers through the stones or leaves."
+      },
+      {
+        "location_type": "UTILITY_SITE",
+        "event": "Individuals or small groups come and go, collecting water, quarrying flint, or searching the shoreline for useful items."
+      },
+      {
+        "location_type": "SECONDARY_CAVE",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "INTIMATE_SPOT",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "MOUNTAIN_AREA",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      }
+    ],
+    "20": [
+      {
+        "location_type": "CENTRAL_DWELLING",
+        "event": "People settle around the main fire. An elder might be telling a story, while others mend tools for the next day."
+      },
+      {
+        "location_type": "HUNTING_GROUND",
+        "event": "The hunters begin their long walk back to camp, carrying their bounty."
+      },
+      {
+        "location_type": "FORAGING_AREA",
+        "event": "The area is quiet again, the only evidence of the day's activity are the disturbed plants."
+      },
+      {
+        "location_type": "RITUAL_SITE",
+        "event": "The site is quiet and still, holding a palpable sense of reverence. The wind whispers through the stones or leaves."
+      },
+      {
+        "location_type": "UTILITY_SITE",
+        "event": "Individuals or small groups come and go, collecting water, quarrying flint, or searching the shoreline for useful items."
+      },
+      {
+        "location_type": "SECONDARY_CAVE",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "INTIMATE_SPOT",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "MOUNTAIN_AREA",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      }
+    ],
+    "21": [
+      {
+        "location_type": "CENTRAL_DWELLING",
+        "event": "People settle around the main fire. An elder might be telling a story, while others mend tools for the next day."
+      },
+      {
+        "location_type": "HUNTING_GROUND",
+        "event": "The hunters begin their long walk back to camp, carrying their bounty."
+      },
+      {
+        "location_type": "FORAGING_AREA",
+        "event": "The area is quiet again, the only evidence of the day's activity are the disturbed plants."
+      },
+      {
+        "location_type": "RITUAL_SITE",
+        "event": "The site is quiet and still, holding a palpable sense of reverence. The wind whispers through the stones or leaves."
+      },
+      {
+        "location_type": "UTILITY_SITE",
+        "event": "Individuals or small groups come and go, collecting water, quarrying flint, or searching the shoreline for useful items."
+      },
+      {
+        "location_type": "SECONDARY_CAVE",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "INTIMATE_SPOT",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "MOUNTAIN_AREA",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      }
+    ],
+    "22": [
+      {
+        "location_type": "CENTRAL_DWELLING",
+        "event": "Most of the band is asleep around the dying embers of the fire. A lone guard keeps watch at the entrance."
+      },
+      {
+        "location_type": "HUNTING_GROUND",
+        "event": "The landscape is quiet under the moon and stars, home only to nocturnal predators."
+      },
+      {
+        "location_type": "FORAGING_AREA",
+        "event": "The thickets and groves are silent, save for the rustle of small creatures."
+      },
+      {
+        "location_type": "RITUAL_SITE",
+        "event": "The site is quiet and still, holding a palpable sense of reverence. The wind whispers through the stones or leaves."
+      },
+      {
+        "location_type": "UTILITY_SITE",
+        "event": "The area is deserted, the only sound is the wind or the flow of water."
+      },
+      {
+        "location_type": "SECONDARY_CAVE",
+        "event": "The area is quiet and still under the night sky."
+      },
+      {
+        "location_type": "INTIMATE_SPOT",
+        "event": "The area is quiet and still under the night sky."
+      },
+      {
+        "location_type": "MOUNTAIN_AREA",
+        "event": "The area is quiet and still under the night sky."
+      }
+    ],
+    "23": [
+      {
+        "location_type": "CENTRAL_DWELLING",
+        "event": "Most of the band is asleep around the dying embers of the fire. A lone guard keeps watch at the entrance."
+      },
+      {
+        "location_type": "HUNTING_GROUND",
+        "event": "The landscape is quiet under the moon and stars, home only to nocturnal predators."
+      },
+      {
+        "location_type": "FORAGING_AREA",
+        "event": "The thickets and groves are silent, save for the rustle of small creatures."
+      },
+      {
+        "location_type": "RITUAL_SITE",
+        "event": "The site is quiet and still, holding a palpable sense of reverence. The wind whispers through the stones or leaves."
+      },
+      {
+        "location_type": "UTILITY_SITE",
+        "event": "The area is deserted, the only sound is the wind or the flow of water."
+      },
+      {
+        "location_type": "SECONDARY_CAVE",
+        "event": "The area is quiet and still under the night sky."
+      },
+      {
+        "location_type": "INTIMATE_SPOT",
+        "event": "The area is quiet and still under the night sky."
+      },
+      {
+        "location_type": "MOUNTAIN_AREA",
+        "event": "The area is quiet and still under the night sky."
+      }
+    ]
+  },
+  "Spring": {
+    "0": [
+      {
+        "location_type": "CENTRAL_DWELLING",
+        "event": "Most of the band is asleep around the dying embers of the fire. A lone guard keeps watch at the entrance."
+      },
+      {
+        "location_type": "HUNTING_GROUND",
+        "event": "The landscape is quiet under the moon and stars, home only to nocturnal predators."
+      },
+      {
+        "location_type": "FORAGING_AREA",
+        "event": "The thickets and groves are silent, save for the rustle of small creatures."
+      },
+      {
+        "location_type": "RITUAL_SITE",
+        "event": "The site is quiet and still, holding a palpable sense of reverence. The wind whispers through the stones or leaves."
+      },
+      {
+        "location_type": "UTILITY_SITE",
+        "event": "The area is deserted, the only sound is the wind or the flow of water."
+      },
+      {
+        "location_type": "SECONDARY_CAVE",
+        "event": "The area is quiet and still under the night sky."
+      },
+      {
+        "location_type": "INTIMATE_SPOT",
+        "event": "The area is quiet and still under the night sky."
+      },
+      {
+        "location_type": "MOUNTAIN_AREA",
+        "event": "The area is quiet and still under the night sky."
+      }
+    ],
+    "1": [
+      {
+        "location_type": "CENTRAL_DWELLING",
+        "event": "Most of the band is asleep around the dying embers of the fire. A lone guard keeps watch at the entrance."
+      },
+      {
+        "location_type": "HUNTING_GROUND",
+        "event": "The landscape is quiet under the moon and stars, home only to nocturnal predators."
+      },
+      {
+        "location_type": "FORAGING_AREA",
+        "event": "The thickets and groves are silent, save for the rustle of small creatures."
+      },
+      {
+        "location_type": "RITUAL_SITE",
+        "event": "The site is quiet and still, holding a palpable sense of reverence. The wind whispers through the stones or leaves."
+      },
+      {
+        "location_type": "UTILITY_SITE",
+        "event": "The area is deserted, the only sound is the wind or the flow of water."
+      },
+      {
+        "location_type": "SECONDARY_CAVE",
+        "event": "The area is quiet and still under the night sky."
+      },
+      {
+        "location_type": "INTIMATE_SPOT",
+        "event": "The area is quiet and still under the night sky."
+      },
+      {
+        "location_type": "MOUNTAIN_AREA",
+        "event": "The area is quiet and still under the night sky."
+      }
+    ],
+    "2": [
+      {
+        "location_type": "CENTRAL_DWELLING",
+        "event": "Most of the band is asleep around the dying embers of the fire. A lone guard keeps watch at the entrance."
+      },
+      {
+        "location_type": "HUNTING_GROUND",
+        "event": "The landscape is quiet under the moon and stars, home only to nocturnal predators."
+      },
+      {
+        "location_type": "FORAGING_AREA",
+        "event": "The thickets and groves are silent, save for the rustle of small creatures."
+      },
+      {
+        "location_type": "RITUAL_SITE",
+        "event": "The site is quiet and still, holding a palpable sense of reverence. The wind whispers through the stones or leaves."
+      },
+      {
+        "location_type": "UTILITY_SITE",
+        "event": "The area is deserted, the only sound is the wind or the flow of water."
+      },
+      {
+        "location_type": "SECONDARY_CAVE",
+        "event": "The area is quiet and still under the night sky."
+      },
+      {
+        "location_type": "INTIMATE_SPOT",
+        "event": "The area is quiet and still under the night sky."
+      },
+      {
+        "location_type": "MOUNTAIN_AREA",
+        "event": "The area is quiet and still under the night sky."
+      }
+    ],
+    "3": [
+      {
+        "location_type": "CENTRAL_DWELLING",
+        "event": "Most of the band is asleep around the dying embers of the fire. A lone guard keeps watch at the entrance."
+      },
+      {
+        "location_type": "HUNTING_GROUND",
+        "event": "The landscape is quiet under the moon and stars, home only to nocturnal predators."
+      },
+      {
+        "location_type": "FORAGING_AREA",
+        "event": "The thickets and groves are silent, save for the rustle of small creatures."
+      },
+      {
+        "location_type": "RITUAL_SITE",
+        "event": "The site is quiet and still, holding a palpable sense of reverence. The wind whispers through the stones or leaves."
+      },
+      {
+        "location_type": "UTILITY_SITE",
+        "event": "The area is deserted, the only sound is the wind or the flow of water."
+      },
+      {
+        "location_type": "SECONDARY_CAVE",
+        "event": "The area is quiet and still under the night sky."
+      },
+      {
+        "location_type": "INTIMATE_SPOT",
+        "event": "The area is quiet and still under the night sky."
+      },
+      {
+        "location_type": "MOUNTAIN_AREA",
+        "event": "The area is quiet and still under the night sky."
+      }
+    ],
+    "4": [
+      {
+        "location_type": "CENTRAL_DWELLING",
+        "event": "Most of the band is asleep around the dying embers of the fire. A lone guard keeps watch at the entrance."
+      },
+      {
+        "location_type": "HUNTING_GROUND",
+        "event": "The landscape is quiet under the moon and stars, home only to nocturnal predators."
+      },
+      {
+        "location_type": "FORAGING_AREA",
+        "event": "The thickets and groves are silent, save for the rustle of small creatures."
+      },
+      {
+        "location_type": "RITUAL_SITE",
+        "event": "The site is quiet and still, holding a palpable sense of reverence. The wind whispers through the stones or leaves."
+      },
+      {
+        "location_type": "UTILITY_SITE",
+        "event": "The area is deserted, the only sound is the wind or the flow of water."
+      },
+      {
+        "location_type": "SECONDARY_CAVE",
+        "event": "The area is quiet and still under the night sky."
+      },
+      {
+        "location_type": "INTIMATE_SPOT",
+        "event": "The area is quiet and still under the night sky."
+      },
+      {
+        "location_type": "MOUNTAIN_AREA",
+        "event": "The area is quiet and still under the night sky."
+      }
+    ],
+    "5": [
+      {
+        "location_type": "CENTRAL_DWELLING",
+        "event": "The camp slowly stirs to life. The fire is being tended to, and the smell of smoke begins to fill the air."
+      },
+      {
+        "location_type": "HUNTING_GROUND",
+        "event": "The first light reveals fresh tracks in the dew-damp earth. The air is still and tense with anticipation."
+      },
+      {
+        "location_type": "FORAGING_AREA",
+        "event": "The area is damp with dew. Birds begin to call from the branches."
+      },
+      {
+        "location_type": "RITUAL_SITE",
+        "event": "The site is quiet and still, holding a palpable sense of reverence. The wind whispers through the stones or leaves."
+      },
+      {
+        "location_type": "UTILITY_SITE",
+        "event": "Individuals or small groups come and go, collecting water, quarrying flint, or searching the shoreline for useful items."
+      },
+      {
+        "location_type": "SECONDARY_CAVE",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "INTIMATE_SPOT",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "MOUNTAIN_AREA",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      }
+    ],
+    "6": [
+      {
+        "location_type": "CENTRAL_DWELLING",
+        "event": "The camp slowly stirs to life. The fire is being tended to, and the smell of smoke begins to fill the air."
+      },
+      {
+        "location_type": "HUNTING_GROUND",
+        "event": "The first light reveals fresh tracks in the dew-damp earth. The air is still and tense with anticipation."
+      },
+      {
+        "location_type": "FORAGING_AREA",
+        "event": "The area is damp with dew. Birds begin to call from the branches."
+      },
+      {
+        "location_type": "RITUAL_SITE",
+        "event": "The site is quiet and still, holding a palpable sense of reverence. The wind whispers through the stones or leaves."
+      },
+      {
+        "location_type": "UTILITY_SITE",
+        "event": "Individuals or small groups come and go, collecting water, quarrying flint, or searching the shoreline for useful items."
+      },
+      {
+        "location_type": "SECONDARY_CAVE",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "INTIMATE_SPOT",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "MOUNTAIN_AREA",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      }
+    ],
+    "7": [
+      {
+        "location_type": "CENTRAL_DWELLING",
+        "event": "The camp slowly stirs to life. The fire is being tended to, and the smell of smoke begins to fill the air."
+      },
+      {
+        "location_type": "HUNTING_GROUND",
+        "event": "The first light reveals fresh tracks in the dew-damp earth. The air is still and tense with anticipation."
+      },
+      {
+        "location_type": "FORAGING_AREA",
+        "event": "The area is damp with dew. Birds begin to call from the branches."
+      },
+      {
+        "location_type": "RITUAL_SITE",
+        "event": "The site is quiet and still, holding a palpable sense of reverence. The wind whispers through the stones or leaves."
+      },
+      {
+        "location_type": "UTILITY_SITE",
+        "event": "Individuals or small groups come and go, collecting water, quarrying flint, or searching the shoreline for useful items."
+      },
+      {
+        "location_type": "SECONDARY_CAVE",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "INTIMATE_SPOT",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "MOUNTAIN_AREA",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      }
+    ],
+    "8": [
+      {
+        "location_type": "CENTRAL_DWELLING",
+        "event": "The dwelling is a hub of activity. Children play under the watchful eyes of elders, while artisans work on hides and tools."
+      },
+      {
+        "location_type": "HUNTING_GROUND",
+        "event": "A hunting party moves silently through the area, eyes scanning for any sign of game."
+      },
+      {
+        "location_type": "FORAGING_AREA",
+        "event": "A group of foragers, mostly women and older children, move through the area, their baskets slowly filling with roots, berries, or nuts."
+      },
+      {
+        "location_type": "RITUAL_SITE",
+        "event": "The site is quiet and still, holding a palpable sense of reverence. The wind whispers through the stones or leaves."
+      },
+      {
+        "location_type": "UTILITY_SITE",
+        "event": "Individuals or small groups come and go, collecting water, quarrying flint, or searching the shoreline for useful items."
+      },
+      {
+        "location_type": "SECONDARY_CAVE",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "INTIMATE_SPOT",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "MOUNTAIN_AREA",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      }
+    ],
+    "9": [
+      {
+        "location_type": "CENTRAL_DWELLING",
+        "event": "The dwelling is a hub of activity. Children play under the watchful eyes of elders, while artisans work on hides and tools."
+      },
+      {
+        "location_type": "HUNTING_GROUND",
+        "event": "A hunting party moves silently through the area, eyes scanning for any sign of game."
+      },
+      {
+        "location_type": "FORAGING_AREA",
+        "event": "A group of foragers, mostly women and older children, move through the area, their baskets slowly filling with roots, berries, or nuts."
+      },
+      {
+        "location_type": "RITUAL_SITE",
+        "event": "The site is quiet and still, holding a palpable sense of reverence. The wind whispers through the stones or leaves."
+      },
+      {
+        "location_type": "UTILITY_SITE",
+        "event": "Individuals or small groups come and go, collecting water, quarrying flint, or searching the shoreline for useful items."
+      },
+      {
+        "location_type": "SECONDARY_CAVE",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "INTIMATE_SPOT",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "MOUNTAIN_AREA",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      }
+    ],
+    "10": [
+      {
+        "location_type": "CENTRAL_DWELLING",
+        "event": "The dwelling is a hub of activity. Children play under the watchful eyes of elders, while artisans work on hides and tools."
+      },
+      {
+        "location_type": "HUNTING_GROUND",
+        "event": "A hunting party moves silently through the area, eyes scanning for any sign of game."
+      },
+      {
+        "location_type": "FORAGING_AREA",
+        "event": "A group of foragers, mostly women and older children, move through the area, their baskets slowly filling with roots, berries, or nuts."
+      },
+      {
+        "location_type": "RITUAL_SITE",
+        "event": "The site is quiet and still, holding a palpable sense of reverence. The wind whispers through the stones or leaves."
+      },
+      {
+        "location_type": "UTILITY_SITE",
+        "event": "Individuals or small groups come and go, collecting water, quarrying flint, or searching the shoreline for useful items."
+      },
+      {
+        "location_type": "SECONDARY_CAVE",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "INTIMATE_SPOT",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "MOUNTAIN_AREA",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      }
+    ],
+    "11": [
+      {
+        "location_type": "CENTRAL_DWELLING",
+        "event": "The dwelling is a hub of activity. Children play under the watchful eyes of elders, while artisans work on hides and tools."
+      },
+      {
+        "location_type": "HUNTING_GROUND",
+        "event": "A hunting party moves silently through the area, eyes scanning for any sign of game."
+      },
+      {
+        "location_type": "FORAGING_AREA",
+        "event": "A group of foragers, mostly women and older children, move through the area, their baskets slowly filling with roots, berries, or nuts."
+      },
+      {
+        "location_type": "RITUAL_SITE",
+        "event": "The site is quiet and still, holding a palpable sense of reverence. The wind whispers through the stones or leaves."
+      },
+      {
+        "location_type": "UTILITY_SITE",
+        "event": "Individuals or small groups come and go, collecting water, quarrying flint, or searching the shoreline for useful items."
+      },
+      {
+        "location_type": "SECONDARY_CAVE",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "INTIMATE_SPOT",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "MOUNTAIN_AREA",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      }
+    ],
+    "12": [
+      {
+        "location_type": "CENTRAL_DWELLING",
+        "event": "A quieter period in the main camp. Many are out foraging or hunting. Those who remain are napping or engaged in quiet craftwork."
+      },
+      {
+        "location_type": "HUNTING_GROUND",
+        "event": "The sun is high and the animals are resting in the shade. The hunters wait patiently, observing from a distance."
+      },
+      {
+        "location_type": "FORAGING_AREA",
+        "event": "The foragers work steadily, sharing quiet conversation and teaching the younger ones which plants are safe to eat."
+      },
+      {
+        "location_type": "RITUAL_SITE",
+        "event": "The site is quiet and still, holding a palpable sense of reverence. The wind whispers through the stones or leaves."
+      },
+      {
+        "location_type": "UTILITY_SITE",
+        "event": "Individuals or small groups come and go, collecting water, quarrying flint, or searching the shoreline for useful items."
+      },
+      {
+        "location_type": "SECONDARY_CAVE",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "INTIMATE_SPOT",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "MOUNTAIN_AREA",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      }
+    ],
+    "13": [
+      {
+        "location_type": "CENTRAL_DWELLING",
+        "event": "A quieter period in the main camp. Many are out foraging or hunting. Those who remain are napping or engaged in quiet craftwork."
+      },
+      {
+        "location_type": "HUNTING_GROUND",
+        "event": "The sun is high and the animals are resting in the shade. The hunters wait patiently, observing from a distance."
+      },
+      {
+        "location_type": "FORAGING_AREA",
+        "event": "The foragers work steadily, sharing quiet conversation and teaching the younger ones which plants are safe to eat."
+      },
+      {
+        "location_type": "RITUAL_SITE",
+        "event": "The site is quiet and still, holding a palpable sense of reverence. The wind whispers through the stones or leaves."
+      },
+      {
+        "location_type": "UTILITY_SITE",
+        "event": "Individuals or small groups come and go, collecting water, quarrying flint, or searching the shoreline for useful items."
+      },
+      {
+        "location_type": "SECONDARY_CAVE",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "INTIMATE_SPOT",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "MOUNTAIN_AREA",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      }
+    ],
+    "14": [
+      {
+        "location_type": "CENTRAL_DWELLING",
+        "event": "A quieter period in the main camp. Many are out foraging or hunting. Those who remain are napping or engaged in quiet craftwork."
+      },
+      {
+        "location_type": "HUNTING_GROUND",
+        "event": "The sun is high and the animals are resting in the shade. The hunters wait patiently, observing from a distance."
+      },
+      {
+        "location_type": "FORAGING_AREA",
+        "event": "The foragers work steadily, sharing quiet conversation and teaching the younger ones which plants are safe to eat."
+      },
+      {
+        "location_type": "RITUAL_SITE",
+        "event": "The site is quiet and still, holding a palpable sense of reverence. The wind whispers through the stones or leaves."
+      },
+      {
+        "location_type": "UTILITY_SITE",
+        "event": "Individuals or small groups come and go, collecting water, quarrying flint, or searching the shoreline for useful items."
+      },
+      {
+        "location_type": "SECONDARY_CAVE",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "INTIMATE_SPOT",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "MOUNTAIN_AREA",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      }
+    ],
+    "15": [
+      {
+        "location_type": "CENTRAL_DWELLING",
+        "event": "A quieter period in the main camp. Many are out foraging or hunting. Those who remain are napping or engaged in quiet craftwork."
+      },
+      {
+        "location_type": "HUNTING_GROUND",
+        "event": "The sun is high and the animals are resting in the shade. The hunters wait patiently, observing from a distance."
+      },
+      {
+        "location_type": "FORAGING_AREA",
+        "event": "The foragers work steadily, sharing quiet conversation and teaching the younger ones which plants are safe to eat."
+      },
+      {
+        "location_type": "RITUAL_SITE",
+        "event": "The site is quiet and still, holding a palpable sense of reverence. The wind whispers through the stones or leaves."
+      },
+      {
+        "location_type": "UTILITY_SITE",
+        "event": "Individuals or small groups come and go, collecting water, quarrying flint, or searching the shoreline for useful items."
+      },
+      {
+        "location_type": "SECONDARY_CAVE",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "INTIMATE_SPOT",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "MOUNTAIN_AREA",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      }
+    ],
+    "16": [
+      {
+        "location_type": "CENTRAL_DWELLING",
+        "event": "A quieter period in the main camp. Many are out foraging or hunting. Those who remain are napping or engaged in quiet craftwork."
+      },
+      {
+        "location_type": "HUNTING_GROUND",
+        "event": "The sun is high and the animals are resting in the shade. The hunters wait patiently, observing from a distance."
+      },
+      {
+        "location_type": "FORAGING_AREA",
+        "event": "The foragers work steadily, sharing quiet conversation and teaching the younger ones which plants are safe to eat."
+      },
+      {
+        "location_type": "RITUAL_SITE",
+        "event": "The site is quiet and still, holding a palpable sense of reverence. The wind whispers through the stones or leaves."
+      },
+      {
+        "location_type": "UTILITY_SITE",
+        "event": "Individuals or small groups come and go, collecting water, quarrying flint, or searching the shoreline for useful items."
+      },
+      {
+        "location_type": "SECONDARY_CAVE",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "INTIMATE_SPOT",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "MOUNTAIN_AREA",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      }
+    ],
+    "17": [
+      {
+        "location_type": "CENTRAL_DWELLING",
+        "event": "The band gathers as hunters and foragers return. The sounds of conversation and food preparation fill the air."
+      },
+      {
+        "location_type": "HUNTING_GROUND",
+        "event": "The hunt is concluding. If successful, the hunters begin the arduous task of butchering their kill."
+      },
+      {
+        "location_type": "FORAGING_AREA",
+        "event": "With baskets full, the foragers begin their journey back to the main dwelling."
+      },
+      {
+        "location_type": "RITUAL_SITE",
+        "event": "The site is quiet and still, holding a palpable sense of reverence. The wind whispers through the stones or leaves."
+      },
+      {
+        "location_type": "UTILITY_SITE",
+        "event": "Individuals or small groups come and go, collecting water, quarrying flint, or searching the shoreline for useful items."
+      },
+      {
+        "location_type": "SECONDARY_CAVE",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "INTIMATE_SPOT",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "MOUNTAIN_AREA",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      }
+    ],
+    "18": [
+      {
+        "location_type": "CENTRAL_DWELLING",
+        "event": "The band gathers as hunters and foragers return. The sounds of conversation and food preparation fill the air."
+      },
+      {
+        "location_type": "HUNTING_GROUND",
+        "event": "The hunt is concluding. If successful, the hunters begin the arduous task of butchering their kill."
+      },
+      {
+        "location_type": "FORAGING_AREA",
+        "event": "With baskets full, the foragers begin their journey back to the main dwelling."
+      },
+      {
+        "location_type": "RITUAL_SITE",
+        "event": "The site is quiet and still, holding a palpable sense of reverence. The wind whispers through the stones or leaves."
+      },
+      {
+        "location_type": "UTILITY_SITE",
+        "event": "Individuals or small groups come and go, collecting water, quarrying flint, or searching the shoreline for useful items."
+      },
+      {
+        "location_type": "SECONDARY_CAVE",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "INTIMATE_SPOT",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "MOUNTAIN_AREA",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      }
+    ],
+    "19": [
+      {
+        "location_type": "CENTRAL_DWELLING",
+        "event": "The band gathers as hunters and foragers return. The sounds of conversation and food preparation fill the air."
+      },
+      {
+        "location_type": "HUNTING_GROUND",
+        "event": "The hunt is concluding. If successful, the hunters begin the arduous task of butchering their kill."
+      },
+      {
+        "location_type": "FORAGING_AREA",
+        "event": "With baskets full, the foragers begin their journey back to the main dwelling."
+      },
+      {
+        "location_type": "RITUAL_SITE",
+        "event": "The site is quiet and still, holding a palpable sense of reverence. The wind whispers through the stones or leaves."
+      },
+      {
+        "location_type": "UTILITY_SITE",
+        "event": "Individuals or small groups come and go, collecting water, quarrying flint, or searching the shoreline for useful items."
+      },
+      {
+        "location_type": "SECONDARY_CAVE",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "INTIMATE_SPOT",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "MOUNTAIN_AREA",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      }
+    ],
+    "20": [
+      {
+        "location_type": "CENTRAL_DWELLING",
+        "event": "People settle around the main fire. An elder might be telling a story, while others mend tools for the next day."
+      },
+      {
+        "location_type": "HUNTING_GROUND",
+        "event": "The hunters begin their long walk back to camp, carrying their bounty."
+      },
+      {
+        "location_type": "FORAGING_AREA",
+        "event": "The area is quiet again, the only evidence of the day's activity are the disturbed plants."
+      },
+      {
+        "location_type": "RITUAL_SITE",
+        "event": "The site is quiet and still, holding a palpable sense of reverence. The wind whispers through the stones or leaves."
+      },
+      {
+        "location_type": "UTILITY_SITE",
+        "event": "Individuals or small groups come and go, collecting water, quarrying flint, or searching the shoreline for useful items."
+      },
+      {
+        "location_type": "SECONDARY_CAVE",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "INTIMATE_SPOT",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "MOUNTAIN_AREA",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      }
+    ],
+    "21": [
+      {
+        "location_type": "CENTRAL_DWELLING",
+        "event": "People settle around the main fire. An elder might be telling a story, while others mend tools for the next day."
+      },
+      {
+        "location_type": "HUNTING_GROUND",
+        "event": "The hunters begin their long walk back to camp, carrying their bounty."
+      },
+      {
+        "location_type": "FORAGING_AREA",
+        "event": "The area is quiet again, the only evidence of the day's activity are the disturbed plants."
+      },
+      {
+        "location_type": "RITUAL_SITE",
+        "event": "The site is quiet and still, holding a palpable sense of reverence. The wind whispers through the stones or leaves."
+      },
+      {
+        "location_type": "UTILITY_SITE",
+        "event": "Individuals or small groups come and go, collecting water, quarrying flint, or searching the shoreline for useful items."
+      },
+      {
+        "location_type": "SECONDARY_CAVE",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "INTIMATE_SPOT",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      },
+      {
+        "location_type": "MOUNTAIN_AREA",
+        "event": "The natural sounds of the landscape fill the air. There is no human activity here."
+      }
+    ],
+    "22": [
+      {
+        "location_type": "CENTRAL_DWELLING",
+        "event": "Most of the band is asleep around the dying embers of the fire. A lone guard keeps watch at the entrance."
+      },
+      {
+        "location_type": "HUNTING_GROUND",
+        "event": "The landscape is quiet under the moon and stars, home only to nocturnal predators."
+      },
+      {
+        "location_type": "FORAGING_AREA",
+        "event": "The thickets and groves are silent, save for the rustle of small creatures."
+      },
+      {
+        "location_type": "RITUAL_SITE",
+        "event": "The site is quiet and still, holding a palpable sense of reverence. The wind whispers through the stones or leaves."
+      },
+      {
+        "location_type": "UTILITY_SITE",
+        "event": "The area is deserted, the only sound is the wind or the flow of water."
+      },
+      {
+        "location_type": "SECONDARY_CAVE",
+        "event": "The area is quiet and still under the night sky."
+      },
+      {
+        "location_type": "INTIMATE_SPOT",
+        "event": "The area is quiet and still under the night sky."
+      },
+      {
+        "location_type": "MOUNTAIN_AREA",
+        "event": "The area is quiet and still under the night sky."
+      }
+    ],
+    "23": [
+      {
+        "location_type": "CENTRAL_DWELLING",
+        "event": "Most of the band is asleep around the dying embers of the fire. A lone guard keeps watch at the entrance."
+      },
+      {
+        "location_type": "HUNTING_GROUND",
+        "event": "The landscape is quiet under the moon and stars, home only to nocturnal predators."
+      },
+      {
+        "location_type": "FORAGING_AREA",
+        "event": "The thickets and groves are silent, save for the rustle of small creatures."
+      },
+      {
+        "location_type": "RITUAL_SITE",
+        "event": "The site is quiet and still, holding a palpable sense of reverence. The wind whispers through the stones or leaves."
+      },
+      {
+        "location_type": "UTILITY_SITE",
+        "event": "The area is deserted, the only sound is the wind or the flow of water."
+      },
+      {
+        "location_type": "SECONDARY_CAVE",
+        "event": "The area is quiet and still under the night sky."
+      },
+      {
+        "location_type": "INTIMATE_SPOT",
+        "event": "The area is quiet and still under the night sky."
+      },
+      {
+        "location_type": "MOUNTAIN_AREA",
+        "event": "The area is quiet and still under the night sky."
+      }
+    ]
+  }
+}

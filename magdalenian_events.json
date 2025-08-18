@@ -1,0 +1,71 @@
+{
+  "schedule": [
+    {
+      "day": 2,
+      "hour": 7,
+      "location": "loc0",
+      "type": "dialogue",
+      "content": {
+        "narration": "The morning air is crisp. By the fire, Aitor inspects the tip of his spear while Bor sharpens a large flint knife. Unai approaches them, holding several newly-knapped spear points.",
+        "dialogue": [
+          { "speakerId": "char9", "line": "These are ready. The flint from the upper quarry is good." },
+          { "speakerId": "char1", "line": "They are well-made, Unai. Sharp and balanced. They will fly true." },
+          { "speakerId": "char3", "line": "Hah! Give me the biggest one. If we find bison today, I want to make sure it feels it!" },
+          { "speakerId": "char1", "line": "Patience, Bor. We follow the tracks, not our own noise. We leave when the sun is higher." }
+        ]
+      }
+    },
+    {
+      "day": 2,
+      "hour": 14,
+      "location": "loc0",
+      "type": "event",
+      "content": "A group of women, including Lurra, Amaia, and Nerea, sit together in the sunlit area of the cave mouth. The rhythmic sound of scraping fills the air as they work on a large deer hide stretched across a frame. Their conversation is a low, steady murmur, punctuated by occasional laughter."
+    },
+    {
+      "day": 2,
+      "hour": 20,
+      "location": "loc0",
+      "type": "dialogue",
+      "content": {
+        "narration": "As darkness settles, the main fire crackles, casting dancing shadows on the cave walls. Zahar sits on a smooth stone, his old eyes reflecting the flames. The children, Sua, Nahia, and Gorka, gather at his feet.",
+        "dialogue": [
+          { "speakerId": "char6", "line": "Grandfather, tell us a story." },
+          { "speakerId": "char29", "line": "Yes! Tell us about the Great Hart with antlers of fire!" },
+          { "speakerId": "char0", "line": "Hush now, little ones. Tonight is not a night for fire, but for ice. I will tell you of the time the Great Glacier tried to swallow the sun..." },
+          { "speakerId": "char7", "line": "Did it have big teeth?" },
+          { "speakerId": "char0", "line": "Bigger than mountains, Gorka. Now, listen closely..." }
+        ]
+      }
+    },
+    {
+      "day": 3,
+      "hour": 10,
+      "location": "loc10",
+      "type": "event",
+      "content": "A sharp crack echoes from the Flint Quarry. Oihan, trying to impress the older knappers, has struck a large nodule too hard, shattering it uselessly. Unai looks over, shakes his head slowly, and wordlessly hands the boy a smaller, more appropriate stone to practice on."
+    },
+    {
+      "day": 4,
+      "hour": 18,
+      "location": "loc0",
+      "type": "dialogue",
+      "content": {
+        "narration": "Near the edge of the main living area, away from the central fire, Harkaitz and Ederra are speaking in low, tense tones.",
+        "dialogue": [
+          { "speakerId": "char32", "line": "You were watching her again. At the river." },
+          { "speakerId": "char11", "line": "I watch everyone, Ederra. That is my purpose. To guard." },
+          { "speakerId": "char32", "line": "You watch Irati differently." },
+          { "speakerId": "char11", "line": "She is unmarried. She wanders far. She is a risk. I watch the risks. That is all." }
+        ]
+      }
+    },
+    {
+      "day": 5,
+      "hour": 11,
+      "location": "loc23",
+      "type": "event",
+      "content": "In the Berry Thicket, Amaia and Bihotz are gathering the last of the season's fruit. Their baskets are nearly full. Amaia points out a particular plant to the younger woman, explaining which leaves can be crushed to make a poultice for stings."
+    }
+  ]
+}

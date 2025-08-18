@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Magdalenian Observer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Forum&family=Sometype+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Sometype Mono', monospace; background-color: #1a1a1a; color: #e0e0e0; }
+        .font-title { font-family: 'Forum', serif; }
+        .card { background-color: #2c2a2a; border: 1px solid #4a4a4a; }
+        .nav-item { cursor: pointer; transition: background-color 0.2s; }
+        .nav-item:hover, .nav-item.active { background-color: #4a4a4a; }
+        .location-button { border: 1px solid #555; transition: all 0.2s; }
+        .location-button:hover, .location-button.active { background-color: #c7a78a; color: #1a1a1a; }
+        #tooltip { position: fixed; display: none; background-color: #1a1a1a; border: 1px solid #c7a78a; padding: 1rem; border-radius: 0.5rem; max-width: 350px; z-index: 100; pointer-events: none; }
+        .character-name { font-weight: bold; color: #c7a78a; cursor: help; }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #1a1a1a; }
+        ::-webkit-scrollbar-thumb { background: #555; border-radius: 4px; }
+    </style>
+</head>
+<body class="bg-[#1a1a1a] p-4">
+
+    <!-- Tooltip Element -->
+    <div id="tooltip"></div>
+
+    <div id="simulation-container" class="max-w-screen-2xl mx-auto grid grid-cols-1 lg:grid-cols-4 gap-4 hidden">
+        <!-- Left Sidebar: Time Navigation -->
+        <aside class="lg:col-span-1 card rounded-lg p-4 h-[95vh] overflow-y-auto">
+            <h2 class="font-title text-2xl text-center text-[#c7a78a] mb-4">Time</h2>
+            <div id="time-nav-container">
+                <!-- JS will populate this -->
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="lg:col-span-3">
+            <!-- Top Bar: Location Navigation -->
+            <nav class="card rounded-lg p-2 mb-4">
+                <div id="location-nav-container" class="flex flex-wrap gap-2 justify-center">
+                    <!-- JS will populate this -->
+                </div>
+            </nav>
+
+            <!-- Center Display -->
+            <div id="main-display" class="card rounded-lg p-6 h-[85vh] overflow-y-auto">
+                <!-- JS will populate this -->
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // --- DATA VARIABLES ---
+        let yearData = null;
+        let locationsData = null;
+        let charactersData = null;
+        let eventsData = null;
+
+        // --- GLOBAL STATE ---
+        let selectedState = { season: null, subSeason: null, day: null, hour: null, locationId: null };
+        const SUB_SEASON_DEFINITIONS = {
+            "Summer": { "Early Summer": [1, 30], "Midsummer": [31, 61], "Late Summer": [62, 91] },
+            "Autumn": { "Early Autumn": [92, 122], "Mid-Autumn": [123, 153], "Late Autumn": [154, 183] },
+            "Winter": { "Early Winter": [184, 214], "Midwinter": [215, 244], "Late Winter": [245, 274] },
+            "Spring": { "Early Spring": [275, 305], "Mid-Spring": [306, 335], "Late Spring": [336, 365] }
+        };
+
+        // --- INITIALIZATION ---
+        window.onload = async function() {
+            try {
+                // Fetch all data files concurrently
+                const [yearResponse, locationsResponse, charactersResponse, eventsResponse] = await Promise.all([
+                    fetch('magdalenian_year.json'),
+                    fetch('magdalenian_locations.json'),
+                    fetch('magdalenian_characters.json'),
+                    fetch('magdalenian_events.json')
+                ]);
+
+                // Check if all responses are ok
+                if (!yearResponse.ok) throw new Error('The scrolls of seasons could not be found.');
+                if (!locationsResponse.ok) throw new Error('The map of the land is lost to the mists.');
+                if (!charactersResponse.ok) throw new Error('The faces of the people are hidden in shadow.');
+                if (!eventsResponse.ok) throw new Error('The whispers of events are silent.');
+
+                // Parse JSON data
+                yearData = await yearResponse.json();
+                locationsData = await locationsResponse.json();
+                charactersData = await charactersResponse.json();
+                eventsData = await eventsResponse.json();
+
+                // If all data is loaded, initialize the interface
+                initializeApp();
+
+            } catch (error) {
+                console.error("Failed to load simulation data:", error);
+                displayError(error.message);
+            }
+        };
+
+        function initializeApp() {
+            document.getElementById('simulation-container').classList.remove('hidden');
+            renderTimeNav();
+            renderLocationNav();
+            updateMainDisplay();
+
+            // Tooltip logic
+            const tooltip = document.getElementById('tooltip');
+            document.addEventListener('mouseover', (e) => {
+                if (e.target.classList.contains('character-name')) {
+                    const charId = e.target.dataset.charId;
+                    const character = charactersData[charId];
+                    if (character) {
+                        let content = `<h3 class="font-title text-lg text-[#c7a78a]">${character.name}</h3>`;
+                        for (let i = 0; i < 10; i++) {
+                            // Use Tailwind opacity classes for a fading effect
+                            const opacityClass = `opacity-${100 - i * 10}`;
+                            content += `<p class="text-sm text-gray-400 ${opacityClass}">${character['description' + i]}</p>`;
+                        }
+                        tooltip.innerHTML = content;
+                        tooltip.style.display = 'block';
+                    }
+                }
+            });
+            document.addEventListener('mousemove', (e) => {
+                tooltip.style.left = e.pageX + 15 + 'px';
+                tooltip.style.top = e.pageY + 15 + 'px';
+            });
+            document.addEventListener('mouseout', (e) => {
+                if (e.target.classList.contains('character-name')) {
+                    tooltip.style.display = 'none';
+                }
+            });
+        }
+
+        // --- RENDER FUNCTIONS ---
+        function renderTimeNav() {
+            const container = document.getElementById('time-nav-container');
+            container.innerHTML = '';
+            // Seasons
+            for (const season in SUB_SEASON_DEFINITIONS) {
+                const seasonEl = document.createElement('div');
+                seasonEl.innerHTML = `<h3 class="nav-item font-title text-xl p-2 rounded ${selectedState.season === season ? 'active' : ''}">${season}</h3>`;
+                seasonEl.onclick = () => selectTime('season', season);
+                container.appendChild(seasonEl);
+
+                if (selectedState.season === season) {
+                    const subSeasonContainer = document.createElement('div');
+                    subSeasonContainer.className = 'ml-4';
+                    // Sub-Seasons
+                    for (const subSeason in SUB_SEASON_DEFINITIONS[season]) {
+                        const subSeasonEl = document.createElement('div');
+                        subSeasonEl.innerHTML = `<h4 class="nav-item p-2 rounded ${selectedState.subSeason === subSeason ? 'active' : ''}">${subSeason}</h4>`;
+                        subSeasonEl.onclick = (e) => { e.stopPropagation(); selectTime('subSeason', subSeason); };
+                        subSeasonContainer.appendChild(subSeasonEl);
+
+                        if (selectedState.subSeason === subSeason) {
+                            const dayContainer = document.createElement('div');
+                            dayContainer.className = 'ml-4 grid grid-cols-5 gap-1';
+                            // Days
+                            const [start, end] = SUB_SEASON_DEFINITIONS[season][subSeason];
+                            for (let i = start; i <= end; i++) {
+                                const dayEl = document.createElement('div');
+                                dayEl.className = `nav-item text-center p-1 rounded ${selectedState.day === i ? 'active' : ''}`;
+                                dayEl.textContent = i;
+                                dayEl.onclick = (e) => { e.stopPropagation(); selectTime('day', i); };
+                                dayContainer.appendChild(dayEl);
+                            }
+                            subSeasonContainer.appendChild(dayContainer);
+                        }
+                    }
+                    container.appendChild(subSeasonContainer);
+                }
+            }
+             // Hour selection if a day is selected
+            if (selectedState.day) {
+                const hourContainer = document.createElement('div');
+                hourContainer.className = 'mt-4';
+                hourContainer.innerHTML = `<h3 class="font-title text-xl p-2">Hour</h3>`;
+                const hourGrid = document.createElement('div');
+                hourGrid.className = 'grid grid-cols-6 gap-1';
+                for (let i = 0; i < 24; i++) {
+                    const hourEl = document.createElement('div');
+                    hourEl.className = `nav-item text-center p-1 rounded ${selectedState.hour === i ? 'active' : ''}`;
+                    hourEl.textContent = i;
+                    hourEl.onclick = (e) => { e.stopPropagation(); selectTime('hour', i); };
+                    hourGrid.appendChild(hourEl);
+                }
+                hourContainer.appendChild(hourGrid);
+                container.appendChild(hourContainer);
+            }
+        }
+
+        function renderLocationNav() {
+            const container = document.getElementById('location-nav-container');
+            container.innerHTML = '';
+            for (const id in locationsData) {
+                const location = locationsData[id];
+                const button = document.createElement('button');
+                button.className = `location-button p-2 text-sm rounded ${selectedState.locationId === id ? 'active' : ''}`;
+                button.textContent = location.name;
+                button.onclick = () => selectLocation(id);
+                container.appendChild(button);
+            }
+        }
+
+        function updateMainDisplay() {
+            const container = document.getElementById('main-display');
+            container.innerHTML = '';
+
+            if (!selectedState.season) {
+                container.innerHTML = `<p class="text-center text-gray-500 text-2xl italic mt-10">The mists of time obscure the world. Choose a season to begin.</p>`;
+                return;
+            }
+            if (!selectedState.day) {
+                container.innerHTML = `<p class="text-center text-gray-500 text-2xl italic mt-10">The season of ${selectedState.season} unfolds...</p>`;
+                return;
+            }
+
+            const dayData = yearData.find(d => d.day === selectedState.day);
+            if (!dayData) {
+                container.innerHTML = `<p class="text-center text-red-500 text-2xl italic mt-10">The spirits cannot find this day in their memory.</p>`;
+                return;
+            }
+
+            let content = `
+                <div class="border-b border-gray-700 pb-4 mb-4">
+                    <h2 class="font-title text-3xl text-[#c7a78a]">Day ${dayData.day}</h2>
+                    <p class="text-lg text-amber-300">${dayData.season} - ${dayData.relativeEvent}</p>
+                    <p class="italic text-gray-400 mt-2">"${dayData.poeticComment}"</p>
+                </div>`;
+
+            if (selectedState.hour === null || selectedState.locationId === null) {
+                content += `<p class="text-center text-gray-500 text-xl italic mt-10">Select a location and an hour to observe what happens.</p>`;
+                container.innerHTML = content;
+                return;
+            }
+
+            const event = eventsData.schedule.find(e => e.day === selectedState.day && e.hour === selectedState.hour && e.location === selectedState.locationId);
+            
+            if (event) {
+                if (event.type === 'event') {
+                    content += `<div class="text-lg leading-relaxed">${event.content}</div>`;
+                } else if (event.type === 'dialogue') {
+                    content += `<div class="text-lg leading-relaxed">
+                        <p class="italic text-gray-400 mb-4">${event.content.narration}</p>`;
+                    event.content.dialogue.forEach(line => {
+                        const speakerName = charactersData[line.speakerId]?.name || 'Unknown';
+                        content += `<p class="mb-2"><span class="character-name" data-char-id="${line.speakerId}">${speakerName}:</span> "${line.line}"</p>`;
+                    });
+                    content += `</div>`;
+                }
+            } else {
+                content += `<p class="text-center text-gray-300 text-2xl italic mt-10">The world is quiet here. Nothing happens.</p>`;
+            }
+            container.innerHTML = content;
+        }
+        
+        function displayError(message = "The data files are missing or corrupted.") {
+            document.body.innerHTML = `<div class="h-screen flex items-center justify-center text-center">
+                <div>
+                    <h1 class="font-title text-4xl text-red-500">The Threads of Time are Tangled</h1>
+                    <p class="text-xl text-gray-400 mt-4">The spirits are restless, and the world cannot be seen clearly. ${message}</p>
+                </div>
+            </div>`;
+        }
+
+        // --- STATE UPDATE FUNCTIONS ---
+        function selectTime(level, value) {
+            if (level === 'season') {
+                selectedState.season = value;
+                selectedState.subSeason = null; selectedState.day = null; selectedState.hour = null;
+            } else if (level === 'subSeason') {
+                selectedState.subSeason = value;
+                selectedState.day = null; selectedState.hour = null;
+            } else if (level === 'day') {
+                selectedState.day = value;
+                selectedState.hour = null;
+            } else if (level === 'hour') {
+                selectedState.hour = value;
+            }
+            renderTimeNav();
+            updateMainDisplay();
+        }
+
+        function selectLocation(id) {
+            selectedState.locationId = id;
+            renderLocationNav();
+            updateMainDisplay();
+        }
+
+    </script>
+</body>
+</html>

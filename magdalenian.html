@@ -12,12 +12,13 @@
         body { font-family: 'Sometype Mono', monospace; background-color: #1a1a1a; color: #e0e0e0; }
         .font-title { font-family: 'Forum', serif; }
         .card { background-color: #2c2a2a; border: 1px solid #4a4a4a; }
-        .nav-item { cursor: pointer; transition: background-color 0.2s; }
+        .nav-item { cursor: pointer; transition: background-color 0.2s; display: flex; align-items: center; justify-content: center; }
         .nav-item:hover, .nav-item.active { background-color: #4a4a4a; }
         .location-button { border: 1px solid #555; transition: all 0.2s; }
         .location-button:hover, .location-button.active { background-color: #c7a78a; color: #1a1a1a; }
         #tooltip { position: fixed; display: none; background-color: #1a1a1a; border: 1px solid #c7a78a; padding: 1rem; border-radius: 0.5rem; max-width: 350px; z-index: 100; pointer-events: none; }
         .character-name { font-weight: bold; color: #c7a78a; cursor: help; }
+        .moon-icon { width: 16px; height: 16px; margin-left: 4px; }
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #1a1a1a; }
         ::-webkit-scrollbar-thumb { background: #555; border-radius: 4px; }
@@ -59,6 +60,7 @@
         let locationsData = null;
         let charactersData = null;
         let eventsData = null;
+        let defaultEventsData = null;
         let randomizedDescriptions = {};
 
         // --- GLOBAL STATE ---
@@ -73,22 +75,25 @@
         // --- INITIALIZATION ---
         window.onload = async function() {
             try {
-                const [yearResponse, locationsResponse, charactersResponse, eventsResponse] = await Promise.all([
+                const [yearResponse, locationsResponse, charactersResponse, eventsResponse, defaultEventsResponse] = await Promise.all([
                     fetch('magdalenian_year.json'),
                     fetch('magdalenian_locations.json'),
                     fetch('magdalenian_characters.json'),
-                    fetch('magdalenian_events.json')
+                    fetch('magdalenian_events.json'),
+                    fetch('magdalenian_default_events.json')
                 ]);
 
                 if (!yearResponse.ok) throw new Error('The scrolls of seasons could not be found.');
                 if (!locationsResponse.ok) throw new Error('The map of the land is lost to the mists.');
                 if (!charactersResponse.ok) throw new Error('The faces of the people are hidden in shadow.');
                 if (!eventsResponse.ok) throw new Error('The whispers of events are silent.');
+                if (!defaultEventsResponse.ok) throw new Error('The echoes of daily life are lost.');
 
                 yearData = await yearResponse.json();
                 locationsData = await locationsResponse.json();
                 charactersData = await charactersResponse.json();
                 eventsData = await eventsResponse.json();
+                defaultEventsData = await defaultEventsResponse.json();
 
                 initializeApp();
 
@@ -101,7 +106,9 @@
         function initializeApp() {
             document.getElementById('simulation-container').classList.remove('hidden');
             
-            // Pre-randomize character descriptions for the session
+            // Set default state
+            selectedState = { season: 'Summer', subSeason: 'Early Summer', day: 1, hour: 9, locationId: 'loc0' };
+
             for (const charId in charactersData) {
                 const randomDescIndex = Math.floor(Math.random() * 10);
                 randomizedDescriptions[charId] = charactersData[charId]['description' + randomDescIndex];
@@ -111,7 +118,6 @@
             renderLocationNav();
             updateMainDisplay();
 
-            // Tooltip logic
             const tooltip = document.getElementById('tooltip');
             document.addEventListener('mouseover', (e) => {
                 if (e.target.classList.contains('character-name')) {
@@ -159,8 +165,14 @@
                             const [start, end] = SUB_SEASON_DEFINITIONS[season][subSeason];
                             for (let i = start; i <= end; i++) {
                                 const dayEl = document.createElement('div');
+                                const dayData = yearData.find(d => d.day === i);
+                                const prevDayData = yearData.find(d => d.day === i - 1);
+                                let iconHtml = '';
+                                if (i === 1 || (prevDayData && dayData.moonPhase !== prevDayData.moonPhase)) {
+                                    iconHtml = getMoonIcon(dayData.moonPhase);
+                                }
                                 dayEl.className = `nav-item text-center p-1 rounded ${selectedState.day === i ? 'active' : ''}`;
-                                dayEl.textContent = i;
+                                dayEl.innerHTML = `${i} ${iconHtml}`;
                                 dayEl.onclick = (e) => { e.stopPropagation(); selectTime('day', i); };
                                 dayContainer.appendChild(dayEl);
                             }
@@ -209,7 +221,7 @@
                 container.innerHTML = `<p class="text-center text-gray-500 text-2xl italic mt-10">The mists of time obscure the world. Choose a season to begin.</p>`;
                 return;
             }
-            if (!selectedState.subSeason) {
+             if (!selectedState.subSeason) {
                 container.innerHTML = `<p class="text-center text-gray-500 text-2xl italic mt-10">The season of ${selectedState.season} unfolds...</p>`;
                 return;
             }
@@ -260,7 +272,22 @@
                     content += `</div>`;
                 }
             } else {
-                content += `<p class="text-center text-gray-300 text-2xl italic mt-10">The world is quiet here. Nothing happens.</p>`;
+                // Fallback to default event
+                const location = locationsData[selectedState.locationId];
+                const locationType = location.type;
+                const season = dayData.season;
+                const hour = selectedState.hour;
+
+                if (defaultEventsData && defaultEventsData[season] && defaultEventsData[season][hour]) {
+                    const defaultEventObject = defaultEventsData[season][hour].find(e => e.location_type === locationType);
+                    if (defaultEventObject) {
+                        content += `<p class="text-lg leading-relaxed italic text-gray-400">${defaultEventObject.event}</p>`;
+                    } else {
+                        content += `<p class="text-center text-gray-300 text-2xl italic mt-10">The world is quiet here. Nothing happens.</p>`;
+                    }
+                } else {
+                    content += `<p class="text-center text-gray-300 text-2xl italic mt-10">The world is quiet here. Nothing happens.</p>`;
+                }
             }
             container.innerHTML = content;
         }
@@ -276,18 +303,22 @@
 
         // --- STATE UPDATE FUNCTIONS ---
         function selectTime(level, value) {
+            const hour = selectedState.hour; // Preserve hour
             if (level === 'season') {
                 selectedState.season = value;
-                selectedState.subSeason = null; selectedState.day = null; selectedState.hour = null;
+                selectedState.subSeason = Object.keys(SUB_SEASON_DEFINITIONS[value])[0];
+                selectedState.day = SUB_SEASON_DEFINITIONS[value][selectedState.subSeason][0];
             } else if (level === 'subSeason') {
                 selectedState.subSeason = value;
-                selectedState.day = null; selectedState.hour = null;
+                selectedState.day = SUB_SEASON_DEFINITIONS[selectedState.season][value][0];
             } else if (level === 'day') {
                 selectedState.day = value;
-                selectedState.hour = null;
             } else if (level === 'hour') {
                 selectedState.hour = value;
             }
+            
+            if(level !== 'hour') selectedState.hour = hour; // Restore hour unless it was the level being changed
+
             renderTimeNav();
             updateMainDisplay();
         }
@@ -296,6 +327,20 @@
             selectedState.locationId = id;
             renderLocationNav();
             updateMainDisplay();
+        }
+
+        function getMoonIcon(moonPhase) {
+            const icons = {
+                "New Moon": `<circle cx="12" cy="12" r="8" fill="black" stroke="white" stroke-width="1.5"/>`,
+                "Waxing Crescent": `<path d="M12 4 a 8 8 0 0 1 0 16 a 4 4 0 0 0 0 -16" fill="white"/>`,
+                "First Quarter": `<path d="M12 4 a 8 8 0 0 1 0 16 V 4" fill="white"/>`,
+                "Waxing Gibbous": `<path d="M12 4 a 8 8 0 0 1 0 16 a 4 4 0 0 1 0 -16" fill="white"/>`,
+                "Full Moon": `<circle cx="12" cy="12" r="8" fill="white"/>`,
+                "Waning Gibbous": `<path d="M12 4 a 8 8 0 0 0 0 16 a 4 4 0 0 0 0 -16" fill="white"/>`,
+                "Last Quarter": `<path d="M12 4 a 8 8 0 0 0 0 16 V 4" fill="white"/>`,
+                "Waning Crescent": `<path d="M12 4 a 8 8 0 0 0 0 16 a 4 4 0 0 1 0 -16" fill="white"/>`
+            };
+            return `<svg class="moon-icon" viewBox="0 0 24 24">${icons[moonPhase] || ''}</svg>`;
         }
 
     </script>

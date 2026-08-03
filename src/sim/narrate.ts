@@ -95,6 +95,31 @@ const FAILURE_PHRASES: Record<'quarry' | 'craft', string[]> = {
  */
 const REST_PHRASES = ['Nothing stirs them.', 'The hours pass slowly.', 'No one hurries them.'];
 
+/**
+ * Ambience lines that state nobody is present.
+ *
+ * These frame the scene, so when the generated layer then names four people
+ * working there the result contradicts itself. About 30% of the ambience lines
+ * do this, concentrated at the utility, cave, mountain and intimate sites.
+ *
+ * Matched by pattern rather than by whole string so the data stays editable.
+ * Deliberately narrow: "quiet and still", "the air is still and tense" and
+ * "many are out foraging" all describe a calm or half-empty place and are
+ * perfectly compatible with people being there, so they are left alone.
+ */
+const ASSERTS_EMPTY: readonly RegExp[] = [
+  /\bdeserted\b/i, // "The area is deserted, the only sound is the wind..."
+  /\bno human activity\b/i, // "...There is no human activity here."
+  /\bhome only to\b/i, // "...home only to nocturnal predators."
+  /\bsilent, save for\b/i, // "The thickets and groves are silent, save for..."
+  /\bonly evidence of\b/i, // "...the only evidence of the day's activity..."
+];
+
+/** True when a line claims the place is empty of people. */
+export function assertsEmpty(ambience: string): boolean {
+  return ASSERTS_EMPTY.some((pattern) => pattern.test(ambience));
+}
+
 function narrateActivity(outcome: ActivityOutcome, rng: Rng): string {
   const who = joinNames(outcome.actors);
   const what = escapeHtml(outcome.label);
@@ -118,9 +143,16 @@ function narrateIncident(incident: Incident): string {
 export function narrateScene(scene: GeneratedScene, seed: string): string {
   const rng = createRng(hashSeed('narrate', seed));
 
-  const parts: string[] = [
-    `<p class="text-lg leading-relaxed italic text-gray-400 mb-4">${escapeHtml(scene.ambience)}</p>`,
-  ];
+  const parts: string[] = [];
+
+  // Keep the line when the place really is empty; drop it only when the scene
+  // is about to contradict it by naming people at work.
+  const contradicted = scene.activities.length > 0 && assertsEmpty(scene.ambience);
+  if (!contradicted) {
+    parts.push(
+      `<p class="text-lg leading-relaxed italic text-gray-400 mb-4">${escapeHtml(scene.ambience)}</p>`,
+    );
+  }
 
   if (scene.activities.length > 0) {
     const lines = scene.activities.map((a) => `<p class="mb-3">${narrateActivity(a, rng)}</p>`);

@@ -1,7 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import type { GeneratedScene } from '../src/sim/engine.ts';
-import { narrateScene } from '../src/sim/narrate.ts';
+import { assertsEmpty, narrateScene } from '../src/sim/narrate.ts';
 import type { CharacterProfile } from '../src/types.ts';
+import { defaultEvents } from './helpers.ts';
 
 const actor = (id: string, name: string): CharacterProfile => ({
   id,
@@ -58,6 +59,84 @@ describe('outcome phrasing is limited to activities that can fail', () => {
       expect(lost).toMatch(OUTCOME_WORDS);
       expect(won).not.toBe(lost);
     }
+  });
+});
+
+describe('ambience that contradicts the scene', () => {
+  const EMPTY_LINES = [
+    'The area is deserted, the only sound is the wind or the flow of water.',
+    'The natural sounds of the landscape fill the air. There is no human activity here.',
+    'The landscape is quiet under the moon and stars, home only to nocturnal predators.',
+    'The thickets and groves are silent, save for the rustle of small creatures.',
+    "The area is quiet again, the only evidence of the day's activity are the disturbed plants.",
+  ];
+
+  /** Calm or half-empty, but perfectly compatible with people being present. */
+  const COMPATIBLE_LINES = [
+    'The site is quiet and still, holding a palpable sense of reverence. The wind whispers through the stones or leaves.',
+    'The area is quiet and still under the night sky.',
+    'The first light reveals fresh tracks in the dew-damp earth. The air is still and tense with anticipation.',
+    'A quieter period in the main camp. Many are out foraging or hunting. Those who remain are napping or engaged in quiet craftwork.',
+    'The foragers work steadily, sharing quiet conversation and teaching the younger ones which plants are safe to eat.',
+  ];
+
+  it('recognises lines that claim nobody is present', () => {
+    for (const line of EMPTY_LINES) expect(assertsEmpty(line), line).toBe(true);
+  });
+
+  it('leaves merely calm lines alone', () => {
+    for (const line of COMPATIBLE_LINES) expect(assertsEmpty(line), line).toBe(false);
+  });
+
+  it('drops the line when the scene names people at work', () => {
+    for (const line of EMPTY_LINES) {
+      const withPeople: GeneratedScene = { ...scene('knappingFlint', true, 'knappingFlint'), ambience: line };
+      const html = narrateScene(withPeople, 'x');
+      expect(html, line).not.toContain(line.slice(0, 30));
+      expect(html).toContain('Zahar');
+    }
+  });
+
+  it('keeps the line when the place really is empty', () => {
+    for (const line of EMPTY_LINES) {
+      const deserted: GeneratedScene = {
+        kind: 'generated',
+        ambience: line,
+        activities: [],
+        incidents: [],
+      };
+      expect(narrateScene(deserted, 'x'), line).toContain(line.slice(0, 30));
+    }
+  });
+
+  it('always keeps compatible lines, activities or not', () => {
+    for (const line of COMPATIBLE_LINES) {
+      const withPeople: GeneratedScene = { ...scene('knappingFlint', true, 'knappingFlint'), ambience: line };
+      expect(narrateScene(withPeople, 'x'), line).toContain(line.slice(0, 30));
+    }
+  });
+
+  it('never leaves a scene with nothing to show', () => {
+    for (const line of EMPTY_LINES) {
+      const withPeople: GeneratedScene = { ...scene('knappingFlint', true, 'knappingFlint'), ambience: line };
+      const text = narrateScene(withPeople, 'x').replace(/<[^>]+>/g, '').trim();
+      expect(text.length, line).toBeGreaterThan(20);
+    }
+  });
+
+  it('covers the emptiness-asserting lines actually present in the data', () => {
+    const flagged = new Set<string>();
+    const all = new Set<string>();
+    for (const season of Object.values(defaultEvents)) {
+      for (const hour of Object.values(season)) {
+        for (const entry of hour) {
+          all.add(entry.event);
+          if (assertsEmpty(entry.event)) flagged.add(entry.event);
+        }
+      }
+    }
+    // Guards against a data edit introducing a new phrasing the patterns miss.
+    expect(flagged.size, [...all].join('\n')).toBe(EMPTY_LINES.length);
   });
 });
 

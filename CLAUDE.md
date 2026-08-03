@@ -90,6 +90,15 @@ that contradicts `description0`.
    rolled against the day's success chances.
 3. The season/hour/location-type ambience line always frames the scene.
 
+`narrateScene` drops the ambience line when it would contradict the scene — five
+of the 23 lines assert nobody is present ("The area is deserted...", "There is
+no human activity here"), and rendering them above four named people working is
+self-contradicting. `assertsEmpty` matches by pattern, not whole string, and is
+deliberately narrow: "quiet and still", "the air is still and tense" and "many
+are out foraging" all describe a calm place and are kept. A test asserts the
+patterns still catch exactly the lines present in the data, so a content edit
+that introduces a new phrasing fails loudly.
+
 **Generation is seeded from the coordinate and must stay deterministic.**
 Revisiting a cell has to produce the identical scene; without that the world
 reshuffles as you navigate and reads as broken. Tests enforce this.
@@ -105,14 +114,14 @@ before rolling hourly, so `fatalFall` at 0.01% stays a once-in-a-lifetime event.
   The file's season dimension currently carries no information. Left as-is
   because it is authored content; writing real seasonal variants is a content
   task, not a code fix.
-- About **30% of ambience lines assert that nobody is present** — "The area is
-  deserted...", "There is no human activity here." — at `UTILITY_SITE`,
-  `SECONDARY_CAVE`, `MOUNTAIN_AREA` and `INTIMATE_SPOT`. Since the generated
-  activity layer renders underneath that line, those scenes can state the place
-  is empty and then name four people working there. Fixing it means either
-  rewording those lines in the data, or having `narrateScene` drop an
-  emptiness-asserting line when the scene has activities. Left alone so far
-  because the choice is editorial.
+- **Every generated scene currently has at least one activity** — `activityCount`
+  never returns zero — so no location is ever genuinely deserted, at any hour, at
+  any distance from camp. Two consequences: the five emptiness-asserting ambience
+  lines never render (see `assertsEmpty` below), and remote places are staffed at
+  implausible hours, so you will see small children trading gossip at a river
+  bend at 2am. Letting low-traffic locations fall to zero activities at odd hours
+  would fix both at once, and would make those ambience lines correct rather than
+  suppressed.
 - Authored events cover **day 1 only** (24 events, 7 of 22 locations). Every
   other cell is procedurally generated.
 - Location ids are sparse — `loc6`, `loc8`, `loc12` and others don't exist.

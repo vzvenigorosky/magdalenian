@@ -24,8 +24,10 @@ import type { ActivityKey, SuccessKey } from '../types.ts';
 interface Mapping {
   /** Candidate success keys; the best-scoring one for the day wins. */
   variants: SuccessKey[];
-  /** When set, this variant is used during dark hours regardless of score. */
+  /** Used during dark hours regardless of score. */
   nightVariant?: SuccessKey;
+  /** Used during dim hours (low sun, overcast) regardless of score. */
+  dimVariant?: SuccessKey;
 }
 
 /**
@@ -44,22 +46,28 @@ export const ACTIVITY_SUCCESS_MAP: Readonly<Record<ActivityKey, Mapping>> = {
   // Reindeer have no location weight of their own but carry a strong winter
   // signal (15 -> 50), so they stand in as the cold-season red deer hunt.
   huntingRedDeer: { variants: ['huntingRedDeer', 'huntingReindeer'] },
-  restingEffectively: { variants: ['restingEffectively', 'napping'], nightVariant: 'deepSleep' },
+  // Rest splits by light, not by odds. Competing on success chance would make
+  // `napping` unreachable: it scores 75 against `restingEffectively`'s 80 every
+  // day of the year, and `deepSleep` takes the night — so the highest-scoring
+  // rule would never once pick it.
+  restingEffectively: {
+    variants: ['restingEffectively'],
+    nightVariant: 'deepSleep',
+    dimVariant: 'napping',
+  },
 };
 
 /**
- * Success keys with no location weight anywhere, so nothing can currently
- * select them. Kept here so the coverage test can assert this list is
- * deliberate rather than an oversight; wiring them up would mean adding
- * weights to the relevant locations in `data/magdalenian_locations.json`.
+ * Success keys that no location weights, so nothing can select them.
+ *
+ * This is now empty: `huntingSeals`, `buildingHideTent`, `diggingStoragePit`,
+ * `craftingAtlatl` and `engravingWithBurin` were given location weights in
+ * `data/magdalenian_locations.json` and are all reachable. The export stays as
+ * the documented escape hatch — if a future success key genuinely has nowhere
+ * to live, list it here, and `tests/activity-map.test.ts` will hold the rest of
+ * the vocabulary to full coverage.
  */
-export const UNMAPPED_SUCCESS_KEYS: readonly SuccessKey[] = [
-  'huntingSeals',
-  'buildingHideTent',
-  'diggingStoragePit',
-  'craftingAtlatl',
-  'engravingWithBurin',
-];
+export const UNMAPPED_SUCCESS_KEYS: readonly SuccessKey[] = [];
 
 export interface ResolvedActivity {
   activity: ActivityKey;
@@ -77,15 +85,21 @@ export interface ResolvedActivity {
 export function resolveActivity(
   activity: ActivityKey,
   successChances: Record<SuccessKey, number>,
-  options: { isNight?: boolean } = {},
+  options: { isNight?: boolean; isDim?: boolean } = {},
 ): ResolvedActivity {
   const mapping = ACTIVITY_SUCCESS_MAP[activity];
 
   if (mapping) {
-    if (options.isNight && mapping.nightVariant) {
-      const nightChance = successChances[mapping.nightVariant];
-      if (nightChance !== undefined) {
-        return { activity, successKey: mapping.nightVariant, chance: nightChance };
+    // Darkness wins over dimness; both win over the highest-score rule.
+    const forced = options.isNight
+      ? mapping.nightVariant
+      : options.isDim
+        ? mapping.dimVariant
+        : undefined;
+    if (forced) {
+      const forcedChance = successChances[forced];
+      if (forcedChance !== undefined) {
+        return { activity, successKey: forced, chance: forcedChance };
       }
     }
 
@@ -111,6 +125,7 @@ const LABELS: Readonly<Record<string, string>> = {
   huntingBison: 'hunting bison',
   huntingWildBoar: 'hunting wild boar',
   huntingReindeer: 'hunting reindeer',
+  huntingSeals: 'hunting seals',
   trappingArcticHare: 'trapping arctic hare',
   trappingBirds: 'trapping birds',
   trappingSmallGame: 'trapping small game',
@@ -130,8 +145,11 @@ const LABELS: Readonly<Record<string, string>> = {
   makingPigments: 'grinding pigments',
   weavingBaskets: 'weaving baskets',
   carvingAntler: 'carving antler',
+  craftingAtlatl: 'shaping a spear-thrower',
   cavePainting: 'painting the cave wall',
-  engravingWithBurin: 'engraving with a burin',
+  engravingWithBurin: 'engraving bone with a burin',
+  buildingHideTent: 'raising a hide tent',
+  diggingStoragePit: 'digging a storage pit',
   butcheringAnimal: 'butchering a carcass',
   smokingMeatOrFish: 'smoking meat',
   findingDryFirewood: 'gathering dry firewood',

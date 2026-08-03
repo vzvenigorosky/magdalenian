@@ -46,6 +46,13 @@ const EXPLICIT_TRAITS: Readonly<Record<ActivityKey, ActivityTraits>> = {
   preparingHides: { needsLight: true },
   weavingBaskets: { needsLight: true },
   butcheringAnimal: { needsLight: true, strenuous: true },
+  craftingAtlatl: { needsLight: true },
+  engravingWithBurin: { needsLight: true },
+  // Both are heavy outdoor labour, and both already carry the seasonal signal
+  // in their success chances: hide tents drop 44 -> 3 and storage pits 80 -> 10
+  // in winter, when the ground is frozen.
+  buildingHideTent: { outdoor: true, strenuous: true },
+  diggingStoragePit: { outdoor: true, strenuous: true },
   smokingMeatOrFish: {},
   restingEffectively: { restful: true },
   meditatingOrTrance: { restful: true },

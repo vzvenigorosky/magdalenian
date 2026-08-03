@@ -98,9 +98,9 @@ const ROLE_AFFINITY: ReadonlyArray<readonly [RegExp, string]> = [
   [/^trapping/, 'hunter'],
   [/^fishing/, 'fisher'],
   [/^(foraging|gathering)/, 'forager'],
-  [/^(knapping|carving|sewing|weaving|preparing|making)/, 'crafter'],
+  [/^(knapping|carving|crafting|sewing|weaving|preparing|making|building|digging)/, 'crafter'],
   [/(Ritual|meditating)/, 'shaman'],
-  [/^(cavePainting|makingPigments)/, 'artist'],
+  [/^(cavePainting|makingPigments|engraving)/, 'artist'],
   [/^tellingStories/, 'storyteller'],
   [/^maintainingLookout/, 'lookout'],
 ];
@@ -186,12 +186,13 @@ export function generateScene(input: SceneInput): Scene {
 
   const rng = createRng(hashSeed(day.day, hour, location.id));
   const isNight = weather.sunExposure === 'Dark';
+  const isDim = weather.sunExposure === 'Low' || weather.sunExposure === 'Overcast';
 
   const weights = applyConditions(location.probabilities.activities, weather);
   const count = activityCount(weather, location.type === 'CENTRAL_DWELLING');
 
   const activities: ActivityOutcome[] = weightedSample(weights, count, rng).map((activity) => {
-    const resolved = resolveActivity(activity, day.activitySuccessChance, { isNight });
+    const resolved = resolveActivity(activity, day.activitySuccessChance, { isNight, isDim });
     return {
       activity,
       successKey: resolved.successKey,

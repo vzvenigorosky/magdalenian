@@ -62,6 +62,15 @@ that day wins — this is what surfaces the real seasonal signal in the data
 (`foragingHazelnuts` is 0 in summer and 70 in autumn) and gives narration a
 specific noun ("fishing for salmon" rather than "fishing").
 
+Some variants must be chosen by **light level instead of score**, via
+`nightVariant` / `dimVariant`. Rest is the case in point: `napping` scores 75
+against `restingEffectively`'s 80 every single day of the year, so under the
+highest-score rule it could never be selected at all. Splitting rest by light —
+`deepSleep` in the dark, `napping` in dim light, `restingEffectively` otherwise
+— is both more accurate and what makes the key reachable. Watch for this trap
+whenever adding a variant: being *mapped* is not the same as being *selectable*,
+and `tests/activity-map.test.ts` asserts the stronger property.
+
 ### Derived character profiles
 
 `data/character-profiles.json` is generated once from the prose descriptions by
@@ -96,11 +105,18 @@ before rolling hourly, so `fatalFall` at 0.01% stays a once-in-a-lifetime event.
   The file's season dimension currently carries no information. Left as-is
   because it is authored content; writing real seasonal variants is a content
   task, not a code fix.
+- About **30% of ambience lines assert that nobody is present** — "The area is
+  deserted...", "There is no human activity here." — at `UTILITY_SITE`,
+  `SECONDARY_CAVE`, `MOUNTAIN_AREA` and `INTIMATE_SPOT`. Since the generated
+  activity layer renders underneath that line, those scenes can state the place
+  is empty and then name four people working there. Fixing it means either
+  rewording those lines in the data, or having `narrateScene` drop an
+  emptiness-asserting line when the scene has activities. Left alone so far
+  because the choice is editorial.
 - Authored events cover **day 1 only** (24 events, 7 of 22 locations). Every
   other cell is procedurally generated.
-- Five success keys have no location weight anywhere (`huntingSeals`,
-  `buildingHideTent`, `diggingStoragePit`, `craftingAtlatl`,
-  `engravingWithBurin`) so nothing can select them. Listed in
-  `UNMAPPED_SUCCESS_KEYS`; wiring them up means adding location weights.
 - Location ids are sparse — `loc6`, `loc8`, `loc12` and others don't exist.
   Never assume a contiguous range.
+
+All 38 success keys are now reachable — `UNMAPPED_SUCCESS_KEYS` is empty and a
+test holds it that way.

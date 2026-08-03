@@ -53,7 +53,12 @@
         "privateArgument": 10,
         "comfortingSomeone": 50,
         "stargazing": 1,
-        "meditatingOrTrance": 1
+        "meditatingOrTrance": 1,
+        "huntingSeals": 0,
+        "buildingHideTent": 10,
+        "diggingStoragePit": 60,
+        "craftingAtlatl": 45,
+        "engravingWithBurin": 40
       },
       "events": {
         "minorInjury": 2,
@@ -129,7 +134,12 @@
         "privateArgument": 2,
         "comfortingSomeone": 5,
         "stargazing": 1,
-        "meditatingOrTrance": 1
+        "meditatingOrTrance": 1,
+        "huntingSeals": 0,
+        "buildingHideTent": 0,
+        "diggingStoragePit": 0,
+        "craftingAtlatl": 0,
+        "engravingWithBurin": 15
       },
       "events": {
         "minorInjury": 2,
@@ -205,7 +215,12 @@
         "privateArgument": 2,
         "comfortingSomeone": 5,
         "stargazing": 1,
-        "meditatingOrTrance": 1
+        "meditatingOrTrance": 1,
+        "huntingSeals": 30,
+        "buildingHideTent": 0,
+        "diggingStoragePit": 0,
+        "craftingAtlatl": 0,
+        "engravingWithBurin": 0
       },
       "events": {
         "minorInjury": 2,
@@ -281,7 +296,12 @@
         "privateArgument": 20,
         "comfortingSomeone": 5,
         "stargazing": 1,
-        "meditatingOrTrance": 1
+        "meditatingOrTrance": 1,
+        "huntingSeals": 0,
+        "buildingHideTent": 5,
+        "diggingStoragePit": 25,
+        "craftingAtlatl": 10,
+        "engravingWithBurin": 5
       },
       "events": {
         "minorInjury": 2,
@@ -357,7 +377,12 @@
         "privateArgument": 30,
         "comfortingSomeone": 40,
         "stargazing": 1,
-        "meditatingOrTrance": 1
+        "meditatingOrTrance": 1,
+        "huntingSeals": 0,
+        "buildingHideTent": 0,
+        "diggingStoragePit": 0,
+        "craftingAtlatl": 0,
+        "engravingWithBurin": 0
       },
       "events": {
         "minorInjury": 2,
@@ -433,7 +458,12 @@
         "privateArgument": 2,
         "comfortingSomeone": 5,
         "stargazing": 1,
-        "meditatingOrTrance": 30
+        "meditatingOrTrance": 30,
+        "huntingSeals": 0,
+        "buildingHideTent": 0,
+        "diggingStoragePit": 0,
+        "craftingAtlatl": 0,
+        "engravingWithBurin": 15
       },
       "events": {
         "minorInjury": 2,
@@ -509,7 +539,12 @@
         "privateArgument": 2,
         "comfortingSomeone": 5,
         "stargazing": 70,
-        "meditatingOrTrance": 20
+        "meditatingOrTrance": 20,
+        "huntingSeals": 0,
+        "buildingHideTent": 30,
+        "diggingStoragePit": 0,
+        "craftingAtlatl": 0,
+        "engravingWithBurin": 0
       },
       "events": {
         "minorInjury": 15,
@@ -585,7 +620,12 @@
         "privateArgument": 30,
         "comfortingSomeone": 40,
         "stargazing": 1,
-        "meditatingOrTrance": 1
+        "meditatingOrTrance": 1,
+        "huntingSeals": 0,
+        "buildingHideTent": 0,
+        "diggingStoragePit": 0,
+        "craftingAtlatl": 0,
+        "engravingWithBurin": 0
       },
       "events": {
         "minorInjury": 2,
@@ -661,7 +701,12 @@
         "privateArgument": 2,
         "comfortingSomeone": 5,
         "stargazing": 1,
-        "meditatingOrTrance": 1
+        "meditatingOrTrance": 1,
+        "huntingSeals": 0,
+        "buildingHideTent": 0,
+        "diggingStoragePit": 0,
+        "craftingAtlatl": 0,
+        "engravingWithBurin": 0
       },
       "events": {
         "minorInjury": 8,
@@ -737,7 +782,12 @@
         "privateArgument": 20,
         "comfortingSomeone": 5,
         "stargazing": 1,
-        "meditatingOrTrance": 1
+        "meditatingOrTrance": 1,
+        "huntingSeals": 0,
+        "buildingHideTent": 5,
+        "diggingStoragePit": 25,
+        "craftingAtlatl": 10,
+        "engravingWithBurin": 5
       },
       "events": {
         "minorInjury": 2,
@@ -813,7 +863,12 @@
         "privateArgument": 2,
         "comfortingSomeone": 5,
         "stargazing": 1,
-        "meditatingOrTrance": 1
+        "meditatingOrTrance": 1,
+        "huntingSeals": 0,
+        "buildingHideTent": 0,
+        "diggingStoragePit": 0,
+        "craftingAtlatl": 0,
+        "engravingWithBurin": 0
       },
       "events": {
         "minorInjury": 2,
@@ -889,7 +944,12 @@
         "privateArgument": 2,
         "comfortingSomeone": 5,
         "stargazing": 1,
-        "meditatingOrTrance": 1
+        "meditatingOrTrance": 1,
+        "huntingSeals": 0,
+        "buildingHideTent": 0,
+        "diggingStoragePit": 0,
+        "craftingAtlatl": 0,
+        "engravingWithBurin": 0
       },
       "events": {
         "minorInjury": 2,
@@ -966,7 +1026,12 @@
         "comfortingSomeone": 5,
         "stargazing": 1,
         "meditatingOrTrance": 1,
-        "shamanicRitual": 60
+        "shamanicRitual": 60,
+        "huntingSeals": 0,
+        "buildingHideTent": 0,
+        "diggingStoragePit": 0,
+        "craftingAtlatl": 0,
+        "engravingWithBurin": 60
       },
       "events": {
         "minorInjury": 2,
@@ -1042,7 +1107,12 @@
         "privateArgument": 2,
         "comfortingSomeone": 5,
         "stargazing": 1,
-        "meditatingOrTrance": 1
+        "meditatingOrTrance": 1,
+        "huntingSeals": 30,
+        "buildingHideTent": 0,
+        "diggingStoragePit": 0,
+        "craftingAtlatl": 0,
+        "engravingWithBurin": 0
       },
       "events": {
         "minorInjury": 2,
@@ -1118,7 +1188,12 @@
         "privateArgument": 2,
         "comfortingSomeone": 5,
         "stargazing": 1,
-        "meditatingOrTrance": 1
+        "meditatingOrTrance": 1,
+        "huntingSeals": 0,
+        "buildingHideTent": 0,
+        "diggingStoragePit": 0,
+        "craftingAtlatl": 0,
+        "engravingWithBurin": 0
       },
       "events": {
         "minorInjury": 2,
@@ -1194,7 +1269,12 @@
         "privateArgument": 2,
         "comfortingSomeone": 5,
         "stargazing": 1,
-        "meditatingOrTrance": 1
+        "meditatingOrTrance": 1,
+        "huntingSeals": 0,
+        "buildingHideTent": 35,
+        "diggingStoragePit": 10,
+        "craftingAtlatl": 5,
+        "engravingWithBurin": 0
       },
       "events": {
         "minorInjury": 2,
@@ -1270,7 +1350,12 @@
         "privateArgument": 2,
         "comfortingSomeone": 5,
         "stargazing": 1,
-        "meditatingOrTrance": 1
+        "meditatingOrTrance": 1,
+        "huntingSeals": 0,
+        "buildingHideTent": 0,
+        "diggingStoragePit": 0,
+        "craftingAtlatl": 0,
+        "engravingWithBurin": 0
       },
       "events": {
         "minorInjury": 2,
@@ -1346,7 +1431,12 @@
         "privateArgument": 2,
         "comfortingSomeone": 5,
         "stargazing": 1,
-        "meditatingOrTrance": 1
+        "meditatingOrTrance": 1,
+        "huntingSeals": 0,
+        "buildingHideTent": 0,
+        "diggingStoragePit": 0,
+        "craftingAtlatl": 0,
+        "engravingWithBurin": 0
       },
       "events": {
         "minorInjury": 2,
@@ -1422,7 +1512,12 @@
         "privateArgument": 2,
         "comfortingSomeone": 5,
         "stargazing": 1,
-        "meditatingOrTrance": 1
+        "meditatingOrTrance": 1,
+        "huntingSeals": 0,
+        "buildingHideTent": 30,
+        "diggingStoragePit": 0,
+        "craftingAtlatl": 0,
+        "engravingWithBurin": 0
       },
       "events": {
         "minorInjury": 15,
@@ -1498,7 +1593,12 @@
         "privateArgument": 2,
         "comfortingSomeone": 5,
         "stargazing": 1,
-        "meditatingOrTrance": 1
+        "meditatingOrTrance": 1,
+        "huntingSeals": 0,
+        "buildingHideTent": 35,
+        "diggingStoragePit": 10,
+        "craftingAtlatl": 5,
+        "engravingWithBurin": 0
       },
       "events": {
         "minorInjury": 10,
@@ -1574,7 +1674,12 @@
         "privateArgument": 2,
         "comfortingSomeone": 5,
         "stargazing": 1,
-        "meditatingOrTrance": 1
+        "meditatingOrTrance": 1,
+        "huntingSeals": 0,
+        "buildingHideTent": 35,
+        "diggingStoragePit": 10,
+        "craftingAtlatl": 5,
+        "engravingWithBurin": 0
       },
       "events": {
         "minorInjury": 2,
@@ -1651,7 +1756,12 @@
         "comfortingSomeone": 5,
         "stargazing": 1,
         "meditatingOrTrance": 1,
-        "huntingWildBoar": 65
+        "huntingWildBoar": 65,
+        "huntingSeals": 0,
+        "buildingHideTent": 35,
+        "diggingStoragePit": 10,
+        "craftingAtlatl": 5,
+        "engravingWithBurin": 0
       },
       "events": {
         "minorInjury": 15,

@@ -51,7 +51,8 @@ const REST_ACTIVITIES = new Set([
   'meditatingOrTrance',
 ]);
 
-const CRAFT_PREFIXES = /^(knapping|carving|sewing|weaving|making|preparing|smoking|butchering|cavePainting|engraving)/;
+const CRAFT_PREFIXES =
+  /^(knapping|carving|crafting|sewing|weaving|making|preparing|smoking|butchering|cavePainting|engraving|building|digging)/;
 const QUARRY_PREFIXES = /^(hunting|trapping|fishing|foraging|gathering|findingDryFirewood)/;
 
 function categoryOf(outcome: ActivityOutcome): Category {

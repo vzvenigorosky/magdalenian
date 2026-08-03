@@ -15,6 +15,7 @@ import {
   CAN_SUPERVISE,
   NEEDS_SUPERVISION,
   NON_ACTORS,
+  type AgeBand,
   type AuthoredEvent,
   type CharacterProfile,
   type CharacterProfiles,
@@ -35,6 +36,8 @@ export interface ActivityOutcome {
   chance: number;
   succeeded: boolean;
   actors: CharacterProfile[];
+  /** For childminding: the children being minded, who are not doing the minding. */
+  charges?: CharacterProfile[];
 }
 
 export interface Incident {
@@ -166,10 +169,85 @@ function chooseActors(
     weights[profile.id] = affinity && profile.roles.includes(affinity) ? 8 : 1;
   }
 
-  const wanted = activity === 'childcare' || activity === 'groupRitual' ? rng.int(2, 3) : rng.int(1, 2);
+  const wanted = activity === 'groupRitual' ? rng.int(2, 3) : rng.int(1, 2);
   const ids = weightedSample(weights, Math.min(wanted, pool.length), rng);
   for (const id of ids) taken.add(id);
   return ids.map((id) => profiles[id]).filter((p): p is CharacterProfile => p !== undefined);
+}
+
+/** Bands that need minding. Adolescents look after themselves. */
+const NEEDS_MINDING: readonly AgeBand[] = ['infant', 'child'];
+
+/**
+ * The most grown-ups who could plausibly be minding a given number of children.
+ *
+ * One or two adults can handle a large group perfectly well — this is not a
+ * modern nursery. What does not happen is four adults hovering over a single
+ * child, which is what an unbounded draw produced.
+ */
+export function minderCap(children: number): number {
+  if (children <= 0) return 0;
+  if (children <= 4) return 2;
+  if (children <= 8) return 3;
+  return 4;
+}
+
+/**
+ * Builds the childminding line, or nothing when there are no children here.
+ *
+ * Childminding is a background task rather than an exclusive one, so minders
+ * are drawn from grown-ups who may already be doing something else — you watch
+ * the children *while* you scrape a hide. The one exclusion is work that takes
+ * you away or takes both hands and full attention: nobody minds a toddler
+ * halfway through a bison hunt.
+ */
+function buildChildcare(
+  profiles: CharacterProfiles,
+  taken: Set<string>,
+  busyWithHardWork: Set<string>,
+  rng: Rng,
+): ActivityOutcome | null {
+  const everyone = Object.values(profiles);
+
+  // Children already doing something here are being watched over too.
+  const present = everyone.filter((p) => taken.has(p.id) && NEEDS_MINDING.includes(p.ageBand));
+  const free = everyone.filter((p) => !taken.has(p.id) && NEEDS_MINDING.includes(p.ageBand));
+
+  // Infants are always with someone, so they are the likeliest to be here.
+  const dependentWeights: Record<string, number> = {};
+  for (const child of free) dependentWeights[child.id] = child.ageBand === 'infant' ? 6 : 3;
+  const dependents = weightedSample(dependentWeights, rng.int(1, 3), rng)
+    .map((id) => profiles[id])
+    .filter((p): p is CharacterProfile => p !== undefined);
+
+  const charges = [...present, ...dependents];
+  if (charges.length === 0) return null; // nobody to mind
+
+  const pool = eligibleActors(profiles, 'childcare').filter(
+    (p) => !busyWithHardWork.has(p.id) && !charges.some((c) => c.id === p.id),
+  );
+  if (pool.length === 0) return null;
+
+  const wanted = Math.min(rng.int(1, minderCap(charges.length)), pool.length);
+  const minderWeights: Record<string, number> = {};
+  for (const p of pool) minderWeights[p.id] = p.roles.includes('storyteller') ? 3 : 1;
+
+  const minders = weightedSample(minderWeights, wanted, rng)
+    .map((id) => profiles[id])
+    .filter((p): p is CharacterProfile => p !== undefined);
+  if (minders.length === 0) return null;
+
+  for (const minder of minders) taken.add(minder.id);
+
+  return {
+    activity: 'childcare',
+    successKey: null,
+    label: humanizeActivity('childcare'),
+    chance: 100,
+    succeeded: true,
+    actors: minders,
+    charges,
+  };
 }
 
 /**
@@ -248,21 +326,40 @@ export function generateScene(input: SceneInput): Scene {
   // occupied — that would contradict the framing in the other direction.
   if (count === 0 && assertsPeoplePresent(ambience)) count = 1;
 
+  const keys = weightedSample(weights, count, rng);
+
+  // Childminding is resolved last: it depends on who else is here and, above
+  // all, on whether there are any children to mind.
+  const wantsChildcare = keys.includes('childcare');
+
   const taken = new Set<string>();
-  const drawn: ActivityOutcome[] = weightedSample(weights, count, rng)
+  const busyWithHardWork = new Set<string>();
+
+  const drawn: ActivityOutcome[] = keys
+    .filter((activity) => activity !== 'childcare')
     .map((activity) => {
       const resolved = resolveActivity(activity, day.activitySuccessChance, { isNight, isDim });
+      const actors = chooseActors(profiles, activity, rng, taken);
+      const traits = traitsOf(activity);
+      if (traits.strenuous || traits.outdoor) {
+        for (const actor of actors) busyWithHardWork.add(actor.id);
+      }
       return {
         activity,
         successKey: resolved.successKey,
         label: humanizeActivity(resolved.successKey ?? activity),
         chance: resolved.chance,
         succeeded: rng.chance(resolved.chance),
-        actors: chooseActors(profiles, activity, rng, taken),
+        actors,
       };
     })
     // Nobody left free to do it means it isn't happening.
     .filter((outcome) => outcome.actors.length > 0);
+
+  const childcare = wantsChildcare
+    ? buildChildcare(profiles, taken, busyWithHardWork, rng)
+    : null;
+  if (childcare) drawn.push(childcare);
 
   const activities = enforceSupervision(drawn, profiles, rng);
 

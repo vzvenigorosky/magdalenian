@@ -100,9 +100,32 @@ covered by tests that sweep the grid rather than spot-check:
   `adultOnly` work.
 - **`adultOnly` means adults *and elders*.** An elder minding children or
   teaching is exactly right; the earlier adults-only reading barred it.
-- **Nobody does two things at once.** Actor selection threads a `taken` set
+- **Nobody does two jobs at once.** Actor selection threads a `taken` set
   through the scene, so no one mends a tool while asleep. An activity left with
-  no free actor is dropped rather than narrated with nobody in it.
+  no free actor is dropped rather than narrated with nobody in it. Childminding
+  is the one deliberate exception — see below.
+
+### Childminding
+
+`childcare` is not drawn like other activities. It is resolved **last**, in
+`buildChildcare`, because it depends on who else is present and above all on
+whether there are any children here at all. Without this the engine produced
+three adults minding one child who was busy knapping flint.
+
+- The scene gains a **`charges`** list — the children being minded, who are not
+  themselves doing the minding. Infants appear here and only here: they are
+  never actors, but they are very much present.
+- Minders are capped by `minderCap`: **≤2 grown-ups for 1–4 children, ≤3 for
+  5–8, ≤4 beyond that**, and the actual number is drawn from that range, so one
+  adult minding four children is the common case rather than the exception.
+- Childminding with **no children present is dropped entirely.**
+- **Minders may also be working.** Watching the children is a background task,
+  not an exclusive one, so a minder can appear once more elsewhere in the scene.
+  The exception is work that takes you away or takes both hands: anyone doing
+  something `strenuous` or `outdoor` is excluded from minding.
+- Narration names the children ("Lurra keeps an eye on Gorka, Sua and Ekain")
+  so the ratio is visible in the text rather than implied. Verb agreement is
+  handled for one minder versus several.
 
 ## Simulation engine
 

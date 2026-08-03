@@ -97,10 +97,25 @@ const FAILURE_PHRASES: Record<'quarry' | 'craft', string[]> = {
 const REST_PHRASES = ['Nothing stirs them.', 'The hours pass slowly.', 'No one hurries them.'];
 
 
+/** [singular, plural] — one minder takes "keeps", several take "keep". */
+const MINDING_PHRASES: ReadonlyArray<readonly [string, string]> = [
+  ['keeps an eye on', 'keep an eye on'],
+  ['watches over', 'watch over'],
+  ['stays close to', 'stay close to'],
+];
+
 function narrateActivity(outcome: ActivityOutcome, rng: Rng): string {
   const who = joinNames(outcome.actors);
   const what = escapeHtml(outcome.label);
   const category = categoryOf(outcome);
+
+  // Naming the children makes the scene add up — you can see who is being
+  // minded and by how many, rather than "minding the children" in the abstract.
+  if (outcome.charges && outcome.charges.length > 0) {
+    const phrase = rng.pick(MINDING_PHRASES) ?? MINDING_PHRASES[0]!;
+    const verb = outcome.actors.length === 1 ? phrase[0] : phrase[1];
+    return `${who} ${verb} ${joinNames(outcome.charges)}.`;
+  }
 
   const opening = `${who} ${outcome.actors.length === 1 ? 'is' : 'are'} ${what}.`;
   if (category === 'social') return opening;

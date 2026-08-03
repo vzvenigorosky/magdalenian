@@ -177,6 +177,74 @@ describe('ambience that contradicts the scene', () => {
   });
 });
 
+describe('childminding phrasing', () => {
+  const minding = (minders: CharacterProfile[], charges: CharacterProfile[]): GeneratedScene => ({
+    kind: 'generated',
+    ambience: 'The area is damp with dew.',
+    activities: [
+      {
+        activity: 'childcare',
+        successKey: null,
+        label: 'minding the children',
+        chance: 100,
+        succeeded: true,
+        actors: minders,
+        charges,
+      },
+    ],
+    incidents: [],
+  });
+
+  const child = (id: string, name: string): CharacterProfile => ({
+    id,
+    name,
+    ageBand: 'child',
+    roles: [],
+    evidence: 'test fixture',
+  });
+
+  const text = (scene: GeneratedScene, seed: string) =>
+    narrateScene(scene, seed).replace(/<[^>]+>/g, '');
+
+  it('agrees the verb with a single minder across every phrasing', () => {
+    for (let seed = 0; seed < 40; seed++) {
+      const line = text(minding([actor('a', 'Pello')], [child('c', 'Txiki')]), `s${seed}`);
+      expect(line, line).toMatch(/Pello (keeps an eye on|watches over|stays close to) Txiki\./);
+    }
+  });
+
+  it('agrees the verb with several minders across every phrasing', () => {
+    for (let seed = 0; seed < 40; seed++) {
+      const line = text(
+        minding([actor('a', 'Lurra'), actor('b', 'Bor')], [child('c', 'Txiki')]),
+        `s${seed}`,
+      );
+      expect(line, line).toMatch(/Lurra and Bor (keep an eye on|watch over|stay close to) Txiki\./);
+    }
+  });
+
+  it('names every child being minded', () => {
+    const line = text(
+      minding([actor('a', 'Lurra')], [child('c1', 'Sua'), child('c2', 'Ekain'), child('c3', 'Zuri')]),
+      'x',
+    );
+    expect(line).toContain('Sua, Ekain and Zuri');
+  });
+
+  it('gives the children tooltips of their own', () => {
+    const html = narrateScene(minding([actor('a', 'Lurra')], [child('c1', 'Sua')]), 'x');
+    expect(html).toContain('data-char-id="c1"');
+  });
+
+  it('never narrates minding as a success or failure', () => {
+    for (let seed = 0; seed < 20; seed++) {
+      expect(text(minding([actor('a', 'Lurra')], [child('c', 'Sua')]), `s${seed}`)).not.toMatch(
+        OUTCOME_WORDS,
+      );
+    }
+  });
+});
+
 describe('markup', () => {
   it('wraps actors in tooltip-bearing spans', () => {
     const html = narrateScene(scene('knappingFlint', true, 'knappingFlint'), 'x');

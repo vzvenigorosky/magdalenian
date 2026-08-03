@@ -1,7 +1,14 @@
 import { describe, expect, it } from 'vitest';
 import type { ResolvedDay } from '../src/types.ts';
 import { assertsPeoplePresent } from '../src/sim/ambience.ts';
-import { findAmbience, generateScene, type GeneratedScene, type SceneInput } from '../src/sim/engine.ts';
+import {
+  findAmbience,
+  generateScene,
+  minderCap,
+  type ActivityOutcome,
+  type GeneratedScene,
+  type SceneInput,
+} from '../src/sim/engine.ts';
 import { narrateScene } from '../src/sim/narrate.ts';
 import { traitsOf } from '../src/sim/weights.ts';
 import { dayOf, defaultEvents, events, locations, profiles, year } from './helpers.ts';
@@ -221,10 +228,33 @@ describe('who is allowed to be doing what', () => {
     expect(unchaperoned, 'adolescents should sometimes be out on their own').toBeGreaterThan(0);
   });
 
-  it('never has one person doing two things at once', () => {
+  it('never has one person doing two jobs at once', () => {
     sweep((scene, where) => {
-      const ids = scene.activities.flatMap((a) => a.actors.map((p) => p.id));
+      // Childminding is deliberately exempt: you watch the children *while*
+      // you work, so a minder may appear once more elsewhere in the scene.
+      const ids = scene.activities
+        .filter((a) => a.activity !== 'childcare')
+        .flatMap((a) => a.actors.map((p) => p.id));
       expect(new Set(ids).size, `someone double-booked at ${where}`).toBe(ids.length);
+    });
+  });
+
+  it('only lets minders double up on light work, never on a hunt', () => {
+    sweep((scene, where) => {
+      const childcare = scene.activities.find((a) => a.activity === 'childcare');
+      if (!childcare) return;
+      const minders = new Set(childcare.actors.map((p) => p.id));
+      for (const other of scene.activities) {
+        if (other.activity === 'childcare') continue;
+        const traits = traitsOf(other.activity);
+        if (!traits.strenuous && !traits.outdoor) continue;
+        for (const actor of other.actors) {
+          expect(
+            minders.has(actor.id),
+            `${actor.name} minding children while ${other.activity} at ${where}`,
+          ).toBe(false);
+        }
+      }
     });
   });
 
@@ -247,6 +277,84 @@ describe('who is allowed to be doing what', () => {
         }
       }
     });
+  });
+});
+
+describe('childminding is sized to the children', () => {
+  const everyChildcareScene = (visit: (c: ActivityOutcome, where: string) => void): number => {
+    let seen = 0;
+    for (let day = 1; day <= 365; day += 2) {
+      for (let hour = 0; hour < 24; hour += 2) {
+        for (const loc of Object.keys(locations)) {
+          const scene = generateIfAny(day, hour, loc);
+          const childcare = scene?.activities.find((a) => a.activity === 'childcare');
+          if (!childcare) continue;
+          seen++;
+          visit(childcare, `day ${day} h${hour} ${loc}`);
+        }
+      }
+    }
+    return seen;
+  };
+
+  it('never mixes more minders than the ratio allows', () => {
+    const seen = everyChildcareScene((childcare, where) => {
+      const charges = childcare.charges ?? [];
+      expect(childcare.actors.length, `${where}: ${charges.length} children`).toBeLessThanOrEqual(
+        minderCap(charges.length),
+      );
+    });
+    expect(seen, 'no childminding anywhere in the sweep').toBeGreaterThan(100);
+  });
+
+  it('caps at two grown-ups for a small group', () => {
+    everyChildcareScene((childcare, where) => {
+      if ((childcare.charges ?? []).length > 4) return;
+      expect(childcare.actors.length, where).toBeLessThanOrEqual(2);
+    });
+  });
+
+  it('never minds nobody — there is always at least one child', () => {
+    everyChildcareScene((childcare, where) => {
+      expect((childcare.charges ?? []).length, where).toBeGreaterThan(0);
+    });
+  });
+
+  it('always has at least one grown-up doing the minding', () => {
+    everyChildcareScene((childcare, where) => {
+      expect(childcare.actors.length, where).toBeGreaterThan(0);
+      for (const minder of childcare.actors) {
+        expect(['adult', 'elder'], `${minder.name} at ${where}`).toContain(minder.ageBand);
+      }
+    });
+  });
+
+  it('minds only children and infants, and never one of the minders', () => {
+    everyChildcareScene((childcare, where) => {
+      const minders = new Set(childcare.actors.map((p) => p.id));
+      for (const charge of childcare.charges ?? []) {
+        expect(['infant', 'child'], `${charge.name} at ${where}`).toContain(charge.ageBand);
+        expect(minders.has(charge.id), `${charge.name} minds themself at ${where}`).toBe(false);
+      }
+    });
+  });
+
+  it('lets infants be minded even though they never act', () => {
+    let infantCharges = 0;
+    everyChildcareScene((childcare) => {
+      infantCharges += (childcare.charges ?? []).filter((c) => c.ageBand === 'infant').length;
+    });
+    expect(infantCharges).toBeGreaterThan(0);
+  });
+
+  it('applies the stated ratio bands', () => {
+    expect(minderCap(0)).toBe(0);
+    expect(minderCap(1)).toBe(2);
+    expect(minderCap(4)).toBe(2);
+    expect(minderCap(5)).toBe(3);
+    expect(minderCap(8)).toBe(3);
+    expect(minderCap(9)).toBe(4);
+    expect(minderCap(20)).toBe(4);
   });
 });
 

@@ -11,15 +11,19 @@
  * Generation is seeded from the coordinate, so a cell always yields the same
  * scene no matter how many times it is revisited.
  */
-import type {
-  AuthoredEvent,
-  CharacterProfile,
-  CharacterProfiles,
-  IncidentKey,
-  Location,
-  ResolvedDay,
+import {
+  CAN_SUPERVISE,
+  NEEDS_SUPERVISION,
+  NON_ACTORS,
+  type AuthoredEvent,
+  type CharacterProfile,
+  type CharacterProfiles,
+  type IncidentKey,
+  type Location,
+  type ResolvedDay,
 } from '../types.ts';
 import { resolveActivity, humanizeActivity } from '../data/activity-map.ts';
+import { assertsPeoplePresent } from './ambience.ts';
 import { createRng, hashSeed, weightedSample, type Rng } from './rng.ts';
 import { activityCount, applyConditions, traitsOf } from './weights.ts';
 
@@ -131,18 +135,26 @@ function eligibleActors(
 ): CharacterProfile[] {
   const traits = traitsOf(activity);
   return Object.values(profiles).filter((profile) => {
+    // Infants are carried, fed and minded — never the doers of anything.
+    if (NON_ACTORS.includes(profile.ageBand)) return false;
     if (traits.strenuous && profile.ageBand !== 'adult') return false;
-    if (traits.adultOnly && profile.ageBand !== 'adult') return false;
+    // Grown-up business: adults and elders, never minors.
+    if (traits.adultOnly && !CAN_SUPERVISE.includes(profile.ageBand)) return false;
     return true;
   });
 }
 
+/**
+ * `taken` holds everyone already busy elsewhere in this scene, so nobody ends
+ * up minding the children and sleeping through it at the same time.
+ */
 function chooseActors(
   profiles: CharacterProfiles,
   activity: string,
   rng: Rng,
+  taken: Set<string>,
 ): CharacterProfile[] {
-  const pool = eligibleActors(profiles, activity);
+  const pool = eligibleActors(profiles, activity).filter((p) => !taken.has(p.id));
   if (pool.length === 0) return [];
 
   const affinity = ROLE_AFFINITY.find(([pattern]) => pattern.test(activity))?.[1];
@@ -156,7 +168,47 @@ function chooseActors(
 
   const wanted = activity === 'childcare' || activity === 'groupRitual' ? rng.int(2, 3) : rng.int(1, 2);
   const ids = weightedSample(weights, Math.min(wanted, pool.length), rng);
+  for (const id of ids) taken.add(id);
   return ids.map((id) => profiles[id]).filter((p): p is CharacterProfile => p !== undefined);
+}
+
+/**
+ * Guarantees a grown-up wherever a child is.
+ *
+ * Supervision is judged across the whole scene, not per activity: a child
+ * foraging while an adult knaps flint a few paces away is supervised. Only
+ * when a scene contains children and no adult or elder at all does this step
+ * pull one in, joining the activity the children are already doing.
+ */
+function enforceSupervision(
+  activities: ActivityOutcome[],
+  profiles: CharacterProfiles,
+  rng: Rng,
+): ActivityOutcome[] {
+  const everyone = activities.flatMap((a) => a.actors);
+  const hasChild = everyone.some((p) => NEEDS_SUPERVISION.includes(p.ageBand));
+  if (!hasChild) return activities;
+  if (everyone.some((p) => CAN_SUPERVISE.includes(p.ageBand))) return activities;
+
+  const index = activities.findIndex((a) =>
+    a.actors.some((p) => NEEDS_SUPERVISION.includes(p.ageBand)),
+  );
+  const target = activities[index];
+  if (!target) return activities;
+
+  const busy = new Set(everyone.map((p) => p.id));
+  const candidates = eligibleActors(profiles, target.activity).filter(
+    (p) => CAN_SUPERVISE.includes(p.ageBand) && !busy.has(p.id),
+  );
+
+  const chosen = rng.pick(candidates);
+  if (chosen) {
+    activities[index] = { ...target, actors: [chosen, ...target.actors] };
+    return activities;
+  }
+
+  // No grown-up can join this activity, so the children cannot be doing it.
+  return activities.filter((_, i) => i !== index);
 }
 
 function rollIncidents(location: Location, rng: Rng): Incident[] {
@@ -189,19 +241,33 @@ export function generateScene(input: SceneInput): Scene {
   const isDim = weather.sunExposure === 'Low' || weather.sunExposure === 'Overcast';
 
   const weights = applyConditions(location.probabilities.activities, weather);
-  const count = activityCount(weather, location.type === 'CENTRAL_DWELLING');
 
-  const activities: ActivityOutcome[] = weightedSample(weights, count, rng).map((activity) => {
-    const resolved = resolveActivity(activity, day.activitySuccessChance, { isNight, isDim });
-    return {
-      activity,
-      successKey: resolved.successKey,
-      label: humanizeActivity(resolved.successKey ?? activity),
-      chance: resolved.chance,
-      succeeded: rng.chance(resolved.chance),
-      actors: chooseActors(profiles, activity, rng),
-    };
-  });
+  let count = activityCount(location, weather, rng);
+  // The ambience data encodes when a place is normally busy ("A hunting party
+  // moves through the area"), so don't empty a location its own line says is
+  // occupied — that would contradict the framing in the other direction.
+  if (count === 0 && assertsPeoplePresent(ambience)) count = 1;
 
-  return { kind: 'generated', ambience, activities, incidents: rollIncidents(location, rng) };
+  const taken = new Set<string>();
+  const drawn: ActivityOutcome[] = weightedSample(weights, count, rng)
+    .map((activity) => {
+      const resolved = resolveActivity(activity, day.activitySuccessChance, { isNight, isDim });
+      return {
+        activity,
+        successKey: resolved.successKey,
+        label: humanizeActivity(resolved.successKey ?? activity),
+        chance: resolved.chance,
+        succeeded: rng.chance(resolved.chance),
+        actors: chooseActors(profiles, activity, rng, taken),
+      };
+    })
+    // Nobody left free to do it means it isn't happening.
+    .filter((outcome) => outcome.actors.length > 0);
+
+  const activities = enforceSupervision(drawn, profiles, rng);
+
+  // Nobody here means nothing happens to anybody here.
+  const incidents = activities.length > 0 ? rollIncidents(location, rng) : [];
+
+  return { kind: 'generated', ambience, activities, incidents };
 }

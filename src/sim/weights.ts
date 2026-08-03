@@ -5,7 +5,8 @@
  * weights knapping at 80 — but say nothing about darkness, rain or cold. A
  * quarry at 3am in a downpour should not read the same as a quarry at noon.
  */
-import type { ActivityKey, HourlyWeather } from '../types.ts';
+import type { ActivityKey, HourlyWeather, Location } from '../types.ts';
+import type { Rng } from './rng.ts';
 
 export interface ActivityTraits {
   /** Happens in the open, so weather and darkness matter. */
@@ -128,9 +129,40 @@ export function applyConditions(
   return adjusted;
 }
 
-/** How many simultaneous activities a scene shows. Quieter at night. */
-export function activityCount(weather: HourlyWeather, isCentralDwelling: boolean): number {
-  const isDark = weather.sunExposure === 'Dark';
-  if (isDark) return isCentralDwelling ? 2 : 1;
-  return isCentralDwelling ? 3 : 2;
+/**
+ * How likely anyone at all is at this location during this hour, 0-100.
+ *
+ * Without this every one of the 22 locations is staffed at all 24 hours, which
+ * puts small children at a river bend at 2am and means the ambience lines that
+ * describe a deserted place can never be true. Distance from camp does most of
+ * the work: a valley three kilometres out is not somewhere the band idles.
+ */
+export function presenceChance(location: Location, weather: HourlyWeather): number {
+  // The band lives at the cave mouth; someone is always there.
+  if (location.type === 'CENTRAL_DWELLING') return 100;
+
+  const { meters } = location.distanceFromCenter;
+  let chance = meters <= 700 ? 65 : meters <= 1500 ? 50 : meters <= 3500 ? 35 : 25;
+
+  if (weather.sunExposure === 'Dark') {
+    // Shelters and trysting spots still see use after dark; open country does not.
+    const sheltered = location.type === 'SECONDARY_CAVE' || location.type === 'INTIMATE_SPOT';
+    chance *= sheltered ? 0.45 : 0.06;
+  } else if (weather.sunExposure === 'Low' || weather.sunExposure === 'Overcast') {
+    chance *= 0.8;
+  }
+
+  if (weather.precip > 3) chance *= 0.6;
+  if (weather.temp <= -5) chance *= 0.7;
+
+  return chance;
+}
+
+/** How many simultaneous activities a scene shows; 0 when nobody is there. */
+export function activityCount(location: Location, weather: HourlyWeather, rng: Rng): number {
+  if (!rng.chance(presenceChance(location, weather))) return 0;
+
+  const isCentral = location.type === 'CENTRAL_DWELLING';
+  if (weather.sunExposure === 'Dark') return isCentral ? 2 : 1;
+  return isCentral ? 3 : 2;
 }

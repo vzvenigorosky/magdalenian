@@ -113,14 +113,14 @@
   "char12": {
     "id": "char12",
     "name": "Elira",
-    "ageBand": "child",
+    "ageBand": "adolescent",
     "roles": [],
     "evidence": "\"An adolescent girl.\" -> matched \"adolescent\""
   },
   "char13": {
     "id": "char13",
     "name": "Oihan",
-    "ageBand": "child",
+    "ageBand": "adolescent",
     "roles": [
       "hunter"
     ],
@@ -201,7 +201,7 @@
   "char22": {
     "id": "char22",
     "name": "Iker",
-    "ageBand": "child",
+    "ageBand": "adolescent",
     "roles": [
       "hunter",
       "crafter"
@@ -258,19 +258,21 @@
     "id": "char28",
     "name": "Odei",
     "ageBand": "child",
+    "age": 5,
     "roles": [
       "lookout"
     ],
-    "evidence": "\"A child of five winters.\" -> matched \"child\""
+    "evidence": "\"A child of five winters.\" -> stated age 5"
   },
   "char29": {
     "id": "char29",
     "name": "Nahia",
     "ageBand": "child",
+    "age": 7,
     "roles": [
       "storyteller"
     ],
-    "evidence": "\"A child of seven winters.\" -> matched \"child\""
+    "evidence": "\"A child of seven winters.\" -> stated age 7"
   },
   "char30": {
     "id": "char30",
@@ -284,11 +286,12 @@
   "char31": {
     "id": "char31",
     "name": "Santi",
-    "ageBand": "child",
+    "ageBand": "adolescent",
+    "age": 12,
     "roles": [
       "hunter"
     ],
-    "evidence": "\"A boy of twelve winters.\" -> matched \"boy\""
+    "evidence": "\"A boy of twelve winters.\" -> stated age 12"
   },
   "char32": {
     "id": "char32",
@@ -304,7 +307,7 @@
     "name": "Txiki",
     "ageBand": "child",
     "roles": [],
-    "evidence": "\"A small child.\" -> matched \"child\""
+    "evidence": "\"A small child.\" -> matched \"small child\""
   },
   "char34": {
     "id": "char34",
@@ -359,7 +362,7 @@
   "char40": {
     "id": "char40",
     "name": "Ekain",
-    "ageBand": "child",
+    "ageBand": "infant",
     "roles": [],
     "evidence": "\"An infant.\" -> matched \"infant\""
   },

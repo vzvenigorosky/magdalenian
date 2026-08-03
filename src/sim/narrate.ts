@@ -5,6 +5,7 @@
  * the scene's own seeded RNG so the wording is as stable as the scene itself.
  */
 import type { ActivityOutcome, GeneratedScene, Incident } from './engine.ts';
+import { assertsEmpty } from './ambience.ts';
 import { createRng, hashSeed, type Rng } from './rng.ts';
 
 const escapeHtml = (value: string): string =>
@@ -95,30 +96,6 @@ const FAILURE_PHRASES: Record<'quarry' | 'craft', string[]> = {
  */
 const REST_PHRASES = ['Nothing stirs them.', 'The hours pass slowly.', 'No one hurries them.'];
 
-/**
- * Ambience lines that state nobody is present.
- *
- * These frame the scene, so when the generated layer then names four people
- * working there the result contradicts itself. About 30% of the ambience lines
- * do this, concentrated at the utility, cave, mountain and intimate sites.
- *
- * Matched by pattern rather than by whole string so the data stays editable.
- * Deliberately narrow: "quiet and still", "the air is still and tense" and
- * "many are out foraging" all describe a calm or half-empty place and are
- * perfectly compatible with people being there, so they are left alone.
- */
-const ASSERTS_EMPTY: readonly RegExp[] = [
-  /\bdeserted\b/i, // "The area is deserted, the only sound is the wind..."
-  /\bno human activity\b/i, // "...There is no human activity here."
-  /\bhome only to\b/i, // "...home only to nocturnal predators."
-  /\bsilent, save for\b/i, // "The thickets and groves are silent, save for..."
-  /\bonly evidence of\b/i, // "...the only evidence of the day's activity..."
-];
-
-/** True when a line claims the place is empty of people. */
-export function assertsEmpty(ambience: string): boolean {
-  return ASSERTS_EMPTY.some((pattern) => pattern.test(ambience));
-}
 
 function narrateActivity(outcome: ActivityOutcome, rng: Rng): string {
   const who = joinNames(outcome.actors);

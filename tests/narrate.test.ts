@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import type { GeneratedScene } from '../src/sim/engine.ts';
-import { assertsEmpty, narrateScene } from '../src/sim/narrate.ts';
+import { assertsEmpty, assertsPeoplePresent } from '../src/sim/ambience.ts';
+import { narrateScene } from '../src/sim/narrate.ts';
 import type { CharacterProfile } from '../src/types.ts';
 import { defaultEvents } from './helpers.ts';
 
@@ -124,19 +125,55 @@ describe('ambience that contradicts the scene', () => {
     }
   });
 
-  it('covers the emptiness-asserting lines actually present in the data', () => {
-    const flagged = new Set<string>();
-    const all = new Set<string>();
+  /** Every unique ambience string in the data, across all four seasons. */
+  const allLines = (): string[] => {
+    const seen = new Set<string>();
     for (const season of Object.values(defaultEvents)) {
       for (const hour of Object.values(season)) {
-        for (const entry of hour) {
-          all.add(entry.event);
-          if (assertsEmpty(entry.event)) flagged.add(entry.event);
-        }
+        for (const entry of hour) seen.add(entry.event);
       }
     }
+    return [...seen];
+  };
+
+  it('covers the emptiness-asserting lines actually present in the data', () => {
+    const flagged = allLines().filter(assertsEmpty);
     // Guards against a data edit introducing a new phrasing the patterns miss.
-    expect(flagged.size, [...all].join('\n')).toBe(EMPTY_LINES.length);
+    expect(flagged.sort()).toEqual([...EMPTY_LINES].sort());
+  });
+
+  it('sorts every line in the data into exactly one of the three kinds', () => {
+    const lines = allLines();
+    expect(lines).toHaveLength(23);
+
+    const both = lines.filter((l) => assertsEmpty(l) && assertsPeoplePresent(l));
+    expect(both, 'a line cannot claim both empty and occupied').toEqual([]);
+
+    const empty = lines.filter(assertsEmpty).length;
+    const people = lines.filter(assertsPeoplePresent).length;
+    const neutral = lines.length - empty - people;
+    expect({ empty, people, neutral }).toEqual({ empty: 5, people: 14, neutral: 4 });
+  });
+
+  it('reads the busy lines as occupied', () => {
+    for (const line of [
+      'A hunting party moves silently through the area, eyes scanning for any sign of game.',
+      'The band gathers as hunters and foragers return. The sounds of conversation and food preparation fill the air.',
+      'The dwelling is a hub of activity. Children play under the watchful eyes of elders, while artisans work on hides and tools.',
+      'Individuals or small groups come and go, collecting water, quarrying flint, or searching the shoreline for useful items.',
+    ]) {
+      expect(assertsPeoplePresent(line), line).toBe(true);
+    }
+  });
+
+  it('does not read neutral scene-setting as occupied', () => {
+    for (const line of [
+      'The area is damp with dew. Birds begin to call from the branches.',
+      'The area is quiet and still under the night sky.',
+      'The site is quiet and still, holding a palpable sense of reverence. The wind whispers through the stones or leaves.',
+    ]) {
+      expect(assertsPeoplePresent(line), line).toBe(false);
+    }
   });
 });
 

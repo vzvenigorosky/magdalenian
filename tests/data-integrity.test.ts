@@ -118,9 +118,27 @@ describe('character profiles', () => {
 
   it('carry a valid age band and auditable evidence', () => {
     for (const profile of Object.values(profiles)) {
-      expect(['child', 'adult', 'elder']).toContain(profile.ageBand);
+      expect(['infant', 'child', 'adolescent', 'adult', 'elder']).toContain(profile.ageBand);
       expect(profile.evidence.length).toBeGreaterThan(0);
     }
+  });
+
+  it('agree with any age the description states outright', () => {
+    for (const [id, profile] of Object.entries(profiles)) {
+      const stated = characters[id]!.description0?.match(/\b(\w+)\s+winters\b/i);
+      if (!stated) continue;
+      expect(profile.age, characters[id]!.description0).toBeTypeOf('number');
+      const band =
+        profile.age! < 2 ? 'infant' : profile.age! < 10 ? 'child' : profile.age! < 16 ? 'adolescent' : 'adult';
+      expect(profile.ageBand, characters[id]!.description0).toBe(band);
+    }
+  });
+
+  it('leave someone able to supervise and someone able to do heavy work', () => {
+    const bands = Object.values(profiles).map((p) => p.ageBand);
+    expect(bands.filter((b) => b === 'adult' || b === 'elder').length).toBeGreaterThan(10);
+    expect(bands.filter((b) => b === 'infant').length).toBeGreaterThan(0);
+    expect(bands.filter((b) => b === 'child').length).toBeGreaterThan(0);
   });
 
   it('leave enough adults to staff strenuous work', () => {
@@ -133,10 +151,13 @@ describe('character profiles', () => {
     // hand-edits to character-profiles.json cannot silently contradict it.
     for (const [id, profile] of Object.entries(profiles)) {
       const primary = characters[id]!.description0 ?? '';
+      // A stated age ("a boy of twelve winters") outranks any keyword.
+      if (/\b\w+\s+winters\b/i.test(primary)) continue;
       if (/\bold\b/i.test(primary)) expect(profile.ageBand, primary).toBe('elder');
       else if (/\b(man|woman)\b/i.test(primary)) expect(profile.ageBand, primary).toBe('adult');
-      else if (/\b(girl|boy|child|infant|adolescent)\b/i.test(primary))
-        expect(profile.ageBand, primary).toBe('child');
+      else if (/\b(infant|newborn)\b/i.test(primary)) expect(profile.ageBand, primary).toBe('infant');
+      else if (/\badolescent\b/i.test(primary)) expect(profile.ageBand, primary).toBe('adolescent');
+      else if (/\b(girl|boy|child)\b/i.test(primary)) expect(profile.ageBand, primary).toBe('child');
     }
   });
 });

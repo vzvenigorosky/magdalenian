@@ -77,9 +77,32 @@ and `tests/activity-map.test.ts` asserts the stronger property.
 `scripts/build-data.ts`, then **checked in and hand-editable** — the build never
 overwrites an existing file. Age comes from `description0` alone, which is a
 consistent age descriptor for all 43 characters; scanning all ten descriptions
-picks up mentions of other people and misclassifies parents as children. If you
-correct a profile by hand, `tests/data-integrity.test.ts` will flag any edit
-that contradicts `description0`.
+picks up mentions of other people and misclassifies parents as children. A
+stated age ("a boy of twelve winters") overrides any keyword. If you correct a
+profile by hand, `tests/data-integrity.test.ts` flags edits that contradict
+`description0`.
+
+Five age bands, currently 1 infant, 8 children, 4 adolescents, 27 adults,
+3 elders. The bands are not cosmetic — they drive the safeguards below.
+
+### Who can be doing what
+
+Enforced in `eligibleActors` and `enforceSupervision` (`src/sim/engine.ts`), and
+covered by tests that sweep the grid rather than spot-check:
+
+- **Infants are never actors.** They are carried and minded, never the doers of
+  anything. Listed in `NON_ACTORS`.
+- **Children are never alone.** If a scene has a child and no adult or elder
+  anywhere in it, a grown-up is pulled into the activity the children are doing.
+  Supervision is judged across the whole scene, not per activity — a child
+  foraging while an adult knaps flint a few paces off is supervised.
+- **Adolescents need no chaperone** but are still barred from `strenuous` and
+  `adultOnly` work.
+- **`adultOnly` means adults *and elders*.** An elder minding children or
+  teaching is exactly right; the earlier adults-only reading barred it.
+- **Nobody does two things at once.** Actor selection threads a `taken` set
+  through the scene, so no one mends a tool while asleep. An activity left with
+  no free actor is dropped rather than narrated with nobody in it.
 
 ## Simulation engine
 
@@ -90,14 +113,23 @@ that contradicts `description0`.
    rolled against the day's success chances.
 3. The season/hour/location-type ambience line always frames the scene.
 
-`narrateScene` drops the ambience line when it would contradict the scene — five
-of the 23 lines assert nobody is present ("The area is deserted...", "There is
-no human activity here"), and rendering them above four named people working is
-self-contradicting. `assertsEmpty` matches by pattern, not whole string, and is
-deliberately narrow: "quiet and still", "the air is still and tense" and "many
-are out foraging" all describe a calm place and are kept. A test asserts the
-patterns still catch exactly the lines present in the data, so a content edit
-that introduces a new phrasing fails loudly.
+### Occupancy and ambience
+
+Places are not staffed around the clock. `presenceChance` (`src/sim/weights.ts`)
+decides whether anyone is at a location at all, driven mostly by distance from
+camp and darkness — the central dwelling is always occupied, the Open Steppe
+4.5 km out is empty about 89% of the time at 3am and roughly 20% at midday.
+About half of all generated cells are empty, and that is the point: it is what
+makes the deserted-place ambience lines true, and it stops small children
+turning up at a river bend at 2am.
+
+The ambience lines cut both ways, so `src/sim/ambience.ts` classifies all 23 of
+them — 5 assert the place is empty, 14 assert people are working there, 4 are
+neutral. The engine will not empty a location whose own line says it is busy;
+the narrator drops a "deserted" line when the scene names people anyway. Both
+predicates match by pattern rather than whole string so the data stays editable,
+and a test asserts the classification still partitions exactly the lines present
+in the data — a content edit introducing new phrasing fails loudly.
 
 **Generation is seeded from the coordinate and must stay deterministic.**
 Revisiting a cell has to produce the identical scene; without that the world
@@ -114,14 +146,6 @@ before rolling hourly, so `fatalFall` at 0.01% stays a once-in-a-lifetime event.
   The file's season dimension currently carries no information. Left as-is
   because it is authored content; writing real seasonal variants is a content
   task, not a code fix.
-- **Every generated scene currently has at least one activity** — `activityCount`
-  never returns zero — so no location is ever genuinely deserted, at any hour, at
-  any distance from camp. Two consequences: the five emptiness-asserting ambience
-  lines never render (see `assertsEmpty` below), and remote places are staffed at
-  implausible hours, so you will see small children trading gossip at a river
-  bend at 2am. Letting low-traffic locations fall to zero activities at odd hours
-  would fix both at once, and would make those ambience lines correct rather than
-  suppressed.
 - Authored events cover **day 1 only** (24 events, 7 of 22 locations). Every
   other cell is procedurally generated.
 - Location ids are sparse — `loc6`, `loc8`, `loc12` and others don't exist.

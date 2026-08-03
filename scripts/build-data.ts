@@ -54,15 +54,39 @@ const kb = (bytes: number) => `${(bytes / 1024).toFixed(1)} KB`;
  * because another line mentions her children, and Unai ("A man in his prime")
  * as an elder via "eldest son".
  *
- * Note the ordering and the deliberate omissions: "woman"/"man" wins over a
- * later "newborn" so mothers stay adults, and "young man"/"very young woman"
- * are adults, while "young girl"/"adolescent boy" are children.
+ * Order matters. "woman"/"man" is checked before the young-person words so
+ * "A woman with a newborn" stays an adult, and "adolescent" is checked before
+ * "girl"/"boy" so "An adolescent boy" does not come out as a child.
  */
 const AGE_PATTERNS: ReadonlyArray<readonly [AgeBand, RegExp]> = [
   ['elder', /\bold\b/i],
   ['adult', /\b(man|woman)\b/i],
-  ['child', /\b(girl|boy|child|infant|adolescent)\b/i],
+  ['infant', /\b(infant|newborn|babe)\b/i],
+  ['adolescent', /\badolescent\b/i],
+  ['child', /\b(girl|boy|child)\b/i],
 ];
+
+/** Stated ages are written as words: "a child of five winters". */
+const WORD_NUMBERS: Readonly<Record<string, number>> = {
+  one: 1, two: 2, three: 3, four: 4, five: 5, six: 6, seven: 7, eight: 8,
+  nine: 9, ten: 10, eleven: 11, twelve: 12, thirteen: 13, fourteen: 14,
+  fifteen: 15, sixteen: 16, seventeen: 17, eighteen: 18, nineteen: 19, twenty: 20,
+};
+
+function statedAge(description: string): number | undefined {
+  const match = description.match(/\b(\w+)\s+winters\b/i);
+  if (!match?.[1]) return undefined;
+  const word = match[1].toLowerCase();
+  return WORD_NUMBERS[word] ?? (Number.isFinite(Number(word)) ? Number(word) : undefined);
+}
+
+/** A stated age is more precise than any keyword, so it wins outright. */
+function bandForAge(age: number): AgeBand {
+  if (age < 2) return 'infant';
+  if (age < 10) return 'child';
+  if (age < 16) return 'adolescent';
+  return 'adult';
+}
 
 const ROLE_PATTERNS: ReadonlyArray<readonly [string, RegExp]> = [
   ['hunter', /\b(hunt|hunter|hunting|spear|atlatl|tracker|tracking)\b/i],
@@ -87,20 +111,33 @@ function deriveProfile(character: CharactersData[string]): CharacterProfile {
   const blob = descriptions.join(' ');
   const primary = character.description0 ?? '';
 
+  const age = statedAge(primary);
+
   let ageBand: AgeBand = 'adult';
   let evidence = `no age keyword in "${primary}"; defaulted to adult`;
-  for (const [band, pattern] of AGE_PATTERNS) {
-    const match = primary.match(pattern);
-    if (match) {
-      ageBand = band;
-      evidence = `"${primary}" -> matched "${match[0]}"`;
-      break;
+
+  if (age !== undefined) {
+    ageBand = bandForAge(age);
+    evidence = `"${primary}" -> stated age ${age}`;
+  } else {
+    for (const [band, pattern] of AGE_PATTERNS) {
+      const match = primary.match(pattern);
+      if (match) {
+        ageBand = band;
+        evidence = `"${primary}" -> matched "${match[0]}"`;
+        break;
+      }
+    }
+    // "A small child" is younger than a bare "child" and should not be out
+    // foraging unsupervised on the strength of the same keyword.
+    if (ageBand === 'child' && /\bsmall\b/i.test(primary)) {
+      evidence = `"${primary}" -> matched "small child"`;
     }
   }
 
   const roles = ROLE_PATTERNS.filter(([, pattern]) => pattern.test(blob)).map(([role]) => role);
 
-  return { id: character.id, name: character.name, ageBand, roles, evidence };
+  return { id: character.id, name: character.name, ageBand, ...(age !== undefined && { age }), roles, evidence };
 }
 
 function loadOrDeriveProfiles(characters: CharactersData): CharacterProfiles {

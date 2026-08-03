@@ -126,7 +126,20 @@ export interface Character {
 
 export type CharactersData = Record<string, Character>;
 
-export type AgeBand = 'child' | 'adult' | 'elder';
+/**
+ * `infant` and `adolescent` exist to keep the simulation honest: infants are
+ * never actors, and children need an adult present, while adolescents do not.
+ */
+export type AgeBand = 'infant' | 'child' | 'adolescent' | 'adult' | 'elder';
+
+/** Bands that must never be assigned an activity of their own. */
+export const NON_ACTORS: readonly AgeBand[] = ['infant'];
+
+/** Bands that require a grown-up in the same scene. */
+export const NEEDS_SUPERVISION: readonly AgeBand[] = ['child'];
+
+/** Bands that can supervise a child. */
+export const CAN_SUPERVISE: readonly AgeBand[] = ['adult', 'elder'];
 
 /**
  * Derived from the prose descriptions by `scripts/build-data.ts`. This is a
@@ -137,6 +150,8 @@ export interface CharacterProfile {
   id: string;
   name: string;
   ageBand: AgeBand;
+  /** Years, when the description states one ("a child of five winters"). */
+  age?: number;
   /** Free-form role hints, e.g. `hunter`, `shaman`, `crafter`. */
   roles: string[];
   /** Why the heuristic decided what it did, for auditing. */

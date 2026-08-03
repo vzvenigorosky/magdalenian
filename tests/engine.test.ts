@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import type { ResolvedDay } from '../src/types.ts';
+import { assertsPeoplePresent } from '../src/sim/ambience.ts';
 import { findAmbience, generateScene, type GeneratedScene, type SceneInput } from '../src/sim/engine.ts';
 import { narrateScene } from '../src/sim/narrate.ts';
 import { traitsOf } from '../src/sim/weights.ts';
@@ -169,6 +170,141 @@ describe('actor assignment', () => {
     }
     expect(total).toBeGreaterThan(20);
     expect(hunterMatches / total).toBeGreaterThan(0.5);
+  });
+});
+
+describe('who is allowed to be doing what', () => {
+  /** Sweeps the grid coarsely enough to be fast but wide enough to be honest. */
+  function sweep(visit: (scene: GeneratedScene, where: string) => void): void {
+    for (let day = 1; day <= 365; day += 3) {
+      for (let hour = 0; hour < 24; hour += 2) {
+        for (const loc of Object.keys(locations)) {
+          const scene = generateIfAny(day, hour, loc);
+          if (scene) visit(scene, `day ${day} h${hour} ${loc}`);
+        }
+      }
+    }
+  }
+
+  it('never gives an infant anything to do', () => {
+    sweep((scene, where) => {
+      for (const activity of scene.activities) {
+        for (const actor of activity.actors) {
+          expect(actor.ageBand, `${actor.name} ${activity.activity} at ${where}`).not.toBe('infant');
+        }
+      }
+    });
+  });
+
+  it('never leaves a child without an adult or elder in the scene', () => {
+    sweep((scene, where) => {
+      const everyone = scene.activities.flatMap((a) => a.actors);
+      const children = everyone.filter((p) => p.ageBand === 'child');
+      if (children.length === 0) return;
+      const grownUps = everyone.filter((p) => p.ageBand === 'adult' || p.ageBand === 'elder');
+      expect(
+        grownUps.length,
+        `${children.map((c) => c.name).join(', ')} unsupervised at ${where}`,
+      ).toBeGreaterThan(0);
+    });
+  });
+
+  it('does not require a chaperone for adolescents', () => {
+    let unchaperoned = 0;
+    sweep((scene) => {
+      const everyone = scene.activities.flatMap((a) => a.actors);
+      if (everyone.length === 0) return;
+      const onlyYoung =
+        everyone.every((p) => p.ageBand === 'adolescent') && everyone.length > 0;
+      if (onlyYoung) unchaperoned++;
+    });
+    expect(unchaperoned, 'adolescents should sometimes be out on their own').toBeGreaterThan(0);
+  });
+
+  it('never has one person doing two things at once', () => {
+    sweep((scene, where) => {
+      const ids = scene.activities.flatMap((a) => a.actors.map((p) => p.id));
+      expect(new Set(ids).size, `someone double-booked at ${where}`).toBe(ids.length);
+    });
+  });
+
+  it('never leaves an activity with nobody doing it', () => {
+    sweep((scene, where) => {
+      for (const activity of scene.activities) {
+        expect(activity.actors.length, `${activity.activity} has no actors at ${where}`).toBeGreaterThan(0);
+      }
+    });
+  });
+
+  it('keeps minors out of grown-up business', () => {
+    sweep((scene, where) => {
+      for (const activity of scene.activities) {
+        if (!traitsOf(activity.activity).adultOnly) continue;
+        for (const actor of activity.actors) {
+          expect(['adult', 'elder'], `${actor.name} ${activity.activity} at ${where}`).toContain(
+            actor.ageBand,
+          );
+        }
+      }
+    });
+  });
+});
+
+describe('somewhere can simply be empty', () => {
+  const scan = (loc: string, hours: number[]) => {
+    let empty = 0;
+    let total = 0;
+    for (let day = 1; day <= 365; day += 2) {
+      for (const hour of hours) {
+        const scene = generateIfAny(day, hour, loc);
+        if (!scene) continue;
+        total++;
+        if (scene.activities.length === 0) empty++;
+      }
+    }
+    return { empty, total };
+  };
+
+  it('empties distant places in the dead of night', () => {
+    const { empty, total } = scan('loc45', [1, 2, 3]); // The Open Steppe, 4.4 km out
+    expect(empty / total).toBeGreaterThan(0.8);
+  });
+
+  it('still populates them by day', () => {
+    const { empty, total } = scan('loc45', [11, 12, 13]);
+    expect(empty / total).toBeLessThan(0.85);
+  });
+
+  it('never empties the cave the band lives in', () => {
+    for (let day = 1; day <= 365; day += 5) {
+      for (let hour = 0; hour < 24; hour++) {
+        const scene = generateIfAny(day, hour, 'loc0');
+        if (scene) expect(scene.activities.length, `day ${day} h${hour}`).toBeGreaterThan(0);
+      }
+    }
+  });
+
+  it('leaves nobody for an incident to happen to when a place is empty', () => {
+    for (let day = 1; day <= 365; day += 3) {
+      for (let hour = 0; hour < 24; hour += 3) {
+        for (const loc of Object.keys(locations)) {
+          const scene = generateIfAny(day, hour, loc);
+          if (scene && scene.activities.length === 0) expect(scene.incidents).toEqual([]);
+        }
+      }
+    }
+  });
+
+  it('respects ambience that says the place is busy', () => {
+    for (let day = 1; day <= 365; day += 3) {
+      for (let hour = 0; hour < 24; hour += 2) {
+        for (const loc of Object.keys(locations)) {
+          const scene = generateIfAny(day, hour, loc);
+          if (!scene || !assertsPeoplePresent(scene.ambience)) continue;
+          expect(scene.activities.length, `day ${day} h${hour} ${loc}`).toBeGreaterThan(0);
+        }
+      }
+    }
   });
 });
 

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#1a1a1a" />
+    <link rel="icon" type="image/svg+xml" href="./icon.svg" />
+    <link rel="apple-touch-icon" href="./icon-192.png" />
+    <meta
+      name="description"
+      content="An interactive observer for a simulated year in the life of a Magdalenian hunter-gatherer band."
+    />
+    <title>Magdalenian Observer</title>
+  </head>
+  <body class="bg-[#1a1a1a] p-4">
+    <div id="tooltip"></div>
+
+    <div
+      id="simulation-container"
+      class="max-w-screen-2xl mx-auto grid grid-cols-1 lg:grid-cols-4 gap-4 hidden"
+    >
+      <!-- Left sidebar: time navigation -->
+      <aside class="lg:col-span-1 card rounded-lg p-4 h-[95vh] overflow-y-auto">
+        <h2 class="font-title text-2xl text-center text-[#c7a78a] mb-4">Time</h2>
+        <div id="time-nav-container"></div>
+      </aside>
+
+      <main class="lg:col-span-3">
+        <nav class="card rounded-lg p-2 mb-4">
+          <div id="location-nav-container" class="flex flex-wrap gap-2 justify-center"></div>
+        </nav>
+
+        <div id="main-display" class="card rounded-lg p-6 h-[85vh] overflow-y-auto"></div>
+      </main>
+    </div>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

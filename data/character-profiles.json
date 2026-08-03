@@ -1,0 +1,382 @@
+{
+  "char0": {
+    "id": "char0",
+    "name": "Zahar",
+    "ageBand": "elder",
+    "roles": [
+      "shaman",
+      "storyteller"
+    ],
+    "evidence": "\"An old, thin man.\" -> matched \"old\""
+  },
+  "char1": {
+    "id": "char1",
+    "name": "Aitor",
+    "ageBand": "adult",
+    "roles": [
+      "hunter",
+      "crafter"
+    ],
+    "evidence": "\"A strong man.\" -> matched \"man\""
+  },
+  "char2": {
+    "id": "char2",
+    "name": "Lurra",
+    "ageBand": "adult",
+    "roles": [
+      "crafter",
+      "artist"
+    ],
+    "evidence": "\"A patient woman.\" -> matched \"woman\""
+  },
+  "char3": {
+    "id": "char3",
+    "name": "Bor",
+    "ageBand": "adult",
+    "roles": [
+      "hunter"
+    ],
+    "evidence": "\"A burly, bearded man.\" -> matched \"man\""
+  },
+  "char4": {
+    "id": "char4",
+    "name": "Amaia",
+    "ageBand": "adult",
+    "roles": [
+      "fisher",
+      "lookout"
+    ],
+    "evidence": "\"A quiet woman.\" -> matched \"woman\""
+  },
+  "char5": {
+    "id": "char5",
+    "name": "Kemen",
+    "ageBand": "adult",
+    "roles": [
+      "hunter",
+      "storyteller"
+    ],
+    "evidence": "\"A young man.\" -> matched \"man\""
+  },
+  "char6": {
+    "id": "char6",
+    "name": "Sua",
+    "ageBand": "child",
+    "roles": [
+      "shaman"
+    ],
+    "evidence": "\"A young girl.\" -> matched \"girl\""
+  },
+  "char7": {
+    "id": "char7",
+    "name": "Gorka",
+    "ageBand": "child",
+    "roles": [],
+    "evidence": "\"A young boy.\" -> matched \"boy\""
+  },
+  "char8": {
+    "id": "char8",
+    "name": "Ines",
+    "ageBand": "elder",
+    "roles": [],
+    "evidence": "\"An old woman.\" -> matched \"old\""
+  },
+  "char9": {
+    "id": "char9",
+    "name": "Unai",
+    "ageBand": "adult",
+    "roles": [
+      "crafter"
+    ],
+    "evidence": "\"A man in his prime.\" -> matched \"man\""
+  },
+  "char10": {
+    "id": "char10",
+    "name": "Nerea",
+    "ageBand": "adult",
+    "roles": [
+      "crafter",
+      "fisher"
+    ],
+    "evidence": "\"A woman with a strong build.\" -> matched \"woman\""
+  },
+  "char11": {
+    "id": "char11",
+    "name": "Harkaitz",
+    "ageBand": "adult",
+    "roles": [
+      "hunter",
+      "lookout"
+    ],
+    "evidence": "\"A broad-shouldered man.\" -> matched \"man\""
+  },
+  "char12": {
+    "id": "char12",
+    "name": "Elira",
+    "ageBand": "child",
+    "roles": [],
+    "evidence": "\"An adolescent girl.\" -> matched \"adolescent\""
+  },
+  "char13": {
+    "id": "char13",
+    "name": "Oihan",
+    "ageBand": "child",
+    "roles": [
+      "hunter"
+    ],
+    "evidence": "\"An adolescent boy.\" -> matched \"adolescent\""
+  },
+  "char14": {
+    "id": "char14",
+    "name": "Maialen",
+    "ageBand": "adult",
+    "roles": [
+      "hunter"
+    ],
+    "evidence": "\"A woman with a newborn.\" -> matched \"woman\""
+  },
+  "char15": {
+    "id": "char15",
+    "name": "Eneko",
+    "ageBand": "adult",
+    "roles": [
+      "hunter"
+    ],
+    "evidence": "\"A lean, wiry man.\" -> matched \"man\""
+  },
+  "char16": {
+    "id": "char16",
+    "name": "Pello",
+    "ageBand": "elder",
+    "roles": [
+      "hunter"
+    ],
+    "evidence": "\"An old man with a limp.\" -> matched \"old\""
+  },
+  "char17": {
+    "id": "char17",
+    "name": "Irati",
+    "ageBand": "adult",
+    "roles": [
+      "hunter"
+    ],
+    "evidence": "\"A woman with long, dark hair.\" -> matched \"woman\""
+  },
+  "char18": {
+    "id": "char18",
+    "name": "Ibai",
+    "ageBand": "adult",
+    "roles": [
+      "hunter",
+      "shaman"
+    ],
+    "evidence": "\"A man with a thoughtful expression.\" -> matched \"man\""
+  },
+  "char19": {
+    "id": "char19",
+    "name": "Alaia",
+    "ageBand": "adult",
+    "roles": [],
+    "evidence": "\"A cheerful woman.\" -> matched \"woman\""
+  },
+  "char20": {
+    "id": "char20",
+    "name": "Mikel",
+    "ageBand": "adult",
+    "roles": [
+      "hunter"
+    ],
+    "evidence": "\"A very tall man.\" -> matched \"man\""
+  },
+  "char21": {
+    "id": "char21",
+    "name": "Leire",
+    "ageBand": "adult",
+    "roles": [
+      "hunter",
+      "crafter"
+    ],
+    "evidence": "\"A woman with a stern face.\" -> matched \"woman\""
+  },
+  "char22": {
+    "id": "char22",
+    "name": "Iker",
+    "ageBand": "child",
+    "roles": [
+      "hunter",
+      "crafter"
+    ],
+    "evidence": "\"A quiet adolescent boy.\" -> matched \"adolescent\""
+  },
+  "char23": {
+    "id": "char23",
+    "name": "Haizea",
+    "ageBand": "child",
+    "roles": [
+      "shaman",
+      "crafter"
+    ],
+    "evidence": "\"A girl with wild, windswept hair.\" -> matched \"girl\""
+  },
+  "char24": {
+    "id": "char24",
+    "name": "Ander",
+    "ageBand": "adult",
+    "roles": [
+      "hunter",
+      "fisher"
+    ],
+    "evidence": "\"A young man with a slight build.\" -> matched \"man\""
+  },
+  "char25": {
+    "id": "char25",
+    "name": "Itxaso",
+    "ageBand": "adult",
+    "roles": [
+      "fisher"
+    ],
+    "evidence": "\"A woman who smells of the sea.\" -> matched \"woman\""
+  },
+  "char26": {
+    "id": "char26",
+    "name": "Xabier",
+    "ageBand": "adult",
+    "roles": [
+      "hunter",
+      "crafter"
+    ],
+    "evidence": "\"A man who is always tinkering.\" -> matched \"man\""
+  },
+  "char27": {
+    "id": "char27",
+    "name": "Maddi",
+    "ageBand": "adult",
+    "roles": [],
+    "evidence": "\"A very young woman.\" -> matched \"woman\""
+  },
+  "char28": {
+    "id": "char28",
+    "name": "Odei",
+    "ageBand": "child",
+    "roles": [
+      "lookout"
+    ],
+    "evidence": "\"A child of five winters.\" -> matched \"child\""
+  },
+  "char29": {
+    "id": "char29",
+    "name": "Nahia",
+    "ageBand": "child",
+    "roles": [
+      "storyteller"
+    ],
+    "evidence": "\"A child of seven winters.\" -> matched \"child\""
+  },
+  "char30": {
+    "id": "char30",
+    "name": "Gizon",
+    "ageBand": "adult",
+    "roles": [
+      "hunter"
+    ],
+    "evidence": "\"A man who came from another band.\" -> matched \"man\""
+  },
+  "char31": {
+    "id": "char31",
+    "name": "Santi",
+    "ageBand": "child",
+    "roles": [
+      "hunter"
+    ],
+    "evidence": "\"A boy of twelve winters.\" -> matched \"boy\""
+  },
+  "char32": {
+    "id": "char32",
+    "name": "Ederra",
+    "ageBand": "adult",
+    "roles": [
+      "lookout"
+    ],
+    "evidence": "\"A woman known for her beauty.\" -> matched \"woman\""
+  },
+  "char33": {
+    "id": "char33",
+    "name": "Txiki",
+    "ageBand": "child",
+    "roles": [],
+    "evidence": "\"A small child.\" -> matched \"child\""
+  },
+  "char34": {
+    "id": "char34",
+    "name": "Lizar",
+    "ageBand": "adult",
+    "roles": [
+      "fisher"
+    ],
+    "evidence": "\"A man with a weathered face.\" -> matched \"man\""
+  },
+  "char35": {
+    "id": "char35",
+    "name": "Goizane",
+    "ageBand": "adult",
+    "roles": [
+      "shaman"
+    ],
+    "evidence": "\"A woman who wakes before the sun.\" -> matched \"woman\""
+  },
+  "char36": {
+    "id": "char36",
+    "name": "Patxi",
+    "ageBand": "child",
+    "roles": [],
+    "evidence": "\"A boy with a knack for trouble.\" -> matched \"boy\""
+  },
+  "char37": {
+    "id": "char37",
+    "name": "Zuri",
+    "ageBand": "child",
+    "roles": [
+      "crafter"
+    ],
+    "evidence": "\"A girl with very pale skin.\" -> matched \"girl\""
+  },
+  "char38": {
+    "id": "char38",
+    "name": "Orkatz",
+    "ageBand": "adult",
+    "roles": [
+      "hunter"
+    ],
+    "evidence": "\"A man in his late prime.\" -> matched \"man\""
+  },
+  "char39": {
+    "id": "char39",
+    "name": "Bihotz",
+    "ageBand": "adult",
+    "roles": [],
+    "evidence": "\"A woman with a kind face.\" -> matched \"woman\""
+  },
+  "char40": {
+    "id": "char40",
+    "name": "Ekain",
+    "ageBand": "child",
+    "roles": [],
+    "evidence": "\"An infant.\" -> matched \"infant\""
+  },
+  "char41": {
+    "id": "char41",
+    "name": "Iñigo",
+    "ageBand": "adult",
+    "roles": [
+      "hunter"
+    ],
+    "evidence": "\"A very young man.\" -> matched \"man\""
+  },
+  "char42": {
+    "id": "char42",
+    "name": "Argi",
+    "ageBand": "adult",
+    "roles": [],
+    "evidence": "\"A very young woman.\" -> matched \"woman\""
+  }
+}

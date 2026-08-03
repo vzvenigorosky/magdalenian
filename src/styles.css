@@ -1,0 +1,91 @@
+@import 'tailwindcss';
+
+/* Self-hosted — replaces the Google Fonts <link> in the original page. */
+@import '@fontsource/forum/400.css';
+@import '@fontsource/sometype-mono/400.css';
+@import '@fontsource/sometype-mono/700.css';
+
+@theme {
+  --color-ochre: #c7a78a;
+  --color-hearth: #1a1a1a;
+  --color-stone: #2c2a2a;
+  --color-edge: #4a4a4a;
+  --font-title: 'Forum', serif;
+  --font-body: 'Sometype Mono', monospace;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-hearth);
+  color: #e0e0e0;
+}
+
+.font-title {
+  font-family: var(--font-title);
+}
+
+.card {
+  background-color: var(--color-stone);
+  border: 1px solid var(--color-edge);
+}
+
+.nav-item {
+  cursor: pointer;
+  transition: background-color 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-item:hover,
+.nav-item.active {
+  background-color: var(--color-edge);
+}
+
+.location-button {
+  border: 1px solid #555;
+  transition: all 0.2s;
+}
+
+.location-button:hover,
+.location-button.active {
+  background-color: var(--color-ochre);
+  color: var(--color-hearth);
+}
+
+#tooltip {
+  position: fixed;
+  display: none;
+  background-color: var(--color-hearth);
+  border: 1px solid var(--color-ochre);
+  padding: 1rem;
+  border-radius: 0.5rem;
+  max-width: 350px;
+  z-index: 100;
+  pointer-events: none;
+}
+
+.character-name {
+  font-weight: bold;
+  color: var(--color-ochre);
+  cursor: help;
+}
+
+.moon-icon {
+  width: 16px;
+  height: 16px;
+  margin-left: 4px;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-hearth);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #555;
+  border-radius: 4px;
+}

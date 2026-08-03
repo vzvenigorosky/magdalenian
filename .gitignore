@@ -1,0 +1,8 @@
+node_modules/
+dist/
+dist-ssr/
+*.local
+.DS_Store
+
+# Generated from data/ by `npm run build:data`
+public/data/

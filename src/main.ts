@@ -8,8 +8,18 @@ import { renderLocationNav } from './ui/location-nav.ts';
 import { displayError, renderMessage, renderScene } from './ui/scene-view.ts';
 import { renderTimeNav, type TimeChange } from './ui/time-nav.ts';
 import { initTooltip, pickCharacterDescriptions } from './ui/tooltip.ts';
+import { renderCharacterIndex } from './ui/character-index.ts';
+import { initKeyboard } from './ui/keyboard.ts';
+import {
+  applyPosition,
+  currentPosition,
+  onNavigate,
+  parseHash,
+  writeHash,
+} from './ui/router.ts';
 
 let core: CoreData;
+let indexOpen = false;
 
 /**
  * Guards against a slow season chunk landing after the user has already moved
@@ -54,11 +64,62 @@ async function updateMainDisplay(): Promise<void> {
     hour,
     location,
     profiles: core.profiles,
+    relationships: core.relationships,
     authored: core.events.schedule,
     ambience: findAmbience(core.defaultEvents, day.season, hour, location.type),
   });
 
   renderScene({ day, hour, location, scene, characters: core.characters });
+}
+
+/** Renders whichever view is active, and keeps the URL in step. */
+function refresh(options: { replaceHistory?: boolean } = {}): void {
+  writeHash(currentPosition(), options.replaceHistory ?? false);
+  renderTimeNav(core.yearIndex, onTimeSelect);
+  renderLocationNav(core.locations, onLocationSelect);
+  if (indexOpen) {
+    renderMessage(renderCharacterIndex(core.characters, core.profiles, core.relationships));
+    document.getElementById('close-index')?.addEventListener('click', () => toggleIndex());
+    return;
+  }
+  void updateMainDisplay();
+}
+
+function toggleIndex(force?: boolean): void {
+  const next = force ?? !indexOpen;
+  if (next === indexOpen) return;
+  indexOpen = next;
+  refresh({ replaceHistory: true });
+}
+
+const clampDay = (day: number) => Math.min(365, Math.max(1, day));
+
+/** Stepping past midnight rolls into the neighbouring day, as time does. */
+function stepHour(delta: number): void {
+  const total = selectedState.day * 24 + selectedState.hour + delta;
+  const day = clampDay(Math.floor(total / 24));
+  applyPosition({ day, hour: ((total % 24) + 24) % 24, locationId: selectedState.locationId });
+  toggleIndex(false);
+  refresh();
+}
+
+function stepDay(delta: number): void {
+  applyPosition({
+    day: clampDay(selectedState.day + delta),
+    hour: selectedState.hour,
+    locationId: selectedState.locationId,
+  });
+  toggleIndex(false);
+  refresh();
+}
+
+function stepLocation(delta: number): void {
+  const ids = Object.keys(core.locations);
+  const at = ids.indexOf(selectedState.locationId);
+  const next = ids[(at + delta + ids.length) % ids.length];
+  if (next) selectedState.locationId = next;
+  toggleIndex(false);
+  refresh();
 }
 
 function onTimeSelect(level: TimeChange, value: Season | string | number): void {
@@ -79,14 +140,14 @@ function onTimeSelect(level: TimeChange, value: Season | string | number): void 
     selectedState.hour = value as number;
   }
 
-  renderTimeNav(core.yearIndex, onTimeSelect);
-  void updateMainDisplay();
+  toggleIndex(false);
+  refresh();
 }
 
 function onLocationSelect(id: string): void {
   selectedState.locationId = id;
-  renderLocationNav(core.locations, onLocationSelect);
-  void updateMainDisplay();
+  toggleIndex(false);
+  refresh();
 }
 
 async function main(): Promise<void> {
@@ -103,9 +164,24 @@ async function main(): Promise<void> {
   pickCharacterDescriptions(core.characters);
   initTooltip(core.characters);
 
-  renderTimeNav(core.yearIndex, onTimeSelect);
-  renderLocationNav(core.locations, onLocationSelect);
-  await updateMainDisplay();
+  // A shared or bookmarked URL wins over the default opening view.
+  const fromUrl = parseHash(window.location.hash, (id) => id in core.locations);
+  if (fromUrl) applyPosition(fromUrl);
+
+  onNavigate(() => {
+    const position = parseHash(window.location.hash, (id) => id in core.locations);
+    if (!position) return;
+    applyPosition(position);
+    indexOpen = false;
+    renderTimeNav(core.yearIndex, onTimeSelect);
+    renderLocationNav(core.locations, onLocationSelect);
+    void updateMainDisplay();
+  });
+
+  initKeyboard({ stepHour, stepDay, stepLocation, toggleIndex: () => toggleIndex() });
+  document.getElementById('open-index')?.addEventListener('click', () => toggleIndex());
+
+  refresh({ replaceHistory: true });
 }
 
 void main();

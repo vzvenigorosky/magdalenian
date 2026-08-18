@@ -42,13 +42,17 @@ body {
   background-color: var(--color-edge);
 }
 
-.location-button {
+/* Shared chip styling. `.location-button` is reserved for actual locations so
+   that selector keeps meaning one thing. */
+.location-button,
+.chip {
   border: 1px solid #555;
   transition: all 0.2s;
 }
 
 .location-button:hover,
-.location-button.active {
+.location-button.active,
+.chip:hover {
   background-color: var(--color-ochre);
   color: var(--color-hearth);
 }

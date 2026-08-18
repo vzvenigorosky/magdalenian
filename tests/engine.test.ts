@@ -10,8 +10,8 @@ import {
   type SceneInput,
 } from '../src/sim/engine.ts';
 import { narrateScene } from '../src/sim/narrate.ts';
-import { traitsOf } from '../src/sim/weights.ts';
-import { dayOf, defaultEvents, events, locations, profiles, year } from './helpers.ts';
+import { canReach, traitsOf } from '../src/sim/weights.ts';
+import { dayOf, defaultEvents, events, locations, profiles, relationships, year } from './helpers.ts';
 
 const asDay = (n: number) => dayOf(n) as unknown as ResolvedDay;
 
@@ -23,6 +23,7 @@ function sceneInput(day: number, hour: number, locationId: string): SceneInput {
     hour,
     location,
     profiles,
+    relationships,
     authored: events.schedule,
     ambience: findAmbience(defaultEvents, resolved.season, hour, location.type),
   };
@@ -58,7 +59,7 @@ describe('authored events take precedence', () => {
 
   it('still provides ambience alongside an authored event', () => {
     const scene = generateScene(sceneInput(1, 0, 'loc0'));
-    expect(scene.ambience.length).toBeGreaterThan(0);
+    expect(scene.ambience.text.length).toBeGreaterThan(0);
   });
 });
 
@@ -280,6 +281,69 @@ describe('who is allowed to be doing what', () => {
   });
 });
 
+describe('nobody is somewhere they could not have walked to', () => {
+  const far = ['loc22', 'loc45', 'loc29', 'loc7', 'loc65', 'loc33'];
+  const near = ['loc0', 'loc25', 'loc14', 'loc13'];
+
+  it('keeps children and infants out of the far country', () => {
+    for (let day = 1; day <= 365; day += 2) {
+      for (let hour = 0; hour < 24; hour += 2) {
+        for (const loc of far) {
+          const scene = generateIfAny(day, hour, loc);
+          if (!scene) continue;
+          const people = scene.activities.flatMap((a) => [...a.actors, ...(a.charges ?? [])]);
+          for (const person of people) {
+            expect(
+              ['infant', 'child'],
+              `${person.name} (${person.ageBand}) at ${loc} on day ${day}`,
+            ).not.toContain(person.ageBand);
+          }
+        }
+      }
+    }
+  });
+
+  it('keeps elders off the distant peaks and hunting grounds', () => {
+    for (let day = 1; day <= 365; day += 2) {
+      for (let hour = 0; hour < 24; hour += 2) {
+        for (const loc of ['loc45', 'loc29', 'loc7', 'loc22', 'loc65']) {
+          const scene = generateIfAny(day, hour, loc);
+          if (!scene) continue;
+          for (const person of scene.activities.flatMap((a) => a.actors)) {
+            expect(person.ageBand, `${person.name} at ${loc}`).not.toBe('elder');
+          }
+        }
+      }
+    }
+  });
+
+  it('still lets children be children close to camp', () => {
+    let sightings = 0;
+    for (let day = 1; day <= 365; day += 2) {
+      for (let hour = 6; hour < 20; hour += 2) {
+        for (const loc of near) {
+          const scene = generateIfAny(day, hour, loc);
+          if (!scene) continue;
+          sightings += scene.activities
+            .flatMap((a) => [...a.actors, ...(a.charges ?? [])])
+            .filter((p) => p.ageBand === 'child' || p.ageBand === 'infant').length;
+        }
+      }
+    }
+    expect(sightings, 'children vanished from camp entirely').toBeGreaterThan(200);
+  });
+
+  it('lets adolescents reach the nearer hunting grounds but not the far ones', () => {
+    expect(canReach('adolescent', locations.loc22!)).toBe(true); // 52 child-minutes
+    expect(canReach('adolescent', locations.loc45!)).toBe(false); // 74
+    expect(canReach('child', locations.loc10!)).toBe(true); // the quarry, 10
+    expect(canReach('child', locations.loc5!)).toBe(false); // ancestor stone, 24
+    expect(canReach('elder', locations.loc5!)).toBe(true); // 36 elder-minutes
+    expect(canReach('elder', locations.loc33!)).toBe(false); // 49
+    expect(canReach('adult', locations.loc29!)).toBe(true); // adults go anywhere
+  });
+});
+
 describe('childminding is sized to the children', () => {
   const everyChildcareScene = (visit: (c: ActivityOutcome, where: string) => void): number => {
     let seen = 0;
@@ -355,6 +419,91 @@ describe('childminding is sized to the children', () => {
     expect(minderCap(8)).toBe(3);
     expect(minderCap(9)).toBe(4);
     expect(minderCap(20)).toBe(4);
+  });
+});
+
+describe('the band behaves like families', () => {
+  const kin = (id: string, side: 'mates' | 'children' | 'grandchildren' | 'siblings') =>
+    relationships[id]?.[side] ?? [];
+
+  /** Walks the whole grid, gathering every instance of one activity. */
+  function collect(activity: string): ActivityOutcome[] {
+    const found: ActivityOutcome[] = [];
+    for (let day = 1; day <= 365; day += 2) {
+      for (let hour = 0; hour < 24; hour += 2) {
+        for (const loc of Object.keys(locations)) {
+          const match = generateIfAny(day, hour, loc)?.activities.filter(
+            (a) => a.activity === activity,
+          );
+          if (match) found.push(...match);
+        }
+      }
+    }
+    return found;
+  }
+
+  it('pairs mates for intimacy rather than strangers', () => {
+    const pairs = collect('sexualRelations').filter((a) => a.actors.length === 2);
+    expect(pairs.length).toBeGreaterThan(50);
+    const mated = pairs.filter((a) => kin(a.actors[0]!.id, 'mates').includes(a.actors[1]!.id));
+    expect(mated.length / pairs.length).toBeGreaterThan(0.85);
+  });
+
+  it('never pairs anyone with a parent, child or sibling', () => {
+    for (const pair of collect('sexualRelations')) {
+      if (pair.actors.length < 2) continue;
+      const [a, b] = pair.actors;
+      expect(kin(a!.id, 'children'), `${a!.name} + ${b!.name}`).not.toContain(b!.id);
+      expect(kin(a!.id, 'siblings'), `${a!.name} + ${b!.name}`).not.toContain(b!.id);
+      expect(kin(b!.id, 'children'), `${a!.name} + ${b!.name}`).not.toContain(a!.id);
+    }
+  });
+
+  it('has adults minding mostly their own children', () => {
+    const scenes = collect('childcare');
+    expect(scenes.length).toBeGreaterThan(100);
+    let own = 0;
+    let total = 0;
+    for (const scene of scenes) {
+      for (const minder of scene.actors) {
+        total++;
+        const mine = kin(minder.id, 'children').concat(kin(minder.id, 'grandchildren'));
+        if ((scene.charges ?? []).some((c) => mine.includes(c.id))) own++;
+      }
+    }
+    expect(own / total).toBeGreaterThan(0.5);
+  });
+
+  it('gives every teaching scene an actual pupil, taught by one grown-up', () => {
+    const teaching = collect('teachingChild');
+    expect(teaching.length).toBeGreaterThan(50);
+    for (const scene of teaching) {
+      expect(scene.actors).toHaveLength(1);
+      expect(['adult', 'elder']).toContain(scene.actors[0]!.ageBand);
+      expect((scene.charges ?? []).length).toBeGreaterThan(0);
+      for (const pupil of scene.charges ?? []) {
+        expect(['child', 'adolescent'], pupil.name).toContain(pupil.ageBand);
+        expect(pupil.id).not.toBe(scene.actors[0]!.id);
+      }
+    }
+  });
+
+  it('has elders and parents teaching their own more often than not', () => {
+    const teaching = collect('teachingChild');
+    const own = teaching.filter((scene) => {
+      const teacher = scene.actors[0]!;
+      const mine = kin(teacher.id, 'children').concat(kin(teacher.id, 'grandchildren'));
+      return (scene.charges ?? []).some((c) => mine.includes(c.id));
+    });
+    expect(own.length / teaching.length).toBeGreaterThan(0.35);
+  });
+
+  it('keeps kin influence out of activities where it makes no sense', () => {
+    // Flint knapping should be picked on skill, not on who your brother is.
+    const knapping = collect('knappingFlint').filter((a) => a.actors.length === 2);
+    if (knapping.length < 30) return;
+    const related = knapping.filter((a) => kin(a.actors[0]!.id, 'siblings').includes(a.actors[1]!.id));
+    expect(related.length / knapping.length).toBeLessThan(0.35);
   });
 });
 

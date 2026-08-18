@@ -1,0 +1,274 @@
+{
+  "CENTRAL_DWELLING": {
+    "Summer": {
+      "night": { "text": "Most of the band sleeps out at the cave mouth where the air moves. The fire is banked down to embers, and someone wakes now and then to see to it.", "presence": "people" },
+      "dawn": { "text": "Light comes early and early is when the camp wakes. The fire is fed, and the first of the band go down to the water.", "presence": "people" },
+      "morning": { "text": "The cave mouth is busy. Hides are pegged out in the sun and the smell of woodsmoke hangs in air that has not started moving yet.", "presence": "people" },
+      "midday": { "text": "The heat pushes all the work back into the shade of the overhang. Those who stayed behind doze, or mend what needs mending.", "presence": "people" },
+      "evening": { "text": "The long light holds. Hunters and foragers come in one at a time and the cooking fire is built up for them.", "presence": "people" },
+      "settle": { "text": "The band gathers while it is still light enough to read faces. The talk runs late because it can.", "presence": "people" }
+    },
+    "Autumn": {
+      "night": { "text": "The fire is kept higher than it was a moon ago, and the sleepers lie closer to it.", "presence": "people" },
+      "dawn": { "text": "Cold air off the valley floor. The fire is woken, and breath shows in front of every face.", "presence": "people" },
+      "morning": { "text": "Everything is being put by — nuts spread to dry, strips of meat hung high in the smoke.", "presence": "people" },
+      "midday": { "text": "The cave mouth smells of smoke and drying flesh. Every pair of hands is busy; nobody is idle in the gathering season.", "presence": "people" },
+      "evening": { "text": "The light goes sooner each evening. Baskets come in heavy and are emptied out where everyone can see what there is.", "presence": "people" },
+      "settle": { "text": "Full bellies and a good fire. An elder counts off aloud how many days are left before the snow.", "presence": "people" }
+    },
+    "Winter": {
+      "night": { "text": "The fire is the only warmth in the world. The band sleeps packed around it and someone always wakes to feed it.", "presence": "people" },
+      "dawn": { "text": "Still dark, and no reason to hurry. The fire is coaxed up before anyone leaves the skins.", "presence": "people" },
+      "morning": { "text": "Late grey light at the entrance. The work happens close to the fire — sewing, mending, flint knapped in the warm.", "presence": "people" },
+      "midday": { "text": "The thin sun barely clears the valley wall. Whatever can be done indoors is being done indoors.", "presence": "people" },
+      "evening": { "text": "Dark already. The band draws in and the stores are opened carefully, with everyone watching.", "presence": "people" },
+      "settle": { "text": "Stories, in the long dark. There is little else to do and nowhere else to go.", "presence": "people" }
+    },
+    "Spring": {
+      "night": { "text": "The fire burns lower than it has in months. Water drips somewhere past the entrance, all night.", "presence": "people" },
+      "dawn": { "text": "Birds again, before the light. The fire is fed and the skins thrown back with something like eagerness.", "presence": "people" },
+      "morning": { "text": "Everything damp is dragged out into the air. Winter is being driven out of the cave a hide at a time.", "presence": "people" },
+      "midday": { "text": "The band is restless. Tools are being put in order for country that has been shut all winter.", "presence": "people" },
+      "evening": { "text": "People come back muddy to the knee. There is more light left in the evening than anyone is used to.", "presence": "people" },
+      "settle": { "text": "Round the fire, but not so close now. The talk is all of where to go and when.", "presence": "people" }
+    }
+  },
+  "HUNTING_GROUND": {
+    "Summer": {
+      "night": { "text": "The valley is left to the night animals. Something coughs once in the dark and then keeps quiet.", "presence": "empty" },
+      "dawn": { "text": "Grey light on wet grass. Tracks show clean where the dew has been broken.", "presence": "neutral" },
+      "morning": { "text": "Hunters move along the tree line, downwind, saying nothing at all.", "presence": "people" },
+      "midday": { "text": "The heat has driven the herds into shade. The hunters wait it out, watching from a distance.", "presence": "people" },
+      "evening": { "text": "The kill is opened where it fell. The work is quick, and the ravens are already waiting in the branches.", "presence": "people" },
+      "settle": { "text": "The long walk back, carrying what there is to carry, with the light nearly gone.", "presence": "people" }
+    },
+    "Autumn": {
+      "night": { "text": "Roaring somewhere out in the dark, stag answering stag, and nobody here to hear it.", "presence": "empty" },
+      "dawn": { "text": "Frost on the ground and breath hanging. The tracks are sharp and easy this morning.", "presence": "neutral" },
+      "morning": { "text": "The deer are heavy with the season and careless with it. The hunters take their time about it.", "presence": "people" },
+      "midday": { "text": "Cold sun and no wind. A good day for it, and the herds are fat before the snow.", "presence": "people" },
+      "evening": { "text": "Butchering in failing light, hands working fast against the cold coming on.", "presence": "people" },
+      "settle": { "text": "Loaded and heading home in the dark, following the river down.", "presence": "people" }
+    },
+    "Winter": {
+      "night": { "text": "Nothing moves out here but wind over old snow.", "presence": "empty" },
+      "dawn": { "text": "Bitter, and barely light. Only the freshest tracks are worth anything in this.", "presence": "neutral" },
+      "morning": { "text": "Reindeer dark against the snow, a long way out. The hunters follow at a distance and do not close.", "presence": "people" },
+      "midday": { "text": "The best hours of a very short day. Everything depends on what happens in the next few of them.", "presence": "people" },
+      "evening": { "text": "The dark comes down fast. Whatever has been taken has to be got home tonight.", "presence": "people" },
+      "settle": { "text": "Empty country under hard stars, and cold enough to split stone.", "presence": "empty" }
+    },
+    "Spring": {
+      "night": { "text": "The thaw works away in the dark, water running everywhere, and no one to hear it go.", "presence": "empty" },
+      "dawn": { "text": "Mud and meltwater. The tracks are muddled and hard to read.", "presence": "neutral" },
+      "morning": { "text": "Thin animals coming through a thin season. The hunters take what they can get.", "presence": "people" },
+      "midday": { "text": "The ground is too soft for quiet walking. It is hard hunting and everyone knows it.", "presence": "people" },
+      "evening": { "text": "Little enough to carry back. The hunters start down early.", "presence": "people" },
+      "settle": { "text": "The valley empties into dusk with meltwater the only sound in it.", "presence": "empty" }
+    }
+  },
+  "FORAGING_AREA": {
+    "Summer": {
+      "night": { "text": "The thickets are left to the small creatures that work them over after dark.", "presence": "empty" },
+      "dawn": { "text": "Everything hangs with dew, and the birds are loud in the branches.", "presence": "neutral" },
+      "morning": { "text": "The foragers work along the thickets, baskets filling with greens and the first of the berries.", "presence": "people" },
+      "midday": { "text": "Steady picking in the warm. The talk is easy, and the young ones are shown which leaves to leave alone.", "presence": "people" },
+      "evening": { "text": "Baskets full and heavy on the hip. The party starts back toward the cave.", "presence": "people" },
+      "settle": { "text": "Trampled grass and stripped stems, and nobody left to look at them.", "presence": "empty" }
+    },
+    "Autumn": {
+      "night": { "text": "Windfall thuds softly in the dark. The grove keeps its own hours.", "presence": "empty" },
+      "dawn": { "text": "Cold mist between the trunks, and mushrooms come up overnight where there were none.", "presence": "neutral" },
+      "morning": { "text": "The best weeks of the whole year. Hazelnuts come down in handfuls and the baskets fill fast.", "presence": "people" },
+      "midday": { "text": "Everyone who can be spared is out here. What is gathered now is what there is come winter.", "presence": "people" },
+      "evening": { "text": "Loads too heavy to carry comfortably, carried anyway.", "presence": "people" },
+      "settle": { "text": "Husks and broken stems underfoot, and the grove picked clean of everything ripe.", "presence": "empty" }
+    },
+    "Winter": {
+      "night": { "text": "Bare branches over hard ground, and nothing here worth coming for.", "presence": "empty" },
+      "dawn": { "text": "Frost furs every twig. There is little left but bark and dry stems.", "presence": "neutral" },
+      "morning": { "text": "Thin pickings. Someone digs for roots wherever the ground is still soft enough to break.", "presence": "people" },
+      "midday": { "text": "Cold work for a small return, and the baskets stay light all the same.", "presence": "people" },
+      "evening": { "text": "Not much to carry back. They go early, before the cold sets hard.", "presence": "people" },
+      "settle": { "text": "The grove stands bare and silent under an early dark.", "presence": "empty" }
+    },
+    "Spring": {
+      "night": { "text": "Wet ground, and things stirring in it that nobody is here to see.", "presence": "empty" },
+      "dawn": { "text": "New green shows at the foot of everything, and the birds have started earlier than they did.", "presence": "neutral" },
+      "morning": { "text": "Shoots and new leaves, and the first roots worth the digging.", "presence": "people" },
+      "midday": { "text": "Hungry work in a hungry season, but the ground is giving again and that is the thing.", "presence": "people" },
+      "evening": { "text": "Small baskets, but not empty ones. That is more than the last moon managed.", "presence": "people" },
+      "settle": { "text": "The disturbed ground is already greening over behind them.", "presence": "empty" }
+    }
+  },
+  "RITUAL_SITE": {
+    "Summer": {
+      "night": { "text": "The stones hold the day's warmth long after dark. No one is here to feel it.", "presence": "empty" },
+      "dawn": { "text": "First light reaches this place before it reaches the camp below.", "presence": "neutral" },
+      "morning": { "text": "Something has been left here — ochre, a shell, a good blade — and whoever left it has gone.", "presence": "neutral" },
+      "midday": { "text": "Full sun on old stone. Insects working the grass, and nothing else at all.", "presence": "neutral" },
+      "evening": { "text": "Long shadows off the stone. Whoever comes up here comes quietly.", "presence": "neutral" },
+      "settle": { "text": "The last light leaves the stone and the place is given back to itself.", "presence": "empty" }
+    },
+    "Autumn": {
+      "night": { "text": "Leaves come down in the dark and settle wherever they fall.", "presence": "empty" },
+      "dawn": { "text": "Mist lies in the hollow around the stone and does not lift with the light.", "presence": "neutral" },
+      "morning": { "text": "Cold light and the smell of wet leaf. Offerings out of the harvest lie at the base.", "presence": "neutral" },
+      "midday": { "text": "The turning of the year is close and the place seems to know it.", "presence": "neutral" },
+      "evening": { "text": "The light goes early and goes red, and the stone keeps its face to it.", "presence": "neutral" },
+      "settle": { "text": "Dark, and the wind working through what leaves are left.", "presence": "empty" }
+    },
+    "Winter": {
+      "night": { "text": "Frost on the stone, hard and bright. Nothing comes here in this.", "presence": "empty" },
+      "dawn": { "text": "The sun comes up far to the south and barely clears the ridge.", "presence": "neutral" },
+      "morning": { "text": "Snow lies unbroken all round the base. Nobody has come since it fell.", "presence": "empty" },
+      "midday": { "text": "The shortest light of the year falls across the oldest thing the band knows of.", "presence": "neutral" },
+      "evening": { "text": "Blue dusk, and the cold coming down over everything like a weight.", "presence": "neutral" },
+      "settle": { "text": "The long dark. Whatever was left here is under snow now.", "presence": "empty" }
+    },
+    "Spring": {
+      "night": { "text": "Meltwater runs somewhere beneath the stone all night, unheard.", "presence": "empty" },
+      "dawn": { "text": "The sun rises further along the ridge than it did. Someone has been keeping count.", "presence": "neutral" },
+      "morning": { "text": "Green at the foot of the stone for the first time in months.", "presence": "neutral" },
+      "midday": { "text": "Warmth on the rock again, and fresh ochre worked into the old marks.", "presence": "neutral" },
+      "evening": { "text": "The light lasts longer every evening, and is watched for exactly that.", "presence": "neutral" },
+      "settle": { "text": "Dusk, and the first insects of the year turning about the stone.", "presence": "empty" }
+    }
+  },
+  "UTILITY_SITE": {
+    "Summer": {
+      "night": { "text": "The water runs on in the dark and there is nobody about to hear it.", "presence": "empty" },
+      "dawn": { "text": "Flat calm, and the light coming up off the water into the eyes.", "presence": "neutral" },
+      "morning": { "text": "People come and go — water carried up, flint knocked loose, the shore walked for whatever it has thrown up overnight.", "presence": "people" },
+      "midday": { "text": "Bright and hot on open stone. The work here is done in short spells with rests between.", "presence": "people" },
+      "evening": { "text": "The last loads are carried up. The stone holds the day's heat well past the light.", "presence": "people" },
+      "settle": { "text": "The area is deserted, and the only sound is the water.", "presence": "empty" }
+    },
+    "Autumn": {
+      "night": { "text": "Cold water over cold stone, and nobody out in it.", "presence": "empty" },
+      "dawn": { "text": "Mist off the river thick enough to hide the far bank entirely.", "presence": "neutral" },
+      "morning": { "text": "Salmon in the shallows and hands in the water after them. The flint is worked while the weather holds.", "presence": "people" },
+      "midday": { "text": "Good working light with no heat in it. As much is got done as there are hours for.", "presence": "people" },
+      "evening": { "text": "The river runs high and brown. The last of the day's work is shouldered and carried off.", "presence": "people" },
+      "settle": { "text": "Empty banks, and the water louder than it ran in summer.", "presence": "empty" }
+    },
+    "Winter": {
+      "night": { "text": "Ice at the edges and nothing moving anywhere.", "presence": "empty" },
+      "dawn": { "text": "The river runs black between white banks.", "presence": "neutral" },
+      "morning": { "text": "Water is fetched fast and carried back faster. Nobody lingers here in this.", "presence": "people" },
+      "midday": { "text": "Frozen ground gives up nothing, and the quarry face is too cold to work well.", "presence": "people" },
+      "evening": { "text": "Short work, and back up the path before the light goes altogether.", "presence": "people" },
+      "settle": { "text": "The area is deserted. The cold sees to that.", "presence": "empty" }
+    },
+    "Spring": {
+      "night": { "text": "The river is loud with meltwater in the dark, and nobody has seen how high it has come.", "presence": "empty" },
+      "dawn": { "text": "Grey light on fast brown water. The banks are not where they were in autumn.", "presence": "neutral" },
+      "morning": { "text": "The river is up and dangerous and worked carefully. Fresh stone has come down at the quarry face.", "presence": "people" },
+      "midday": { "text": "Everything is wet and everything is moving. Good flint is being pulled out of new scree.", "presence": "people" },
+      "evening": { "text": "Loads carried up the bank with feet heavy in the mud.", "presence": "people" },
+      "settle": { "text": "The area is deserted, the only sound the run of high water.", "presence": "empty" }
+    }
+  },
+  "SECONDARY_CAVE": {
+    "Summer": {
+      "night": { "text": "Cool air comes out of the mouth of it all night. There is nothing inside but stone.", "presence": "empty" },
+      "dawn": { "text": "Bats coming back in, one after another, out of the light and into the dark.", "presence": "neutral" },
+      "morning": { "text": "Cool and dim after the glare outside. What is kept here keeps better than it would at camp.", "presence": "neutral" },
+      "midday": { "text": "The best shade for a long way about. Someone slept here not long ago — the ash is not old.", "presence": "neutral" },
+      "evening": { "text": "Warm air outside and cold air in, meeting at the entrance and neither giving way.", "presence": "neutral" },
+      "settle": { "text": "Dark inside and dark out. There is no human activity here.", "presence": "empty" }
+    },
+    "Autumn": {
+      "night": { "text": "Wind across the mouth of the cave, holding one low note all night.", "presence": "empty" },
+      "dawn": { "text": "Damp gets into everything at this season, and what is stored here is checked for it.", "presence": "neutral" },
+      "morning": { "text": "Meat and nuts carried up to be kept cold and dry against the winter.", "presence": "people" },
+      "midday": { "text": "The store is filling. It gets counted more than once, and by more than one person.", "presence": "neutral" },
+      "evening": { "text": "Everything shut up and weighted with stone against whatever would get at it.", "presence": "neutral" },
+      "settle": { "text": "Left alone with what it holds.", "presence": "empty" }
+    },
+    "Winter": {
+      "night": { "text": "Out of the wind at least, though the cold finds its way in regardless.", "presence": "empty" },
+      "dawn": { "text": "Ice on the rock at the entrance, and inside barely warmer than out.", "presence": "neutral" },
+      "morning": { "text": "Someone has come up for stores and gone straight back down again.", "presence": "neutral" },
+      "midday": { "text": "The place holds what there is left to eat, and it is watched very carefully.", "presence": "neutral" },
+      "evening": { "text": "The dark arrives early into somewhere already dark.", "presence": "neutral" },
+      "settle": { "text": "Nothing here but the cold and what it is keeping.", "presence": "empty" }
+    },
+    "Spring": {
+      "night": { "text": "Water finding its way down through the rock, drop after drop, all night.", "presence": "empty" },
+      "dawn": { "text": "The last of the stores, and not much left of them.", "presence": "neutral" },
+      "morning": { "text": "Swept out and aired. Whatever spoiled over the winter is carried away and buried.", "presence": "people" },
+      "midday": { "text": "Bare ledges of stone, waiting on a better season to fill them.", "presence": "neutral" },
+      "evening": { "text": "Warmer outside than in, for the first time since autumn.", "presence": "neutral" },
+      "settle": { "text": "Left standing open to dry.", "presence": "empty" }
+    }
+  },
+  "INTIMATE_SPOT": {
+    "Summer": {
+      "night": { "text": "Warm dark, and the water going over stone. Nobody about.", "presence": "empty" },
+      "dawn": { "text": "Mist lying on the pool with the light coming through it.", "presence": "neutral" },
+      "morning": { "text": "Screened by leaf on every side. Voices from the camp do not carry this far.", "presence": "neutral" },
+      "midday": { "text": "Deep shade and the sound of water — a good place to be missed from camp for an hour.", "presence": "neutral" },
+      "evening": { "text": "The light comes low through the leaves, and two have come down and are not saying much.", "presence": "people" },
+      "settle": { "text": "Quiet, and the pool going dark under the trees.", "presence": "empty" }
+    },
+    "Autumn": {
+      "night": { "text": "Leaves on the water, turning slowly where it eddies.", "presence": "empty" },
+      "dawn": { "text": "Cold mist, and the trees half bare already. Less cover than there was.", "presence": "neutral" },
+      "morning": { "text": "The screen of leaves thins every week and the place grows less private with it.", "presence": "neutral" },
+      "midday": { "text": "Yellow light through what leaves are left, and still warm enough out of the wind.", "presence": "neutral" },
+      "evening": { "text": "Two down here out of the wind, while the light lasts.", "presence": "people" },
+      "settle": { "text": "Dark and cold, and the water loud with rain fallen somewhere upstream.", "presence": "empty" }
+    },
+    "Winter": {
+      "night": { "text": "Ice-fringed and silent. Nobody comes down here now.", "presence": "empty" },
+      "dawn": { "text": "Every branch bare. There is nothing left to hide behind.", "presence": "neutral" },
+      "morning": { "text": "Cold enough to keep away anyone who does not have to be here.", "presence": "empty" },
+      "midday": { "text": "Thin sun through bare wood, with no warmth in it worth the walk.", "presence": "neutral" },
+      "evening": { "text": "Too cold to linger. Whatever brings people here can wait for spring.", "presence": "neutral" },
+      "settle": { "text": "Frozen still, and no one.", "presence": "empty" }
+    },
+    "Spring": {
+      "night": { "text": "The water is high and loud in the dark.", "presence": "empty" },
+      "dawn": { "text": "New leaf coming, and cover coming back with it.", "presence": "neutral" },
+      "morning": { "text": "Green closing in again. The place is becoming private once more.", "presence": "neutral" },
+      "midday": { "text": "Warm out of the wind and screened well enough. It is being used again.", "presence": "people" },
+      "evening": { "text": "Long light through new leaves, and two who have slipped away from the camp.", "presence": "people" },
+      "settle": { "text": "Dusk, and the pool loud with the thaw.", "presence": "empty" }
+    }
+  },
+  "MOUNTAIN_AREA": {
+    "Summer": {
+      "night": { "text": "Cold up here even now. The stars sit very close and there is nobody under them.", "presence": "empty" },
+      "dawn": { "text": "Light strikes the high rock long before it reaches the valley floor.", "presence": "neutral" },
+      "morning": { "text": "Ibex on the crags, watchful, and well out of any reach.", "presence": "neutral" },
+      "midday": { "text": "Wind and bright stone. A long way up, and a longer way to carry anything down.", "presence": "people" },
+      "evening": { "text": "The valley is in shadow already while the tops are still lit.", "presence": "neutral" },
+      "settle": { "text": "The high country empties out. Nothing up here but wind.", "presence": "empty" }
+    },
+    "Autumn": {
+      "night": { "text": "The first hard frosts are on the high ground, and no one up here to feel them.", "presence": "empty" },
+      "dawn": { "text": "Cloud below, filling the whole valley, with the tops standing clear of it.", "presence": "neutral" },
+      "morning": { "text": "The ibex have come lower with the cold. That is worth knowing and worth telling.", "presence": "people" },
+      "midday": { "text": "Clear, cold and enormous. Everything the band owns can be seen from here at once.", "presence": "people" },
+      "evening": { "text": "Getting down before dark matters more than whatever is being carried.", "presence": "people" },
+      "settle": { "text": "Wind over bare rock, rising through the night.", "presence": "empty" }
+    },
+    "Winter": {
+      "night": { "text": "Nothing lives up here tonight. Nothing could.", "presence": "empty" },
+      "dawn": { "text": "Snow down to the foot of the slopes. The way up is gone until spring.", "presence": "empty" },
+      "morning": { "text": "White, and blowing hard. There is no human activity here.", "presence": "empty" },
+      "midday": { "text": "The peak stands clear for an hour and is lost again to cloud.", "presence": "neutral" },
+      "evening": { "text": "Cloud down to the treeline. There is nothing to be done up there.", "presence": "neutral" },
+      "settle": { "text": "Utterly still, and cold past all reckoning.", "presence": "empty" }
+    },
+    "Spring": {
+      "night": { "text": "Meltwater and rockfall in the dark, the mountain shedding its winter.", "presence": "empty" },
+      "dawn": { "text": "The snowline sits higher this week than it did last.", "presence": "neutral" },
+      "morning": { "text": "The way up is open again in places, and the ibex are working back to the high ground.", "presence": "people" },
+      "midday": { "text": "Bright, and streaming with meltwater. The footing is bad and everyone is careful of it.", "presence": "people" },
+      "evening": { "text": "Down before the cold comes back, which it still does every night.", "presence": "people" },
+      "settle": { "text": "The tops go pink and then grey, and nobody is up there to watch it happen.", "presence": "empty" }
+    }
+  }
+}

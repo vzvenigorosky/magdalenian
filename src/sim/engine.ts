@@ -19,14 +19,19 @@ import {
   type AuthoredEvent,
   type CharacterProfile,
   type CharacterProfiles,
+  type DefaultEventsData,
   type IncidentKey,
+  EMPTY_KIN,
+  type Kin,
   type Location,
+  type Relationships,
   type ResolvedDay,
 } from '../types.ts';
 import { resolveActivity, humanizeActivity } from '../data/activity-map.ts';
-import { assertsPeoplePresent } from './ambience.ts';
+import { assertsPeoplePresent, toAmbience, type Ambience } from './ambience.ts';
 import { createRng, hashSeed, weightedSample, type Rng } from './rng.ts';
-import { activityCount, applyConditions, traitsOf } from './weights.ts';
+import { activityCount, applyConditions, canReach, isCoastal, traitsOf } from './weights.ts';
+import { moonlight, tideStateAt, type TideState } from './sky.ts';
 
 export interface ActivityOutcome {
   activity: string;
@@ -47,16 +52,35 @@ export interface Incident {
   grave: boolean;
 }
 
+/**
+ * The conditions the scene happens in, carried on the scene itself so the
+ * narrator can weave them into the prose without needing the day and location
+ * handed to it separately.
+ */
+export interface SceneConditions {
+  season: string;
+  hour: number;
+  temp: number;
+  precip: number;
+  sunExposure: string;
+  wind: string;
+  moonlight: number;
+  cosmicEvent: string;
+  /** Only meaningful at the two shore sites. */
+  tide: TideState | null;
+}
+
 export interface GeneratedScene {
   kind: 'generated';
-  ambience: string;
+  ambience: Ambience;
   activities: ActivityOutcome[];
   incidents: Incident[];
+  conditions: SceneConditions;
 }
 
 export interface AuthoredScene {
   kind: 'authored';
-  ambience: string;
+  ambience: Ambience;
   event: AuthoredEvent;
 }
 
@@ -67,8 +91,9 @@ export interface SceneInput {
   hour: number;
   location: Location;
   profiles: CharacterProfiles;
+  relationships: Relationships;
   authored: AuthoredEvent[];
-  ambience: string;
+  ambience: Ambience;
 }
 
 /** Incidents that end or change a life, narrated with weight rather than as colour. */
@@ -112,6 +137,85 @@ const ROLE_AFFINITY: ReadonlyArray<readonly [RegExp, string]> = [
   [/^maintainingLookout/, 'lookout'],
 ];
 
+/**
+ * Everyone a character is closely tied to. The band is small and related, so
+ * kinship is the strongest signal available for who plausibly does what with
+ * whom — it beats picking bodies at random out of 43.
+ */
+function kinOf(relationships: Relationships, id: string): Kin {
+  return relationships[id] ?? EMPTY_KIN;
+}
+
+/**
+ * Activities where being family is the point, and how strongly.
+ *
+ * The multipliers look extreme because they compete against the whole band: a
+ * 12x boost for the one mate among 42 other candidates still lands at only
+ * ~22% mates, which is not what "lying together" should mean. Lying together
+ * is near-exclusive to mates; foraging alongside a sister is merely likelier
+ * than foraging with a stranger.
+ */
+/** Activities that should be between mates whenever a couple is available. */
+const PAIR_WITH_MATE = /^sexualRelations$/;
+
+/**
+ * Close kin who must never be paired for intimacy. A preference for mates is
+ * not enough on its own — it leaves the remainder free to pair siblings, which
+ * the grid duly produced.
+ */
+const INCEST_SIDES: ReadonlyArray<keyof Kin> = [
+  'parents',
+  'children',
+  'siblings',
+  'grandparents',
+  'grandchildren',
+];
+
+function isForbiddenPairing(
+  relationships: Relationships,
+  activity: string,
+  chosen: readonly CharacterProfile[],
+  candidateId: string,
+): boolean {
+  if (!PAIR_WITH_MATE.test(activity)) return false;
+  return chosen.some((already) => {
+    const kin = kinOf(relationships, already.id);
+    return INCEST_SIDES.some((side) => kin[side].includes(candidateId));
+  });
+}
+
+const KIN_AFFINITY: ReadonlyArray<readonly [RegExp, ReadonlyArray<keyof Kin>, number]> = [
+  [/^sexualRelations$/, ['mates'], 400],
+  [/^(comfortingSomeone|groomingAnother|delousing)$/, ['mates', 'children', 'siblings'], 40],
+  [/^tellingStories$/, ['grandchildren', 'children'], 25],
+  [/^(foragingBerries|foragingNuts|foragingRoots|foragingMushrooms|gatheringShellfish)$/, ['siblings', 'mates'], 15],
+];
+
+/**
+ * Boosts characters related to whoever is already doing this activity, so
+ * scenes read as a band of families rather than a random draw: mates lie
+ * together, an elder teaches his own grandchildren, siblings forage as a pair.
+ */
+function kinBoost(
+  relationships: Relationships,
+  activity: string,
+  chosen: readonly CharacterProfile[],
+  candidateId: string,
+): number {
+  if (chosen.length === 0) return 1;
+  const entry = KIN_AFFINITY.find(([pattern]) => pattern.test(activity));
+  if (!entry) return 1;
+  const [, sides, strength] = entry;
+
+  for (const already of chosen) {
+    const kin = kinOf(relationships, already.id);
+    for (const side of sides) {
+      if (kin[side].includes(candidateId)) return strength;
+    }
+  }
+  return 1;
+}
+
 export function findAuthored(
   schedule: AuthoredEvent[],
   day: number,
@@ -123,23 +227,26 @@ export function findAuthored(
 
 /** Season/hour/location-type fallback line, used as scene-setting for every scene. */
 export function findAmbience(
-  defaultEvents: Record<string, Record<string, Array<{ location_type: string; event: string }>>>,
+  defaultEvents: DefaultEventsData,
   season: string,
   hour: number,
   locationType: string,
-): string {
+): Ambience {
   const entry = defaultEvents[season]?.[String(hour)]?.find((e) => e.location_type === locationType);
-  return entry?.event ?? 'The world is quiet here. Nothing happens.';
+  return toAmbience(entry);
 }
 
 function eligibleActors(
   profiles: CharacterProfiles,
   activity: string,
+  location: Location,
 ): CharacterProfile[] {
   const traits = traitsOf(activity);
   return Object.values(profiles).filter((profile) => {
     // Infants are carried, fed and minded — never the doers of anything.
     if (NON_ACTORS.includes(profile.ageBand)) return false;
+    // Nobody is somewhere they would not have walked to.
+    if (!canReach(profile.ageBand, location)) return false;
     if (traits.strenuous && profile.ageBand !== 'adult') return false;
     // Grown-up business: adults and elders, never minors.
     if (traits.adultOnly && !CAN_SUPERVISE.includes(profile.ageBand)) return false;
@@ -153,30 +260,108 @@ function eligibleActors(
  */
 function chooseActors(
   profiles: CharacterProfiles,
+  relationships: Relationships,
   activity: string,
+  location: Location,
   rng: Rng,
   taken: Set<string>,
 ): CharacterProfile[] {
-  const pool = eligibleActors(profiles, activity).filter((p) => !taken.has(p.id));
+  const pool = eligibleActors(profiles, activity, location).filter((p) => !taken.has(p.id));
   if (pool.length === 0) return [];
 
   const affinity = ROLE_AFFINITY.find(([pattern]) => pattern.test(activity))?.[1];
 
-  // Characters whose derived roles suit the activity are far likelier to appear,
-  // so the band reads as having specialists rather than interchangeable bodies.
-  const weights: Record<string, number> = {};
-  for (const profile of pool) {
-    weights[profile.id] = affinity && profile.roles.includes(affinity) ? 8 : 1;
+  // For activities that are near-exclusive to couples, seed the draw from
+  // someone whose mate is actually free. Boosting the *second* pick alone is
+  // not enough: if the first person drawn has no mate here, no boost can
+  // produce a couple, which left 42% of intimate scenes between strangers.
+  const pairFirst =
+    PAIR_WITH_MATE.test(activity) &&
+    pool.filter((p) => kinOf(relationships, p.id).mates.some((m) => !taken.has(m)));
+  const seedPool = pairFirst && pairFirst.length > 0 ? pairFirst : pool;
+
+  const wanted = Math.min(
+    activity === 'groupRitual' ? rng.int(2, 3) : activity === 'teachingChild' ? 1 : rng.int(1, 2),
+    pool.length,
+  );
+
+  // Drawn one at a time rather than in a single sample, because the kin boost
+  // depends on who has already been picked: the second forager is chosen partly
+  // for being the first one's sister.
+  const chosen: CharacterProfile[] = [];
+  const remaining = new Map(pool.map((p) => [p.id, p]));
+
+  while (chosen.length < wanted) {
+    const weights: Record<string, number> = {};
+    const candidates = chosen.length === 0 ? seedPool : [...remaining.values()];
+    for (const profile of candidates) {
+      const id = profile.id;
+      if (!remaining.has(id)) continue;
+      // Characters whose derived roles suit the activity are likelier to appear,
+      // so the band reads as having specialists rather than interchangeable bodies.
+      if (isForbiddenPairing(relationships, activity, chosen, id)) continue;
+      const role = affinity && profile.roles.includes(affinity) ? 8 : 1;
+      weights[id] = role * kinBoost(relationships, activity, chosen, id);
+    }
+
+    const picked = weightedSample(weights, 1, rng)[0];
+    const profile = picked === undefined ? undefined : remaining.get(picked);
+    if (!profile) break;
+    chosen.push(profile);
+    remaining.delete(profile.id);
   }
 
-  const wanted = activity === 'groupRitual' ? rng.int(2, 3) : rng.int(1, 2);
-  const ids = weightedSample(weights, Math.min(wanted, pool.length), rng);
-  for (const id of ids) taken.add(id);
-  return ids.map((id) => profiles[id]).filter((p): p is CharacterProfile => p !== undefined);
+  for (const profile of chosen) taken.add(profile.id);
+  return chosen;
 }
 
 /** Bands that need minding. Adolescents look after themselves. */
 const NEEDS_MINDING: readonly AgeBand[] = ['infant', 'child'];
+
+/** Activities that are meaningless without a child attached to them. */
+const NEEDS_A_CHILD = new Set(['childcare', 'teachingChild']);
+
+/** Bands who can be taught: old enough to learn a craft, young enough to need to. */
+const CAN_BE_TAUGHT: readonly AgeBand[] = ['child', 'adolescent'];
+
+/**
+ * Attaches the child being taught to a `teachingChild` activity.
+ *
+ * The activity is `adultOnly`, which correctly keeps children from being the
+ * *teacher* — but left alone it produced two adults "teaching a child" with no
+ * child anywhere in the scene. The pupil is a charge, exactly as the minded
+ * children are, and a teacher's own child or grandchild is by far the likeliest.
+ */
+function attachPupils(
+  teacher: ActivityOutcome,
+  profiles: CharacterProfiles,
+  relationships: Relationships,
+  location: Location,
+  taken: Set<string>,
+  rng: Rng,
+): ActivityOutcome | null {
+  const free = Object.values(profiles).filter(
+    (p) => !taken.has(p.id) && CAN_BE_TAUGHT.includes(p.ageBand) && canReach(p.ageBand, location),
+  );
+  if (free.length === 0) return null;
+
+  const weights: Record<string, number> = {};
+  for (const pupil of free) {
+    const own = teacher.actors.some((t) => {
+      const kin = kinOf(relationships, t.id);
+      return kin.children.includes(pupil.id) || kin.grandchildren.includes(pupil.id);
+    });
+    weights[pupil.id] = own ? 60 : 1;
+  }
+
+  const pupils = weightedSample(weights, rng.int(1, 2), rng)
+    .map((id) => profiles[id])
+    .filter((p): p is CharacterProfile => p !== undefined);
+  if (pupils.length === 0) return null;
+
+  for (const pupil of pupils) taken.add(pupil.id);
+  return { ...teacher, charges: pupils };
+}
 
 /**
  * The most grown-ups who could plausibly be minding a given number of children.
@@ -203,11 +388,15 @@ export function minderCap(children: number): number {
  */
 function buildChildcare(
   profiles: CharacterProfiles,
+  relationships: Relationships,
+  location: Location,
+  successChances: Record<string, number>,
   taken: Set<string>,
   busyWithHardWork: Set<string>,
   rng: Rng,
 ): ActivityOutcome | null {
-  const everyone = Object.values(profiles);
+  // Children are only minded where children would actually be.
+  const everyone = Object.values(profiles).filter((p) => canReach(p.ageBand, location));
 
   // Children already doing something here are being watched over too.
   const present = everyone.filter((p) => taken.has(p.id) && NEEDS_MINDING.includes(p.ageBand));
@@ -223,14 +412,23 @@ function buildChildcare(
   const charges = [...present, ...dependents];
   if (charges.length === 0) return null; // nobody to mind
 
-  const pool = eligibleActors(profiles, 'childcare').filter(
+  const pool = eligibleActors(profiles, 'childcare', location).filter(
     (p) => !busyWithHardWork.has(p.id) && !charges.some((c) => c.id === p.id),
   );
   if (pool.length === 0) return null;
 
   const wanted = Math.min(rng.int(1, minderCap(charges.length)), pool.length);
+
+  // A child's own mother, father or grandparent is far and away the likeliest
+  // person to be watching them.
   const minderWeights: Record<string, number> = {};
-  for (const p of pool) minderWeights[p.id] = p.roles.includes('storyteller') ? 3 : 1;
+  for (const p of pool) {
+    const kin = kinOf(relationships, p.id);
+    const ownChild = charges.some((c) => kin.children.includes(c.id));
+    const ownGrandchild = charges.some((c) => kin.grandchildren.includes(c.id));
+    const storyteller = p.roles.includes('storyteller') ? 3 : 1;
+    minderWeights[p.id] = storyteller * (ownChild ? 25 : ownGrandchild ? 12 : 1);
+  }
 
   const minders = weightedSample(minderWeights, wanted, rng)
     .map((id) => profiles[id])
@@ -239,12 +437,15 @@ function buildChildcare(
 
   for (const minder of minders) taken.add(minder.id);
 
+  // Childminding carries a success chance in the data like anything else, even
+  // though narration treats it as outcome-neutral.
+  const resolved = resolveActivity('childcare', successChances);
   return {
     activity: 'childcare',
-    successKey: null,
+    successKey: resolved.successKey,
     label: humanizeActivity('childcare'),
-    chance: 100,
-    succeeded: true,
+    chance: resolved.chance,
+    succeeded: rng.chance(resolved.chance),
     actors: minders,
     charges,
   };
@@ -261,6 +462,8 @@ function buildChildcare(
 function enforceSupervision(
   activities: ActivityOutcome[],
   profiles: CharacterProfiles,
+  relationships: Relationships,
+  location: Location,
   rng: Rng,
 ): ActivityOutcome[] {
   const everyone = activities.flatMap((a) => a.actors);
@@ -275,11 +478,18 @@ function enforceSupervision(
   if (!target) return activities;
 
   const busy = new Set(everyone.map((p) => p.id));
-  const candidates = eligibleActors(profiles, target.activity).filter(
+  const candidates = eligibleActors(profiles, target.activity, location).filter(
     (p) => CAN_SUPERVISE.includes(p.ageBand) && !busy.has(p.id),
   );
 
-  const chosen = rng.pick(candidates);
+  // A parent or grandparent of the child is the natural person to step in.
+  const children = target.actors.filter((p) => NEEDS_SUPERVISION.includes(p.ageBand));
+  const relatives = candidates.filter((p) => {
+    const kin = kinOf(relationships, p.id);
+    return children.some((c) => kin.children.includes(c.id) || kin.grandchildren.includes(c.id));
+  });
+
+  const chosen = rng.pick(relatives.length > 0 ? relatives : candidates);
   if (chosen) {
     activities[index] = { ...target, actors: [chosen, ...target.actors] };
     return activities;
@@ -306,21 +516,51 @@ function rollIncidents(location: Location, rng: Rng): Incident[] {
 }
 
 export function generateScene(input: SceneInput): Scene {
-  const { day, hour, location, profiles, authored, ambience } = input;
+  const { day, hour, location, profiles, relationships, authored, ambience } = input;
 
   const existing = findAuthored(authored, day.day, hour, location.id);
   if (existing) return { kind: 'authored', ambience, event: existing };
 
   const weather = day.hourly.find((h) => h.hour === hour);
-  if (!weather) return { kind: 'generated', ambience, activities: [], incidents: [] };
+  if (!weather) {
+    return {
+      kind: 'generated',
+      ambience,
+      activities: [],
+      incidents: [],
+      conditions: {
+        season: day.season,
+        hour,
+        temp: 0,
+        precip: 0,
+        sunExposure: 'Dark',
+        wind: day.wind,
+        moonlight: moonlight(day.moonPhase),
+        cosmicEvent: day.cosmicEvent,
+        tide: null,
+      },
+    };
+  }
+
+  const conditions: SceneConditions = {
+    season: day.season,
+    hour,
+    temp: weather.temp,
+    precip: weather.precip,
+    sunExposure: weather.sunExposure,
+    wind: day.wind,
+    moonlight: weather.sunExposure === 'Dark' ? moonlight(day.moonPhase) : 0,
+    cosmicEvent: day.cosmicEvent,
+    tide: isCoastal(location) ? tideStateAt(day.tides, hour) : null,
+  };
 
   const rng = createRng(hashSeed(day.day, hour, location.id));
   const isNight = weather.sunExposure === 'Dark';
   const isDim = weather.sunExposure === 'Low' || weather.sunExposure === 'Overcast';
 
-  const weights = applyConditions(location.probabilities.activities, weather);
+  const weights = applyConditions(location.probabilities.activities, weather, day, hour, location);
 
-  let count = activityCount(location, weather, rng);
+  let count = activityCount(location, weather, day, rng);
   // The ambience data encodes when a place is normally busy ("A hunting party
   // moves through the area"), so don't empty a location its own line says is
   // occupied — that would contradict the framing in the other direction.
@@ -339,12 +579,12 @@ export function generateScene(input: SceneInput): Scene {
     .filter((activity) => activity !== 'childcare')
     .map((activity) => {
       const resolved = resolveActivity(activity, day.activitySuccessChance, { isNight, isDim });
-      const actors = chooseActors(profiles, activity, rng, taken);
+      const actors = chooseActors(profiles, relationships, activity, location, rng, taken);
       const traits = traitsOf(activity);
       if (traits.strenuous || traits.outdoor) {
         for (const actor of actors) busyWithHardWork.add(actor.id);
       }
-      return {
+      const outcome: ActivityOutcome = {
         activity,
         successKey: resolved.successKey,
         label: humanizeActivity(resolved.successKey ?? activity),
@@ -352,19 +592,51 @@ export function generateScene(input: SceneInput): Scene {
         succeeded: rng.chance(resolved.chance),
         actors,
       };
+
+      // Teaching needs someone to teach; without a pupil it is not happening.
+      if (activity === 'teachingChild' && actors.length > 0) {
+        return attachPupils(outcome, profiles, relationships, location, taken, rng);
+      }
+      return outcome;
     })
+    .filter((outcome): outcome is ActivityOutcome => outcome !== null)
     // Nobody left free to do it means it isn't happening.
     .filter((outcome) => outcome.actors.length > 0);
 
   const childcare = wantsChildcare
-    ? buildChildcare(profiles, taken, busyWithHardWork, rng)
+    ? buildChildcare(profiles, relationships, location, day.activitySuccessChance, taken, busyWithHardWork, rng)
     : null;
   if (childcare) drawn.push(childcare);
 
-  const activities = enforceSupervision(drawn, profiles, rng);
+  // The ambience promised people at work here, but everything drawn may have
+  // fallen through — childminding four kilometres out has no children to mind.
+  // Draw again from the activities that can actually be staffed.
+  if (drawn.length === 0 && assertsPeoplePresent(ambience)) {
+    // Exclude the activities that need a child attached to them, since a lack
+    // of reachable children is the usual reason we are here at all.
+    const staffable = Object.fromEntries(
+      Object.entries(weights).filter(([activity]) => !NEEDS_A_CHILD.has(activity)),
+    );
+    for (const activity of weightedSample(staffable, 3, rng)) {
+      const actors = chooseActors(profiles, relationships, activity, location, rng, taken);
+      if (actors.length === 0) continue;
+      const resolved = resolveActivity(activity, day.activitySuccessChance, { isNight, isDim });
+      drawn.push({
+        activity,
+        successKey: resolved.successKey,
+        label: humanizeActivity(resolved.successKey ?? activity),
+        chance: resolved.chance,
+        succeeded: rng.chance(resolved.chance),
+        actors,
+      });
+      break;
+    }
+  }
+
+  const activities = enforceSupervision(drawn, profiles, relationships, location, rng);
 
   // Nobody here means nothing happens to anybody here.
   const incidents = activities.length > 0 ? rollIncidents(location, rng) : [];
 
-  return { kind: 'generated', ambience, activities, incidents };
+  return { kind: 'generated', ambience, activities, incidents, conditions };
 }

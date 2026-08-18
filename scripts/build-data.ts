@@ -14,6 +14,8 @@ import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import type {
   AgeBand,
+  Kin,
+  Relationships,
   CharacterProfile,
   CharacterProfiles,
   CharactersData,
@@ -21,6 +23,7 @@ import type {
   DayIndexEntry,
   SeasonDetail,
 } from '../src/types.ts';
+import { expandAmbience, type AmbienceSource } from '../src/data/ambience-source.ts';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const SRC = join(ROOT, 'data');
@@ -165,6 +168,134 @@ function loadOrDeriveProfiles(characters: CharactersData): CharacterProfiles {
   return profiles;
 }
 
+
+// --- Kinship extraction ----------------------------------------------------
+
+/**
+ * Reads the family structure out of the prose. The descriptions state it
+ * plainly and consistently — "She is the mate of Aitor and mother of Sua",
+ * "He is Ines's eldest son", "She is Nerea's younger sister" — so a handful of
+ * patterns recovers the whole band's kinship graph.
+ *
+ * Relations are stored symmetrically: recording a parent also records the
+ * child on the other side, so the engine can ask either direction.
+ */
+function extractKinship(characters: CharactersData): Relationships {
+  const byName = new Map<string, string>();
+  for (const [id, character] of Object.entries(characters)) byName.set(character.name, id);
+
+  const kin: Relationships = {};
+  for (const id of Object.keys(characters)) {
+    kin[id] = { mates: [], parents: [], children: [], siblings: [], grandparents: [], grandchildren: [] };
+  }
+
+  const link = (a: string, b: string, side: keyof Kin, inverse: keyof Kin): void => {
+    if (a === b) return;
+    const first = kin[a];
+    const second = kin[b];
+    if (!first || !second) return;
+    if (!first[side].includes(b)) first[side].push(b);
+    if (!second[inverse].includes(a)) second[inverse].push(a);
+  };
+
+  /** Names appearing in a fragment, e.g. "Aitor and Lurra" -> both ids. */
+  const idsIn = (fragment: string): string[] => {
+    const found: string[] = [];
+    for (const [name, id] of byName) {
+      if (new RegExp(`\\b${name}\\b`).test(fragment)) found.push(id);
+    }
+    return found;
+  };
+
+  for (const [id, character] of Object.entries(characters)) {
+    for (const [key, text] of Object.entries(character)) {
+      if (!key.startsWith('description') || typeof text !== 'string') continue;
+
+      // "the mate of Lurra", "the mate of a hunter named Eneko"
+      for (const m of text.matchAll(/\bmate of (?:an?\s+\w+\s+named\s+)?([A-Z][\wñ]*)/g)) {
+        const other = byName.get(m[1]!);
+        if (other) link(id, other, 'mates', 'mates');
+      }
+
+      // "mother of Sua", "father of Patxi and Zuri", "mother of Nahia, Haizea, and Santi"
+      for (const m of text.matchAll(/\b(?:mother|father) of ([^.;]+)/gi)) {
+        for (const child of idsIn(m[1]!)) link(id, child, 'children', 'parents');
+      }
+
+      // "the son of Bor and Amaia", "the daughter of Aitor and Lurra"
+      for (const m of text.matchAll(/\b(?:son|daughter) of ([^.;]+)/gi)) {
+        for (const parent of idsIn(m[1]!)) link(parent, id, 'children', 'parents');
+      }
+
+      // "Ines's eldest son", "Leire's son", "Zahar's grandson"
+      for (const m of text.matchAll(
+        /\b([A-Z][\wñ]*)'s (?:\w+\s+)?(son|daughter|grandson|granddaughter|sister|brother)\b/g,
+      )) {
+        const other = byName.get(m[1]!);
+        if (!other) continue;
+        const kind = m[2]!.toLowerCase();
+        if (kind === 'son' || kind === 'daughter') link(other, id, 'children', 'parents');
+        else if (kind === 'grandson' || kind === 'granddaughter') link(other, id, 'grandchildren', 'grandparents');
+        else link(id, other, 'siblings', 'siblings');
+      }
+
+      // "the grandfather of Kemen and Sua"
+      for (const m of text.matchAll(/\bgrand(?:father|mother) of ([^.;]+)/gi)) {
+        for (const grandchild of idsIn(m[1]!)) link(id, grandchild, 'grandchildren', 'grandparents');
+      }
+
+      // "her daughter, Elira", "his son, Iker", "raising her son, Iker"
+      for (const m of text.matchAll(/\b(?:her|his) (?:son|daughter),?\s+([A-Z][\wñ]*)/g)) {
+        const child = byName.get(m[1]!);
+        if (child) link(id, child, 'children', 'parents');
+      }
+
+      // "her older brother, Kemen", "Sua's older brother" handled above
+      for (const m of text.matchAll(/\b(?:older|younger) (?:brother|sister),?\s+([A-Z][\wñ]*)/g)) {
+        const sibling = byName.get(m[1]!);
+        if (sibling) link(id, sibling, 'siblings', 'siblings');
+      }
+    }
+  }
+
+  // Children of the same parents are siblings, even when no line says so.
+  for (const [id, entry] of Object.entries(kin)) {
+    for (const parent of entry.parents) {
+      for (const sibling of kin[parent]?.children ?? []) link(id, sibling, 'siblings', 'siblings');
+    }
+  }
+
+  // A parent's parent is a grandparent, likewise unstated.
+  for (const [id, entry] of Object.entries(kin)) {
+    for (const parent of entry.parents) {
+      for (const grandparent of kin[parent]?.parents ?? []) {
+        link(grandparent, id, 'grandchildren', 'grandparents');
+      }
+    }
+  }
+
+  return kin;
+}
+
+function loadOrDeriveRelationships(characters: CharactersData): Relationships {
+  const checkedIn = join(SRC, 'relationships.json');
+  if (existsSync(checkedIn)) {
+    console.log('  relationships.json       (existing, hand-editable — not regenerated)');
+    return JSON.parse(readFileSync(checkedIn, 'utf8')) as Relationships;
+  }
+
+  const kin = extractKinship(characters);
+  writeFileSync(checkedIn, `${JSON.stringify(kin, null, 2)}\n`);
+
+  const count = (key: keyof Kin) =>
+    Object.values(kin).reduce((n, entry) => n + entry[key].length, 0) / (key === 'mates' || key === 'siblings' ? 2 : 1);
+  console.log(
+    `  relationships.json       (derived: ${count('mates')} pairings, ${count('children')} parent-child, ` +
+      `${count('siblings')} sibling, ${count('grandchildren')} grandparent links)`,
+  );
+  return kin;
+}
+
 // --- Main ------------------------------------------------------------------
 
 function main(): void {
@@ -198,17 +329,30 @@ function main(): void {
 
   const characters = readJson<CharactersData>('magdalenian_characters.json');
   const profiles = loadOrDeriveProfiles(characters);
+  const relationships = loadOrDeriveRelationships(characters);
+
+  // Ambience is authored per phase and expanded to the 24-hour runtime shape.
+  const ambience = JSON.parse(
+    readFileSync(join(SRC, 'ambience', 'ambience.json'), 'utf8'),
+  ) as AmbienceSource;
+  const expanded = expandAmbience(ambience);
+  const lines = new Set(
+    Object.values(expanded).flatMap((hours) => Object.values(hours).flatMap((e) => e.map((x) => x.event))),
+  );
+  console.log(
+    `  ${'default-events.json'.padEnd(24)} ${kb(writeJson('default-events.json', expanded))}  (${lines.size} distinct lines)`,
+  );
 
   const copies: Array<[string, string]> = [
     ['magdalenian_locations.json', 'locations.json'],
     ['magdalenian_characters.json', 'characters.json'],
     ['magdalenian_events.json', 'events.json'],
-    ['magdalenian_default_events.json', 'default-events.json'],
   ];
   for (const [from, to] of copies) {
     console.log(`  ${to.padEnd(24)} ${kb(writeJson(to, readJson(from)))}`);
   }
   console.log(`  ${'character-profiles.json'.padEnd(24)} ${kb(writeJson('character-profiles.json', profiles))}`);
+  console.log(`  ${'relationships.json'.padEnd(24)} ${kb(writeJson('relationships.json', relationships))}`);
 }
 
 main();

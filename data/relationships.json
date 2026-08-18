@@ -1,0 +1,518 @@
+{
+  "char0": {
+    "mates": [],
+    "parents": [],
+    "children": [],
+    "siblings": [
+      "char35"
+    ],
+    "grandparents": [],
+    "grandchildren": [
+      "char5",
+      "char6"
+    ]
+  },
+  "char1": {
+    "mates": [
+      "char2"
+    ],
+    "parents": [],
+    "children": [
+      "char6"
+    ],
+    "siblings": [],
+    "grandparents": [],
+    "grandchildren": []
+  },
+  "char2": {
+    "mates": [
+      "char1"
+    ],
+    "parents": [],
+    "children": [
+      "char6"
+    ],
+    "siblings": [],
+    "grandparents": [],
+    "grandchildren": []
+  },
+  "char3": {
+    "mates": [
+      "char4"
+    ],
+    "parents": [],
+    "children": [
+      "char7"
+    ],
+    "siblings": [],
+    "grandparents": [],
+    "grandchildren": []
+  },
+  "char4": {
+    "mates": [
+      "char3"
+    ],
+    "parents": [],
+    "children": [
+      "char7"
+    ],
+    "siblings": [],
+    "grandparents": [],
+    "grandchildren": []
+  },
+  "char5": {
+    "mates": [],
+    "parents": [],
+    "children": [],
+    "siblings": [
+      "char6"
+    ],
+    "grandparents": [
+      "char0"
+    ],
+    "grandchildren": []
+  },
+  "char6": {
+    "mates": [],
+    "parents": [
+      "char2",
+      "char1"
+    ],
+    "children": [],
+    "siblings": [
+      "char5"
+    ],
+    "grandparents": [
+      "char0"
+    ],
+    "grandchildren": []
+  },
+  "char7": {
+    "mates": [],
+    "parents": [
+      "char4",
+      "char3"
+    ],
+    "children": [],
+    "siblings": [],
+    "grandparents": [],
+    "grandchildren": []
+  },
+  "char8": {
+    "mates": [],
+    "parents": [],
+    "children": [
+      "char9",
+      "char11"
+    ],
+    "siblings": [],
+    "grandparents": [],
+    "grandchildren": [
+      "char12",
+      "char13"
+    ]
+  },
+  "char9": {
+    "mates": [
+      "char10"
+    ],
+    "parents": [
+      "char8"
+    ],
+    "children": [
+      "char12",
+      "char13"
+    ],
+    "siblings": [
+      "char11"
+    ],
+    "grandparents": [],
+    "grandchildren": []
+  },
+  "char10": {
+    "mates": [
+      "char9"
+    ],
+    "parents": [],
+    "children": [
+      "char12",
+      "char13"
+    ],
+    "siblings": [
+      "char25"
+    ],
+    "grandparents": [],
+    "grandchildren": []
+  },
+  "char11": {
+    "mates": [
+      "char32"
+    ],
+    "parents": [
+      "char8"
+    ],
+    "children": [],
+    "siblings": [
+      "char9"
+    ],
+    "grandparents": [],
+    "grandchildren": []
+  },
+  "char12": {
+    "mates": [],
+    "parents": [
+      "char10",
+      "char9"
+    ],
+    "children": [],
+    "siblings": [
+      "char13"
+    ],
+    "grandparents": [
+      "char8"
+    ],
+    "grandchildren": []
+  },
+  "char13": {
+    "mates": [],
+    "parents": [
+      "char9",
+      "char10"
+    ],
+    "children": [],
+    "siblings": [
+      "char12"
+    ],
+    "grandparents": [
+      "char8"
+    ],
+    "grandchildren": []
+  },
+  "char14": {
+    "mates": [
+      "char15"
+    ],
+    "parents": [],
+    "children": [
+      "char40"
+    ],
+    "siblings": [],
+    "grandparents": [],
+    "grandchildren": []
+  },
+  "char15": {
+    "mates": [
+      "char14"
+    ],
+    "parents": [],
+    "children": [
+      "char40"
+    ],
+    "siblings": [],
+    "grandparents": [],
+    "grandchildren": []
+  },
+  "char16": {
+    "mates": [],
+    "parents": [],
+    "children": [
+      "char27"
+    ],
+    "siblings": [],
+    "grandparents": [],
+    "grandchildren": []
+  },
+  "char17": {
+    "mates": [],
+    "parents": [],
+    "children": [],
+    "siblings": [],
+    "grandparents": [],
+    "grandchildren": []
+  },
+  "char18": {
+    "mates": [
+      "char19"
+    ],
+    "parents": [],
+    "children": [
+      "char28"
+    ],
+    "siblings": [],
+    "grandparents": [],
+    "grandchildren": []
+  },
+  "char19": {
+    "mates": [
+      "char18"
+    ],
+    "parents": [],
+    "children": [
+      "char28"
+    ],
+    "siblings": [],
+    "grandparents": [],
+    "grandchildren": []
+  },
+  "char20": {
+    "mates": [
+      "char25"
+    ],
+    "parents": [],
+    "children": [
+      "char23",
+      "char31"
+    ],
+    "siblings": [],
+    "grandparents": [],
+    "grandchildren": []
+  },
+  "char21": {
+    "mates": [],
+    "parents": [],
+    "children": [
+      "char22"
+    ],
+    "siblings": [],
+    "grandparents": [],
+    "grandchildren": []
+  },
+  "char22": {
+    "mates": [],
+    "parents": [
+      "char21"
+    ],
+    "children": [],
+    "siblings": [],
+    "grandparents": [],
+    "grandchildren": []
+  },
+  "char23": {
+    "mates": [],
+    "parents": [
+      "char20",
+      "char25"
+    ],
+    "children": [],
+    "siblings": [
+      "char31",
+      "char29"
+    ],
+    "grandparents": [],
+    "grandchildren": []
+  },
+  "char24": {
+    "mates": [],
+    "parents": [],
+    "children": [],
+    "siblings": [],
+    "grandparents": [],
+    "grandchildren": []
+  },
+  "char25": {
+    "mates": [
+      "char20"
+    ],
+    "parents": [],
+    "children": [
+      "char23",
+      "char29",
+      "char31"
+    ],
+    "siblings": [
+      "char10"
+    ],
+    "grandparents": [],
+    "grandchildren": []
+  },
+  "char26": {
+    "mates": [],
+    "parents": [],
+    "children": [],
+    "siblings": [],
+    "grandparents": [],
+    "grandchildren": []
+  },
+  "char27": {
+    "mates": [],
+    "parents": [
+      "char16"
+    ],
+    "children": [],
+    "siblings": [],
+    "grandparents": [],
+    "grandchildren": []
+  },
+  "char28": {
+    "mates": [],
+    "parents": [
+      "char18",
+      "char19"
+    ],
+    "children": [],
+    "siblings": [],
+    "grandparents": [],
+    "grandchildren": []
+  },
+  "char29": {
+    "mates": [],
+    "parents": [
+      "char25"
+    ],
+    "children": [],
+    "siblings": [
+      "char23",
+      "char31"
+    ],
+    "grandparents": [],
+    "grandchildren": []
+  },
+  "char30": {
+    "mates": [],
+    "parents": [],
+    "children": [],
+    "siblings": [],
+    "grandparents": [],
+    "grandchildren": []
+  },
+  "char31": {
+    "mates": [],
+    "parents": [
+      "char20",
+      "char25"
+    ],
+    "children": [],
+    "siblings": [
+      "char23",
+      "char29"
+    ],
+    "grandparents": [],
+    "grandchildren": []
+  },
+  "char32": {
+    "mates": [
+      "char11"
+    ],
+    "parents": [],
+    "children": [],
+    "siblings": [],
+    "grandparents": [],
+    "grandchildren": []
+  },
+  "char33": {
+    "mates": [],
+    "parents": [
+      "char41",
+      "char42"
+    ],
+    "children": [],
+    "siblings": [],
+    "grandparents": [],
+    "grandchildren": []
+  },
+  "char34": {
+    "mates": [],
+    "parents": [],
+    "children": [],
+    "siblings": [],
+    "grandparents": [],
+    "grandchildren": []
+  },
+  "char35": {
+    "mates": [],
+    "parents": [],
+    "children": [],
+    "siblings": [
+      "char0"
+    ],
+    "grandparents": [],
+    "grandchildren": []
+  },
+  "char36": {
+    "mates": [],
+    "parents": [
+      "char38",
+      "char39"
+    ],
+    "children": [],
+    "siblings": [
+      "char37"
+    ],
+    "grandparents": [],
+    "grandchildren": []
+  },
+  "char37": {
+    "mates": [],
+    "parents": [
+      "char38",
+      "char39"
+    ],
+    "children": [],
+    "siblings": [
+      "char36"
+    ],
+    "grandparents": [],
+    "grandchildren": []
+  },
+  "char38": {
+    "mates": [
+      "char39"
+    ],
+    "parents": [],
+    "children": [
+      "char36",
+      "char37"
+    ],
+    "siblings": [],
+    "grandparents": [],
+    "grandchildren": []
+  },
+  "char39": {
+    "mates": [
+      "char38"
+    ],
+    "parents": [],
+    "children": [
+      "char36",
+      "char37"
+    ],
+    "siblings": [],
+    "grandparents": [],
+    "grandchildren": []
+  },
+  "char40": {
+    "mates": [],
+    "parents": [
+      "char15",
+      "char14"
+    ],
+    "children": [],
+    "siblings": [],
+    "grandparents": [],
+    "grandchildren": []
+  },
+  "char41": {
+    "mates": [
+      "char42"
+    ],
+    "parents": [],
+    "children": [
+      "char33"
+    ],
+    "siblings": [],
+    "grandparents": [],
+    "grandchildren": []
+  },
+  "char42": {
+    "mates": [
+      "char41"
+    ],
+    "parents": [],
+    "children": [
+      "char33"
+    ],
+    "siblings": [],
+    "grandparents": [],
+    "grandchildren": []
+  }
+}

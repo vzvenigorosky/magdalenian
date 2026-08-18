@@ -4,7 +4,7 @@
  * Phrasing is drawn from small pools keyed by activity category, picked with
  * the scene's own seeded RNG so the wording is as stable as the scene itself.
  */
-import type { ActivityOutcome, GeneratedScene, Incident } from './engine.ts';
+import type { ActivityOutcome, GeneratedScene, Incident, SceneConditions } from './engine.ts';
 import { assertsEmpty } from './ambience.ts';
 import { createRng, hashSeed, type Rng } from './rng.ts';
 
@@ -97,6 +97,13 @@ const FAILURE_PHRASES: Record<'quarry' | 'craft', string[]> = {
 const REST_PHRASES = ['Nothing stirs them.', 'The hours pass slowly.', 'No one hurries them.'];
 
 
+/** [singular, plural] — one teacher takes "shows", several take "show". */
+const TEACHING_PHRASES: ReadonlyArray<readonly [string, string]> = [
+  ['is teaching', 'are teaching'],
+  ['shows the way of it to', 'show the way of it to'],
+  ['passes the knack on to', 'pass the knack on to'],
+];
+
 /** [singular, plural] — one minder takes "keeps", several take "keep". */
 const MINDING_PHRASES: ReadonlyArray<readonly [string, string]> = [
   ['keeps an eye on', 'keep an eye on'],
@@ -104,20 +111,68 @@ const MINDING_PHRASES: ReadonlyArray<readonly [string, string]> = [
   ['stays close to', 'stay close to'],
 ];
 
-function narrateActivity(outcome: ActivityOutcome, rng: Rng): string {
+/**
+ * Clauses drawn from the hour's conditions, so the same activity reads
+ * differently in a downpour and in flat noon sun. Each is [test, phrasings];
+ * the first matching entry wins, and only one is ever used, because two
+ * stacked qualifiers read as padding rather than atmosphere.
+ */
+const CONDITION_CLAUSES: ReadonlyArray<
+  readonly [(c: SceneConditions) => boolean, readonly string[]]
+> = [
+  [
+    (c) => c.precip > 5,
+    ['Through driving rain', 'In rain that has not let up all day', 'Soaked through'],
+  ],
+  [(c) => c.precip > 0, ['In the wet', 'Through a thin drizzle']],
+  [
+    (c) => c.temp <= -8,
+    ['In cold that stops the breath', 'On ground frozen iron-hard', 'In a cold that cracks stone'],
+  ],
+  [(c) => c.temp <= 0, ['In the frost', 'With cold stiffening the fingers', 'On frozen ground']],
+  [
+    (c) => c.sunExposure === 'Dark' && c.moonlight >= 0.7,
+    ['By a moon bright enough to work by', 'In full moonlight', 'Under a high white moon'],
+  ],
+  [
+    (c) => c.sunExposure === 'Dark',
+    ['In the dark', 'By feel more than sight', 'By firelight'],
+  ],
+  [(c) => c.sunExposure === 'Low', ['In the last of the light', 'In low, slanting light']],
+  [(c) => c.sunExposure === 'Overcast', ['Under a flat grey sky', 'In dull light']],
+  [(c) => c.temp >= 26, ['In the full heat of the day', 'In heat that slows everything']],
+  [(c) => c.tide === 'low', ['With the water far out', 'On the wide uncovered shore']],
+  [(c) => c.tide === 'high', ['With the water right up the shingle']],
+  [(c) => /gust|strong|biting|sharp/i.test(c.wind), ['In a wind that snatches at everything']],
+];
+
+function conditionClause(conditions: SceneConditions, rng: Rng): string | null {
+  for (const [test, phrasings] of CONDITION_CLAUSES) {
+    if (test(conditions)) return rng.pick(phrasings) ?? null;
+  }
+  return null;
+}
+
+function narrateActivity(outcome: ActivityOutcome, conditions: SceneConditions, rng: Rng): string {
   const who = joinNames(outcome.actors);
   const what = escapeHtml(outcome.label);
   const category = categoryOf(outcome);
 
   // Naming the children makes the scene add up — you can see who is being
-  // minded and by how many, rather than "minding the children" in the abstract.
+  // minded or taught and by how many, rather than "minding the children" in
+  // the abstract.
   if (outcome.charges && outcome.charges.length > 0) {
-    const phrase = rng.pick(MINDING_PHRASES) ?? MINDING_PHRASES[0]!;
+    const pool = outcome.activity === 'teachingChild' ? TEACHING_PHRASES : MINDING_PHRASES;
+    const phrase = rng.pick(pool) ?? pool[0]!;
     const verb = outcome.actors.length === 1 ? phrase[0] : phrase[1];
     return `${who} ${verb} ${joinNames(outcome.charges)}.`;
   }
 
-  const opening = `${who} ${outcome.actors.length === 1 ? 'is' : 'are'} ${what}.`;
+  // Only some lines take a condition clause; on every line it becomes a tic.
+  const clause = rng.chance(45) ? conditionClause(conditions, rng) : null;
+  const subject = `${who} ${outcome.actors.length === 1 ? 'is' : 'are'} ${what}`;
+  const opening = clause ? `${clause}, ${subject}.` : `${subject}.`;
+
   if (category === 'social') return opening;
   if (category === 'rest') return `${opening} ${rng.pick(REST_PHRASES) ?? ''}`.trim();
 
@@ -132,6 +187,30 @@ function narrateIncident(incident: Incident): string {
     : `<span class="text-amber-300">There is ${label}.</span>`;
 }
 
+/** A line for the thirteen days of the year that carry a cosmic event. */
+function cosmicNote(event: string, isNight: boolean): string {
+  if (/meteor/i.test(event)) {
+    return isNight
+      ? `Overhead, ${event.replace(/\s*\(Peak\)/, '')} — the sky is throwing down streaks of fire.`
+      : `Tonight the sky will burn: ${event.replace(/\s*\(Peak\)/, '')}.`;
+  }
+  if (/comet/i.test(event)) {
+    return isNight
+      ? 'The hairy star hangs where it has hung for nights now, and no one likes it.'
+      : 'The hairy star will be there again after dark. It has been much discussed.';
+  }
+  if (/solstice/i.test(event)) {
+    return /summer/i.test(event)
+      ? 'The longest day. From here the light begins to go.'
+      : 'The shortest day. From here the light begins to come back.';
+  }
+  if (/equinox/i.test(event)) return 'Day and night stand equal. The year has turned.';
+  if (/conjunction|alignment/i.test(event)) {
+    return 'Two bright stars stand close together, near enough to touch.';
+  }
+  return event;
+}
+
 export function narrateScene(scene: GeneratedScene, seed: string): string {
   const rng = createRng(hashSeed('narrate', seed));
 
@@ -142,13 +221,24 @@ export function narrateScene(scene: GeneratedScene, seed: string): string {
   const contradicted = scene.activities.length > 0 && assertsEmpty(scene.ambience);
   if (!contradicted) {
     parts.push(
-      `<p class="text-lg leading-relaxed italic text-gray-400 mb-4">${escapeHtml(scene.ambience)}</p>`,
+      `<p class="text-lg leading-relaxed italic text-gray-400 mb-4">${escapeHtml(scene.ambience.text)}</p>`,
     );
   }
 
   if (scene.activities.length > 0) {
-    const lines = scene.activities.map((a) => `<p class="mb-3">${narrateActivity(a, rng)}</p>`);
+    const lines = scene.activities.map(
+      (a) => `<p class="mb-3">${narrateActivity(a, scene.conditions, rng)}</p>`,
+    );
     parts.push(`<div class="text-lg leading-relaxed">${lines.join('')}</div>`);
+  }
+
+  // The thirteen marked days should feel marked.
+  if (scene.conditions.cosmicEvent && scene.conditions.cosmicEvent !== 'None') {
+    parts.push(
+      `<p class="text-lg leading-relaxed italic text-[#c7a78a] mt-4">${escapeHtml(
+        cosmicNote(scene.conditions.cosmicEvent, scene.conditions.sunExposure === 'Dark'),
+      )}</p>`,
+    );
   }
 
   if (scene.incidents.length > 0) {

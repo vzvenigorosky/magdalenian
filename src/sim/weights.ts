@@ -5,8 +5,17 @@
  * weights knapping at 80 — but say nothing about darkness, rain or cold. A
  * quarry at 3am in a downpour should not read the same as a quarry at noon.
  */
-import type { ActivityKey, HourlyWeather, Location } from '../types.ts';
+import type { ActivityKey, AgeBand, DayIndexEntry, HourlyWeather, Location } from '../types.ts';
 import type { Rng } from './rng.ts';
+import {
+  RITE,
+  SKY_WATCHING,
+  TIDE_BOUND,
+  cosmicKind,
+  cosmicPull,
+  moonlight,
+  shoreAccess,
+} from './sky.ts';
 
 export interface ActivityTraits {
   /** Happens in the open, so weather and darkness matter. */
@@ -76,17 +85,59 @@ export function traitsOf(activity: ActivityKey): ActivityTraits {
 }
 
 /**
+ * How far each age will actually travel from camp, in their own walking
+ * minutes. `childWalkMinutes` and `elderWalkMinutes` were sitting in the data
+ * unused, and they sort the map cleanly: every location inside camp's orbit is
+ * within 14 child-minutes, then there is a jump to 24 and beyond for the
+ * ancestor stone, the hunting grounds and the peaks.
+ *
+ * Without this a toddler could be minded at a quarry, and an eighty-year-old
+ * could turn up on a mountain five kilometres out.
+ */
+const TRAVEL_LIMITS: Readonly<Record<AgeBand, number>> = {
+  infant: 15, // carried, and not taken far
+  child: 15,
+  adolescent: 55, // old enough for the nearer hunting grounds
+  adult: Infinity,
+  elder: 40,
+};
+
+/** Whether someone of this age plausibly walks out to this location. */
+export function canReach(ageBand: AgeBand, location: Location): boolean {
+  const { childWalkMinutes, elderWalkMinutes } = location.distanceFromCenter;
+  const minutes = ageBand === 'elder' ? elderWalkMinutes : childWalkMinutes;
+  return minutes <= TRAVEL_LIMITS[ageBand];
+}
+
+/**
+ * A place is coastal if the data says shore work happens there, rather than if
+ * its name happens to contain "beach" — the weights are the authority.
+ */
+export function isCoastal(location: Location): boolean {
+  const { activities } = location.probabilities;
+  return (activities.gatheringShellfish ?? 0) > 10 || (activities.huntingSeals ?? 0) > 10;
+}
+
+/**
  * Multiplies each weight by how plausible the activity is right now. Returns
  * a new object; zero-weight entries stay zero and are never resurrected.
  */
 export function applyConditions(
   weights: Record<ActivityKey, number>,
   weather: HourlyWeather,
+  day: DayIndexEntry,
+  hour: number,
+  location: Location,
 ): Record<ActivityKey, number> {
   const isDark = weather.sunExposure === 'Dark';
   const isDim = weather.sunExposure === 'Low' || weather.sunExposure === 'Overcast';
   const isWet = weather.precip > 0;
   const isFreezing = weather.temp <= 0;
+
+  // A full moon is genuinely enough to work by; a new moon is not.
+  const moon = isDark ? moonlight(day.moonPhase) : 0;
+  const sky = cosmicPull(cosmicKind(day.cosmicEvent));
+  const tide = isCoastal(location) ? shoreAccess(day, hour) : 1;
 
   const adjusted: Record<ActivityKey, number> = {};
 
@@ -100,12 +151,14 @@ export function applyConditions(
     let weight = base;
 
     if (traits.requiresDark) {
-      // Stargazing is impossible by day and notable by night.
-      weight = isDark ? weight * 8 : 0;
+      // Stargazing is impossible by day and notable by night. A bright moon
+      // washes out a meteor shower, so the darkest nights are the best ones.
+      weight = isDark ? weight * 8 * (1.3 - moon * 0.6) : 0;
     } else if (isDark) {
-      if (traits.outdoor) weight *= 0.05;
-      if (traits.needsLight) weight *= 0.15;
-      if (traits.restful) weight *= 6;
+      // Moonlight partially lifts the penalty on being out and on fine work.
+      if (traits.outdoor) weight *= 0.05 + moon * 0.35;
+      if (traits.needsLight) weight *= 0.15 + moon * 0.25;
+      if (traits.restful) weight *= 6 - moon * 2;
     } else if (isDim) {
       if (traits.outdoor) weight *= 0.7;
       if (traits.needsLight) weight *= 0.6;
@@ -123,6 +176,13 @@ export function applyConditions(
 
     if (weather.temp >= 25 && traits.strenuous) weight *= 0.7;
 
+    // Shellfish and seals depend on the water being out, not on the weather.
+    if (TIDE_BOUND.test(activity)) weight *= tide;
+
+    // The thirteen marked days of the year actually feel like something.
+    if (SKY_WATCHING.test(activity)) weight *= sky.sky;
+    if (RITE.test(activity)) weight *= sky.rite;
+
     adjusted[activity] = weight;
   }
 
@@ -137,7 +197,11 @@ export function applyConditions(
  * describe a deserted place can never be true. Distance from camp does most of
  * the work: a valley three kilometres out is not somewhere the band idles.
  */
-export function presenceChance(location: Location, weather: HourlyWeather): number {
+export function presenceChance(
+  location: Location,
+  weather: HourlyWeather,
+  day: DayIndexEntry,
+): number {
   // The band lives at the cave mouth; someone is always there.
   if (location.type === 'CENTRAL_DWELLING') return 100;
 
@@ -148,6 +212,13 @@ export function presenceChance(location: Location, weather: HourlyWeather): numb
     // Shelters and trysting spots still see use after dark; open country does not.
     const sheltered = location.type === 'SECONDARY_CAVE' || location.type === 'INTIMATE_SPOT';
     chance *= sheltered ? 0.45 : 0.06;
+    // You can cross open country by a full moon. By a new moon you stay in.
+    chance *= 1 + moonlight(day.moonPhase) * 1.6;
+    // On the thirteen marked nights people go out to watch or to keep the rite.
+    const kind = cosmicKind(day.cosmicEvent);
+    if (kind !== 'none' && (location.type === 'RITUAL_SITE' || location.type === 'MOUNTAIN_AREA')) {
+      chance *= 3.5;
+    }
   } else if (weather.sunExposure === 'Low' || weather.sunExposure === 'Overcast') {
     chance *= 0.8;
   }
@@ -159,8 +230,13 @@ export function presenceChance(location: Location, weather: HourlyWeather): numb
 }
 
 /** How many simultaneous activities a scene shows; 0 when nobody is there. */
-export function activityCount(location: Location, weather: HourlyWeather, rng: Rng): number {
-  if (!rng.chance(presenceChance(location, weather))) return 0;
+export function activityCount(
+  location: Location,
+  weather: HourlyWeather,
+  day: DayIndexEntry,
+  rng: Rng,
+): number {
+  if (!rng.chance(presenceChance(location, weather, day))) return 0;
 
   const isCentral = location.type === 'CENTRAL_DWELLING';
   if (weather.sunExposure === 'Dark') return isCentral ? 2 : 1;

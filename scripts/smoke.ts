@@ -119,6 +119,64 @@ async function run(browser: Browser): Promise<void> {
   await page.close();
 }
 
+/** URL routing, keyboard navigation and the character index. */
+async function runNavigation(browser: Browser): Promise<void> {
+  const page = await browser.newPage();
+
+  // A deep link should land exactly where it points.
+  await page.goto(`${BASE}#/d200/h13/loc22`, { waitUntil: 'networkidle' });
+  await page.waitForTimeout(600);
+  let scene = await sceneText(page);
+  check('deep link lands on the right day', scene.includes('Day 200'), scene.slice(0, 30));
+  check('deep link lands on the right place', scene.includes('Whispering Valley'));
+
+  // Arrow keys step the hour, and the URL follows.
+  await page.keyboard.press('ArrowRight');
+  await page.waitForTimeout(300);
+  check('right arrow steps the hour', page.url().endsWith('#/d200/h14/loc22'), page.url());
+
+  await page.keyboard.press('ArrowDown');
+  await page.waitForTimeout(300);
+  check('down arrow steps the day', page.url().endsWith('#/d201/h14/loc22'), page.url());
+
+  await page.keyboard.press(']');
+  await page.waitForTimeout(300);
+  check('bracket steps the location', !page.url().includes('loc22'), page.url());
+
+  // Back should undo the last step.
+  await page.goBack();
+  await page.waitForTimeout(400);
+  check('browser back returns to the previous scene', page.url().endsWith('#/d201/h14/loc22'), page.url());
+
+  // Stepping back from midnight rolls into the previous day.
+  await page.goto(`${BASE}#/d100/h0/loc0`, { waitUntil: 'networkidle' });
+  await page.waitForTimeout(500);
+  await page.keyboard.press('ArrowLeft');
+  await page.waitForTimeout(300);
+  check('hour rolls over into the previous day', page.url().endsWith('#/d99/h23/loc0'), page.url());
+
+  // The character index.
+  await page.locator('#open-index').click();
+  await page.waitForTimeout(300);
+  const index = await sceneText(page);
+  check('character index opens', index.includes('The Band'), index.slice(0, 40));
+  check('index lists the whole band', (await page.locator('.character-name').count()) >= 43);
+  check('index shows kinship', index.toLowerCase().includes('mate of'));
+  check('index groups households', index.includes('Household'));
+
+  await page.locator('#close-index').click();
+  await page.waitForTimeout(400);
+  scene = await sceneText(page);
+  check('index closes back to the scene', scene.includes('Day 99'), scene.slice(0, 30));
+
+  // A nonsense hash should fall back rather than break.
+  await page.goto(`${BASE}#/d999/h99/nowhere`, { waitUntil: 'networkidle' });
+  await page.waitForTimeout(600);
+  check('bad hash falls back to a valid scene', (await sceneText(page)).includes('Day '));
+
+  await page.close();
+}
+
 /**
  * The service worker only registers over HTTPS or on localhost, so this runs
  * against the preview server and then cuts the network to prove the precached
@@ -155,6 +213,7 @@ async function runOffline(browser: Browser): Promise<void> {
 const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium' });
 try {
   await run(browser);
+  await runNavigation(browser);
   await runOffline(browser);
 } finally {
   await browser.close();

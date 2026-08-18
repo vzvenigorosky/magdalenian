@@ -36,6 +36,7 @@ export default defineConfig(({ mode }) => ({
           'data/locations.json',
           'data/characters.json',
           'data/character-profiles.json',
+          'data/relationships.json',
           'data/events.json',
           'data/default-events.json',
         ],

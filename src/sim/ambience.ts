@@ -1,30 +1,33 @@
 /**
  * What the fallback ambience lines claim about who is present.
  *
- * The 23 lines in `default-events.json` split three ways: some assert the place
- * is empty, some assert people are at work there, and the rest are neutral
- * scene-setting. Both assertions can contradict the generated layer, in
- * opposite directions, so the engine and the narrator each need to know which
- * kind of line they are holding.
+ * Both claims can contradict the generated layer, in opposite directions, so
+ * the engine and the narrator each need to know which kind of line they hold:
+ * a line saying the place is deserted must not sit above four named people at
+ * work, and a line saying the foragers are here must not sit above an empty
+ * clearing.
  *
- * Matched by pattern rather than whole string so the data stays editable, and
- * deliberately narrow — "quiet and still", "the air is still and tense" and
- * "the area is damp with dew" commit to nothing either way and are left alone.
+ * The claim is **declared in the authored source** (`data/ambience/ambience.json`)
+ * rather than inferred from the prose. An earlier version pattern-matched the
+ * text — workable for 23 lines, but a standing trap: any new phrasing silently
+ * fell through as neutral. With 192 authored lines the writer states the intent
+ * and the engine obeys it.
+ *
+ * The patterns survive only as a fallback for entries with no declaration.
  */
+import type { DefaultEvent } from '../types.ts';
 
-/** Lines claiming nobody is present. */
-const ASSERTS_EMPTY: readonly RegExp[] = [
-  /\bdeserted\b/i, // "The area is deserted, the only sound is the wind..."
-  /\bno human activity\b/i, // "...There is no human activity here."
-  /\bhome only to\b/i, // "...home only to nocturnal predators."
-  /\bsilent, save for\b/i, // "The thickets and groves are silent, save for..."
-  /\bonly evidence of\b/i, // "...the only evidence of the day's activity..."
+const ASSERTS_EMPTY_TEXT: readonly RegExp[] = [
+  /\bdeserted\b/i,
+  /\bno human activity\b/i,
+  /\bhome only to\b/i,
+  /\bsilent, save for\b/i,
+  /\bonly evidence of\b/i,
 ];
 
-/** Lines claiming people are here and busy. */
-const ASSERTS_PEOPLE: readonly RegExp[] = [
+const ASSERTS_PEOPLE_TEXT: readonly RegExp[] = [
   /\b(foragers|hunters|hunting party|artisans)\b/i,
-  /\bthe band\b/i, // "Most of the band is asleep...", "The band gathers..."
+  /\bthe band\b/i,
   /\ba lone guard\b/i,
   /\bmain camp\b/i,
   /\bthe camp slowly stirs\b/i,
@@ -33,12 +36,37 @@ const ASSERTS_PEOPLE: readonly RegExp[] = [
   /\bindividuals or small groups\b/i,
 ];
 
+/**
+ * Ambience as the engine passes it around: the line itself plus what it
+ * claims. Older callers may still hand over a bare string.
+ */
+export interface Ambience {
+  text: string;
+  presence: 'empty' | 'people' | 'neutral';
+}
+
+/** Normalises a data entry, or a bare string, into an `Ambience`. */
+export function toAmbience(entry: DefaultEvent | string | undefined): Ambience {
+  if (entry === undefined) {
+    return { text: 'The world is quiet here. Nothing happens.', presence: 'neutral' };
+  }
+  if (typeof entry === 'string') return { text: entry, presence: inferPresence(entry) };
+  return { text: entry.event, presence: entry.presence ?? inferPresence(entry.event) };
+}
+
+/** Last resort for undeclared lines. */
+function inferPresence(text: string): 'empty' | 'people' | 'neutral' {
+  if (ASSERTS_EMPTY_TEXT.some((p) => p.test(text))) return 'empty';
+  if (ASSERTS_PEOPLE_TEXT.some((p) => p.test(text))) return 'people';
+  return 'neutral';
+}
+
 /** True when a line claims the place is empty of people. */
-export function assertsEmpty(ambience: string): boolean {
-  return ASSERTS_EMPTY.some((pattern) => pattern.test(ambience));
+export function assertsEmpty(ambience: Ambience | string): boolean {
+  return (typeof ambience === 'string' ? inferPresence(ambience) : ambience.presence) === 'empty';
 }
 
 /** True when a line claims people are present and working. */
-export function assertsPeoplePresent(ambience: string): boolean {
-  return ASSERTS_PEOPLE.some((pattern) => pattern.test(ambience));
+export function assertsPeoplePresent(ambience: Ambience | string): boolean {
+  return (typeof ambience === 'string' ? inferPresence(ambience) : ambience.presence) === 'people';
 }

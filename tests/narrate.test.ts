@@ -1,9 +1,8 @@
 import { describe, expect, it } from 'vitest';
-import type { GeneratedScene } from '../src/sim/engine.ts';
-import { assertsEmpty, assertsPeoplePresent } from '../src/sim/ambience.ts';
+import type { GeneratedScene, SceneConditions } from '../src/sim/engine.ts';
+import { assertsEmpty, assertsPeoplePresent, toAmbience } from '../src/sim/ambience.ts';
 import { narrateScene } from '../src/sim/narrate.ts';
 import type { CharacterProfile } from '../src/types.ts';
-import { defaultEvents } from './helpers.ts';
 
 const actor = (id: string, name: string): CharacterProfile => ({
   id,
@@ -13,9 +12,23 @@ const actor = (id: string, name: string): CharacterProfile => ({
   evidence: 'test fixture',
 });
 
+/** Flat, featureless conditions so tests are not perturbed by weather clauses. */
+const PLAIN: SceneConditions = {
+  season: 'Summer',
+  hour: 12,
+  temp: 15,
+  precip: 0,
+  sunExposure: 'High',
+  wind: 'Calm',
+  moonlight: 0,
+  cosmicEvent: 'None',
+  tide: null,
+};
+
 const scene = (activity: string, succeeded: boolean, successKey: string | null): GeneratedScene => ({
   kind: 'generated',
-  ambience: 'The world is quiet here.',
+  conditions: PLAIN,
+  ambience: toAmbience('The world is quiet here.'),
   activities: [
     {
       activity,
@@ -64,123 +77,59 @@ describe('outcome phrasing is limited to activities that can fail', () => {
 });
 
 describe('ambience that contradicts the scene', () => {
-  const EMPTY_LINES = [
-    'The area is deserted, the only sound is the wind or the flow of water.',
-    'The natural sounds of the landscape fill the air. There is no human activity here.',
-    'The landscape is quiet under the moon and stars, home only to nocturnal predators.',
-    'The thickets and groves are silent, save for the rustle of small creatures.',
-    "The area is quiet again, the only evidence of the day's activity are the disturbed plants.",
-  ];
-
-  /** Calm or half-empty, but perfectly compatible with people being present. */
-  const COMPATIBLE_LINES = [
-    'The site is quiet and still, holding a palpable sense of reverence. The wind whispers through the stones or leaves.',
-    'The area is quiet and still under the night sky.',
-    'The first light reveals fresh tracks in the dew-damp earth. The air is still and tense with anticipation.',
-    'A quieter period in the main camp. Many are out foraging or hunting. Those who remain are napping or engaged in quiet craftwork.',
-    'The foragers work steadily, sharing quiet conversation and teaching the younger ones which plants are safe to eat.',
-  ];
-
-  it('recognises lines that claim nobody is present', () => {
-    for (const line of EMPTY_LINES) expect(assertsEmpty(line), line).toBe(true);
+  const empty = (text: string): GeneratedScene => ({
+    kind: 'generated',
+    conditions: PLAIN,
+    ambience: { text, presence: 'empty' },
+    activities: [],
+    incidents: [],
   });
 
-  it('leaves merely calm lines alone', () => {
-    for (const line of COMPATIBLE_LINES) expect(assertsEmpty(line), line).toBe(false);
+  const withPeople = (text: string, presence: 'empty' | 'people' | 'neutral'): GeneratedScene => ({
+    ...scene('knappingFlint', true, 'knappingFlint'),
+    ambience: { text, presence },
   });
 
-  it('drops the line when the scene names people at work', () => {
-    for (const line of EMPTY_LINES) {
-      const withPeople: GeneratedScene = { ...scene('knappingFlint', true, 'knappingFlint'), ambience: line };
-      const html = narrateScene(withPeople, 'x');
-      expect(html, line).not.toContain(line.slice(0, 30));
-      expect(html).toContain('Zahar');
-    }
+  it('drops an emptiness claim when the scene names people at work', () => {
+    const line = 'Nothing moves out here but wind over old snow.';
+    const html = narrateScene(withPeople(line, 'empty'), 'x');
+    expect(html).not.toContain(line.slice(0, 25));
+    expect(html).toContain('Zahar');
   });
 
-  it('keeps the line when the place really is empty', () => {
-    for (const line of EMPTY_LINES) {
-      const deserted: GeneratedScene = {
-        kind: 'generated',
-        ambience: line,
-        activities: [],
-        incidents: [],
-      };
-      expect(narrateScene(deserted, 'x'), line).toContain(line.slice(0, 30));
-    }
+  it('keeps the claim when the place really is empty', () => {
+    const line = 'Nothing moves out here but wind over old snow.';
+    expect(narrateScene(empty(line), 'x')).toContain(line.slice(0, 25));
   });
 
-  it('always keeps compatible lines, activities or not', () => {
-    for (const line of COMPATIBLE_LINES) {
-      const withPeople: GeneratedScene = { ...scene('knappingFlint', true, 'knappingFlint'), ambience: line };
-      expect(narrateScene(withPeople, 'x'), line).toContain(line.slice(0, 30));
+  it('keeps neutral and people-bearing lines regardless', () => {
+    for (const presence of ['neutral', 'people'] as const) {
+      const line = 'The foragers work along the thickets.';
+      expect(narrateScene(withPeople(line, presence), 'x'), presence).toContain(line.slice(0, 25));
     }
   });
 
   it('never leaves a scene with nothing to show', () => {
-    for (const line of EMPTY_LINES) {
-      const withPeople: GeneratedScene = { ...scene('knappingFlint', true, 'knappingFlint'), ambience: line };
-      const text = narrateScene(withPeople, 'x').replace(/<[^>]+>/g, '').trim();
-      expect(text.length, line).toBeGreaterThan(20);
-    }
+    const text = narrateScene(withPeople('Nothing moves out here.', 'empty'), 'x')
+      .replace(/<[^>]+>/g, '')
+      .trim();
+    expect(text.length).toBeGreaterThan(20);
   });
 
-  /** Every unique ambience string in the data, across all four seasons. */
-  const allLines = (): string[] => {
-    const seen = new Set<string>();
-    for (const season of Object.values(defaultEvents)) {
-      for (const hour of Object.values(season)) {
-        for (const entry of hour) seen.add(entry.event);
-      }
-    }
-    return [...seen];
-  };
-
-  it('covers the emptiness-asserting lines actually present in the data', () => {
-    const flagged = allLines().filter(assertsEmpty);
-    // Guards against a data edit introducing a new phrasing the patterns miss.
-    expect(flagged.sort()).toEqual([...EMPTY_LINES].sort());
-  });
-
-  it('sorts every line in the data into exactly one of the three kinds', () => {
-    const lines = allLines();
-    expect(lines).toHaveLength(23);
-
-    const both = lines.filter((l) => assertsEmpty(l) && assertsPeoplePresent(l));
-    expect(both, 'a line cannot claim both empty and occupied').toEqual([]);
-
-    const empty = lines.filter(assertsEmpty).length;
-    const people = lines.filter(assertsPeoplePresent).length;
-    const neutral = lines.length - empty - people;
-    expect({ empty, people, neutral }).toEqual({ empty: 5, people: 14, neutral: 4 });
-  });
-
-  it('reads the busy lines as occupied', () => {
-    for (const line of [
-      'A hunting party moves silently through the area, eyes scanning for any sign of game.',
-      'The band gathers as hunters and foragers return. The sounds of conversation and food preparation fill the air.',
-      'The dwelling is a hub of activity. Children play under the watchful eyes of elders, while artisans work on hides and tools.',
-      'Individuals or small groups come and go, collecting water, quarrying flint, or searching the shoreline for useful items.',
-    ]) {
-      expect(assertsPeoplePresent(line), line).toBe(true);
-    }
-  });
-
-  it('does not read neutral scene-setting as occupied', () => {
-    for (const line of [
-      'The area is damp with dew. Birds begin to call from the branches.',
-      'The area is quiet and still under the night sky.',
-      'The site is quiet and still, holding a palpable sense of reverence. The wind whispers through the stones or leaves.',
-    ]) {
-      expect(assertsPeoplePresent(line), line).toBe(false);
-    }
+  it('falls back to reading the prose when no presence is declared', () => {
+    // Legacy path: entries without an explicit claim are still classified.
+    expect(assertsEmpty('The area is deserted, the only sound is the wind.')).toBe(true);
+    expect(assertsPeoplePresent('A hunting party moves silently through the area.')).toBe(true);
+    expect(assertsEmpty('The area is quiet and still under the night sky.')).toBe(false);
+    expect(assertsPeoplePresent('The area is damp with dew.')).toBe(false);
   });
 });
 
 describe('childminding phrasing', () => {
   const minding = (minders: CharacterProfile[], charges: CharacterProfile[]): GeneratedScene => ({
     kind: 'generated',
-    ambience: 'The area is damp with dew.',
+    conditions: PLAIN,
+    ambience: toAmbience('The area is damp with dew.'),
     activities: [
       {
         activity: 'childcare',
@@ -245,6 +194,78 @@ describe('childminding phrasing', () => {
   });
 });
 
+describe('conditions woven into the prose', () => {
+  const withConditions = (overrides: Partial<SceneConditions>): GeneratedScene => ({
+    ...scene('knappingFlint', true, 'knappingFlint'),
+    conditions: { ...PLAIN, ...overrides },
+  });
+
+  const textOf = (s: GeneratedScene, seed: string) => narrateScene(s, seed).replace(/<[^>]+>/g, '');
+
+  /** Across many seeds, does any line ever carry one of these phrasings? */
+  const everSays = (overrides: Partial<SceneConditions>, pattern: RegExp) => {
+    for (let seed = 0; seed < 60; seed++) {
+      if (pattern.test(textOf(withConditions(overrides), `s${seed}`))) return true;
+    }
+    return false;
+  };
+
+  it('mentions rain when it is raining', () => {
+    expect(everSays({ precip: 8 }, /driving rain|has not let up|soaked through/i)).toBe(true);
+  });
+
+  it('mentions the cold when it is freezing', () => {
+    expect(everSays({ temp: -10 }, /stops the breath|frozen iron-hard|cracks stone/i)).toBe(true);
+  });
+
+  it('distinguishes working by a full moon from working blind', () => {
+    expect(everSays({ sunExposure: 'Dark', moonlight: 1 }, /moon/i)).toBe(true);
+    expect(everSays({ sunExposure: 'Dark', moonlight: 0 }, /in the dark|by feel|firelight/i)).toBe(true);
+  });
+
+  it('mentions the tide only at the shore', () => {
+    expect(everSays({ tide: 'low' }, /water far out|uncovered shore/i)).toBe(true);
+    expect(everSays({ tide: null }, /water far out|uncovered shore/i)).toBe(false);
+  });
+
+  it('says nothing about conditions when there is nothing to say', () => {
+    for (let seed = 0; seed < 40; seed++) {
+      const text = textOf(withConditions({}), `s${seed}`);
+      expect(text, text).not.toMatch(/rain|frost|moon|shore|heat of the day/i);
+    }
+  });
+
+  it('never stacks two qualifiers on one line', () => {
+    for (let seed = 0; seed < 80; seed++) {
+      const text = textOf(withConditions({ precip: 9, temp: -12, sunExposure: 'Dark' }), `s${seed}`);
+      const line = text.split('.')[1] ?? '';
+      expect(line.split(',').length, line).toBeLessThan(3);
+    }
+  });
+
+  it('stays deterministic for a given seed', () => {
+    const s = withConditions({ precip: 8, temp: -3 });
+    expect(narrateScene(s, 'fixed')).toBe(narrateScene(s, 'fixed'));
+  });
+
+  it('marks the cosmic days and leaves ordinary days unmarked', () => {
+    const meteors = textOf(withConditions({ cosmicEvent: 'Perseids Meteor Shower (Peak)' }), 'x');
+    expect(meteors).toMatch(/sky will burn|streaks of fire/i);
+    expect(meteors).not.toContain('(Peak)');
+
+    expect(textOf(withConditions({ cosmicEvent: 'Winter Solstice' }), 'x')).toMatch(
+      /shortest day.*light begins to come back/i,
+    );
+    expect(textOf(withConditions({ cosmicEvent: 'Summer Solstice' }), 'x')).toMatch(
+      /longest day.*light begins to go/i,
+    );
+    expect(textOf(withConditions({ cosmicEvent: 'Passing Comet Sighting' }), 'x')).toMatch(
+      /hairy star/i,
+    );
+    expect(textOf(withConditions({ cosmicEvent: 'None' }), 'x')).not.toMatch(/hairy star|sky will burn/i);
+  });
+});
+
 describe('markup', () => {
   it('wraps actors in tooltip-bearing spans', () => {
     const html = narrateScene(scene('knappingFlint', true, 'knappingFlint'), 'x');
@@ -255,7 +276,8 @@ describe('markup', () => {
   it('escapes text drawn from the data', () => {
     const hostile: GeneratedScene = {
       kind: 'generated',
-      ambience: '<script>alert(1)</script>',
+      conditions: PLAIN,
+      ambience: toAmbience('<script>alert(1)</script>'),
       activities: [],
       incidents: [],
     };

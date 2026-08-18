@@ -7,7 +7,9 @@ import type {
   DefaultEventsData,
   EventsData,
   LocationsData,
+  Relationships,
 } from '../src/types.ts';
+import { expandAmbience, type AmbienceSource } from '../src/data/ambience-source.ts';
 
 const DATA = join(dirname(fileURLToPath(import.meta.url)), '..', 'data');
 
@@ -29,8 +31,14 @@ export const year = read<RawDay[]>('magdalenian_year.json');
 export const locations = read<LocationsData>('magdalenian_locations.json');
 export const characters = read<CharactersData>('magdalenian_characters.json');
 export const events = read<EventsData>('magdalenian_events.json');
-export const defaultEvents = read<DefaultEventsData>('magdalenian_default_events.json');
+export const ambienceSource = JSON.parse(
+  readFileSync(join(DATA, 'ambience', 'ambience.json'), 'utf8'),
+) as AmbienceSource;
+
+/** The runtime shape, expanded from the authored per-phase source. */
+export const defaultEvents: DefaultEventsData = expandAmbience(ambienceSource);
 export const profiles = read<CharacterProfiles>('character-profiles.json');
+export const relationships = read<Relationships>('relationships.json');
 
 export const dayOf = (n: number): RawDay => {
   const found = year.find((d) => d.day === n);

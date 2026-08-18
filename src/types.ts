@@ -199,7 +199,42 @@ export interface EventsData {
 export interface DefaultEvent {
   location_type: LocationType;
   event: string;
+  /**
+   * What the line claims about who is present. Declared in the authored source
+   * rather than inferred from the prose, so the engine and narrator never have
+   * to guess whether "the area is deserted" means the place must be empty.
+   */
+  presence?: 'empty' | 'people' | 'neutral';
 }
 
 /** season -> hour (as a string key) -> one entry per location type. */
 export type DefaultEventsData = Record<string, Record<string, DefaultEvent[]>>;
+
+// --- Kinship --------------------------------------------------------------
+
+export type RelationKind = 'mate' | 'parent' | 'child' | 'sibling' | 'grandparent' | 'grandchild';
+
+/**
+ * Derived from the prose descriptions by `scripts/build-data.ts`, which reads
+ * lines like "She is the mate of Aitor and mother of Sua". Checked in and
+ * hand-editable, same as `character-profiles.json`.
+ */
+export interface Kin {
+  mates: string[];
+  parents: string[];
+  children: string[];
+  siblings: string[];
+  grandparents: string[];
+  grandchildren: string[];
+}
+
+export type Relationships = Record<string, Kin>;
+
+export const EMPTY_KIN: Kin = {
+  mates: [],
+  parents: [],
+  children: [],
+  siblings: [],
+  grandparents: [],
+  grandchildren: [],
+};

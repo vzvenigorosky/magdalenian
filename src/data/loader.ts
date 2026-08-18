@@ -12,6 +12,7 @@ import type {
   DefaultEventsData,
   EventsData,
   LocationsData,
+  Relationships,
   ResolvedDay,
   Season,
   SeasonDetail,
@@ -31,21 +32,23 @@ export interface CoreData {
   locations: LocationsData;
   characters: CharactersData;
   profiles: CharacterProfiles;
+  relationships: Relationships;
   events: EventsData;
   defaultEvents: DefaultEventsData;
 }
 
 /** Error messages preserve the original page's voice (`magdalenian.html:86-90`). */
 export async function loadCore(): Promise<CoreData> {
-  const [yearIndex, locations, characters, profiles, events, defaultEvents] = await Promise.all([
+  const [yearIndex, locations, characters, profiles, relationships, events, defaultEvents] = await Promise.all([
     fetchJson<YearIndex>('year-index.json', 'The scrolls of seasons could not be found.'),
     fetchJson<LocationsData>('locations.json', 'The map of the land is lost to the mists.'),
     fetchJson<CharactersData>('characters.json', 'The faces of the people are hidden in shadow.'),
     fetchJson<CharacterProfiles>('character-profiles.json', 'The ages of the people are forgotten.'),
+    fetchJson<Relationships>('relationships.json', 'The lines of kinship are broken.'),
     fetchJson<EventsData>('events.json', 'The whispers of events are silent.'),
     fetchJson<DefaultEventsData>('default-events.json', 'The echoes of daily life are lost.'),
   ]);
-  return { yearIndex, locations, characters, profiles, events, defaultEvents };
+  return { yearIndex, locations, characters, profiles, relationships, events, defaultEvents };
 }
 
 const seasonCache = new Map<Season, Promise<SeasonDetail>>();

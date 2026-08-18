@@ -12,6 +12,7 @@
     "preview": "vite preview",
     "build:data": "tsx scripts/build-data.ts",
     "build:icons": "tsx scripts/make-icons.ts",
+    "events": "tsx scripts/events.ts",
     "test": "vitest run",
     "test:smoke": "tsx scripts/smoke.ts",
     "test:watch": "vitest",

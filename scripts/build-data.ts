@@ -9,7 +9,7 @@
  *
  * Run via `npm run build:data` (automatically before `dev` and `build`).
  */
-import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
+import { readFileSync, writeFileSync, mkdirSync, existsSync, readdirSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import type {
@@ -21,9 +21,11 @@ import type {
   CharactersData,
   DayDetail,
   DayIndexEntry,
+  LocationsData,
   SeasonDetail,
 } from '../src/types.ts';
 import { expandAmbience, type AmbienceSource } from '../src/data/ambience-source.ts';
+import { compileEvents, EventCompileError, type SourceDay } from '../src/data/events-source.ts';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const SRC = join(ROOT, 'data');
@@ -343,10 +345,34 @@ function main(): void {
     `  ${'default-events.json'.padEnd(24)} ${kb(writeJson('default-events.json', expanded))}  (${lines.size} distinct lines)`,
   );
 
+  // Authored scenes are written per day with real names and compiled here.
+  const locations = readJson<LocationsData>('magdalenian_locations.json');
+  const eventDir = join(SRC, 'events');
+  const sources: SourceDay[] = existsSync(eventDir)
+    ? readdirSync(eventDir)
+        .filter((file) => file.endsWith('.json'))
+        .sort()
+        .map((file) => JSON.parse(readFileSync(join(eventDir, file), 'utf8')) as SourceDay)
+    : [];
+
+  let compiled;
+  try {
+    compiled = compileEvents(sources, characters, locations);
+  } catch (error) {
+    if (error instanceof EventCompileError) {
+      console.error(`\n${error.message}\n`);
+      process.exit(1);
+    }
+    throw error;
+  }
+  const days = new Set(compiled.cells.map((c) => c.day)).size;
+  console.log(
+    `  ${'events.json'.padEnd(24)} ${kb(writeJson('events.json', compiled.events))}  (${compiled.cells.length} scenes across ${days} day${days === 1 ? '' : 's'})`,
+  );
+
   const copies: Array<[string, string]> = [
     ['magdalenian_locations.json', 'locations.json'],
     ['magdalenian_characters.json', 'characters.json'],
-    ['magdalenian_events.json', 'events.json'],
   ];
   for (const [from, to] of copies) {
     console.log(`  ${to.padEnd(24)} ${kb(writeJson(to, readJson(from)))}`);

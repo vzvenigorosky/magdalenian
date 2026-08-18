@@ -47,6 +47,7 @@ npm run test:smoke
 ```
 data/              hand-authored source datasets
   ambience/        the 192 ambience lines, by type, season and day-phase
+  events/          hand-written scenes, one file per day
 scripts/           build-data, icon generator, browser smoke test
 public/data/       generated at build time, gitignored
 src/
@@ -59,6 +60,18 @@ tests/             Vitest suite
 The year file is 1.76 MB, so the build splits it into a 126 KB day-level index
 loaded upfront and four per-season detail chunks fetched on demand. The app is
 an installable PWA and works offline once visited.
+
+## Writing scenes
+
+Any day, hour and place can be written by hand instead of generated:
+
+```bash
+npm run events -- suggest                                 # days worth writing
+npm run events -- context 200 13 "The Whispering Valley"  # what the engine knows
+npm run events -- new 200 13 "The Whispering Valley"      # scaffold it
+```
+
+See [data/events/README.md](data/events/README.md) for the format.
 
 See [CLAUDE.md](CLAUDE.md) for the data model, the engine's resolution order,
 and known data issues.

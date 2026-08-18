@@ -45,7 +45,7 @@ programmatically.** `public/data/` is generated and gitignored.
 | `magdalenian_year.json` | 365 days: metadata, 24 hourly weather rows, tide table, per-day `activitySuccessChance` |
 | `magdalenian_locations.json` | 22 locations with weighted `activities` and `events` |
 | `magdalenian_characters.json` | 43 people: `id`, `name`, `description0`..`description9` |
-| `magdalenian_events.json` | Authored scenes, keyed day/hour/location |
+| `events/day-NNN.json` | Authored scenes, one file per day, written with real names |
 | `ambience/ambience.json` | Fallback ambience, authored per type/season/phase |
 | `character-profiles.json` | **Derived** age band and roles |
 | `relationships.json` | **Derived** kinship graph |
@@ -73,6 +73,21 @@ highest-score rule it could never be selected. Watch for this trap whenever
 adding a variant: being *mapped* is not the same as being *selectable*, and
 `tests/activity-map.test.ts` asserts the stronger property. All 38 success keys
 are currently reachable and a test holds it that way.
+
+### Authored scenes
+
+`data/events/day-NNN.json` is the writing format: places and speakers are given
+by **name** ("The Cave Mouth", "Goizane"), and `src/data/events-source.ts`
+compiles them to the runtime schedule at build time. Keys named `_note` are
+ignored, standing in for the comments JSON lacks.
+
+`npm run events` carries the authoring tools — `context` prints everything the
+engine knows about a cell before you write it, `suggest` picks out days with
+something already happening, `check` validates, `coverage` reports. Compilation
+failures fail the build, and report every problem at once with "did you mean"
+suggestions rather than stopping at the first.
+
+See `data/events/README.md` for the format.
 
 ### Ambience
 
@@ -208,6 +223,8 @@ day (rolling over midnight), `[` and `]` step location, `?` opens the index.
   range from the moon phase instead.
 - **Eight tide times are written `HH:60`** (day 80's high water is `03:60`), a
   minute-rollover bug. `parseClock` rolls them over rather than editing the data.
-- Authored events cover **day 1 only** (24 events, 7 of 22 locations).
+- Authored scenes cover **day 1 only** (24 scenes, 7 of 22 locations) — 0.012%
+  of the grid. Everything else is generated. `npm run events -- suggest` lists
+  days where something is already happening that a scene could lean on.
 - Location ids are sparse — `loc6`, `loc8`, `loc12` and others don't exist.
   Never assume a contiguous range.

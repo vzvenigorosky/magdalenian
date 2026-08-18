@@ -1,4 +1,4 @@
-import { readFileSync } from 'node:fs';
+import { readFileSync, readdirSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import type {
@@ -10,6 +10,7 @@ import type {
   Relationships,
 } from '../src/types.ts';
 import { expandAmbience, type AmbienceSource } from '../src/data/ambience-source.ts';
+import { compileEvents, type SourceDay } from '../src/data/events-source.ts';
 
 const DATA = join(dirname(fileURLToPath(import.meta.url)), '..', 'data');
 
@@ -30,7 +31,13 @@ function read<T>(name: string): T {
 export const year = read<RawDay[]>('magdalenian_year.json');
 export const locations = read<LocationsData>('magdalenian_locations.json');
 export const characters = read<CharactersData>('magdalenian_characters.json');
-export const events = read<EventsData>('magdalenian_events.json');
+/** Authored scenes, compiled from the per-day source exactly as the build does. */
+export const eventSources: SourceDay[] = readdirSync(join(DATA, 'events'))
+  .filter((file) => file.endsWith('.json'))
+  .sort()
+  .map((file) => JSON.parse(readFileSync(join(DATA, 'events', file), 'utf8')) as SourceDay);
+
+export const events: EventsData = compileEvents(eventSources, characters, locations).events;
 export const ambienceSource = JSON.parse(
   readFileSync(join(DATA, 'ambience', 'ambience.json'), 'utf8'),
 ) as AmbienceSource;
